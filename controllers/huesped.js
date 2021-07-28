@@ -103,8 +103,53 @@ exports.postHuesped = async (req,res,next)=>{
       numeroCuarto:req.body.numeroCuarto,
       origen:req.body.origen
       }, {upsert: true}, function(err, doc) {
-        if (err) return res.send(500, {error: err});
-        return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');
+        if (err)
+        {
+          return res.send(500, {error: err});
+        }else
+        {
+
+          //FOLIADOR UPDATE
+
+        var updateFolio = Estatus.findOne({estatus:req.body.estatus}).then((estatus) => {
+
+          if(estatus._doc.id==1)
+          {
+            const query = Foliador.findOneAndUpdate({Letra:'W'},{ $inc: { Folio: 1} },{new:true},
+
+            ).exec((err, db_res)=>
+            {
+              if (err) {
+                throw err;
+              }
+              else {
+                console.log("db_res",db_res);
+            }
+            });
+          } else
+
+          if(estatus._doc.id==6 || estatus._doc.id==5 || estatus._doc.id==7 || estatus._doc.id==2)
+          {
+            const query = Foliador.findOneAndUpdate({Letra:'R'},{ $inc: { Folio: 1} },{new:true},
+            ).exec((err, db_res)=>
+            {
+              if (err) {
+                throw err;
+              }
+              else {
+                console.log("db_res",db_res);
+            }
+            });
+          }
+          else
+          {
+            console.log("Estatus no valido Foliador no Actualizado",req.body.estatus)
+          }
+
+          });
+
+          return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');
+        }
     });
 
     // var saved = await post.save((error)=>{
