@@ -9,6 +9,7 @@ const estatusController = require('./controllers/estatus')
 const habitacioncontroller = require('./controllers/habitacion')
 const disponibilidadController = require('./controllers/disponibilidad')
 const bloqueoController = require('./controllers/bloqueo')
+const versionController = require('./controllers/version')
 
 
 const cors = require('cors');
@@ -45,6 +46,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //GET
+
+app.get('/api/version',versionController.getVersion)
+
 app.get('/api/reportes/huesped',huespedController.getHuesped)
 
 app.get('/api/reportes/historico',huespedController.getHuespedHistorico)
