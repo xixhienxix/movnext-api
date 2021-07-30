@@ -46,17 +46,20 @@ exports.postHuesped = async (req,res,next)=>{
 
   for (;fromDate < toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
   {
-    var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:fromDate.getUTCDate(),Mes:fromDate.getMonth(),Ano:fromDate.getFullYear() };
-    Disponibilidad.updateOne(query, { Estatus: 0 })
-    .exec((err, db_res)=>
-     {
-       if (err) {
-         throw err;
+    if(req.body.estatus!="Reserva Temporal")
+    {
+      var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:fromDate.getUTCDate(),Mes:fromDate.getMonth(),Ano:fromDate.getFullYear() };
+      Disponibilidad.updateOne(query, { Estatus: 0 })
+      .exec((err, db_res)=>
+       {
+         if (err) {
+           throw err;
+         }
+         else {
+           console.log("Updated Disponibilidad: ",db_res);
        }
-       else {
-         console.log("Updated Disponibilidad: ",db_res);
-     }
-     });
+       });
+    }
   }
   // var find  = await Huesped.findOne({llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto}).then(project => {
   //   // project will be the first entry of the Projects table with the title 'aProject' || null

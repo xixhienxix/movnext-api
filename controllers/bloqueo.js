@@ -160,13 +160,14 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
   let fromDate = new Date(Date.UTC(anoLlegada, mesLlegada, diaLlegada))
 
 
-  for (;fromDate <= toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
+  for  (fromDate; fromDate <= toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
   {
     for(let i=0;i<habitacion.length;i++)
     {
       for(let k=0; k<numero.length;k++)
       {
-        var query = { Cuarto: habitacion[i],Habitacion:numero[k],Dia:fromDate.getUTCDate(),Mes:fromDate.getMonth(),Ano:fromDate.getFullYear() };
+        var query = { Cuarto: habitacion[i],Habitacion:numero[k],Dia:fromDate.getUTCDate(),Mes:fromDate.getUTCMonth(),Ano:fromDate.getUTCFullYear() };
+
 
         let estatus;
         if(sinLlegadas&&!sinSalidas)
