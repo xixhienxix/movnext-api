@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const port = 3000
 
 
 const huespedController = require('./controllers/huesped')
@@ -11,10 +12,16 @@ const disponibilidadController = require('./controllers/disponibilidad')
 const bloqueoController = require('./controllers/bloqueo')
 const versionController = require('./controllers/version')
 const origenController = require('./controllers/origen')
+const historicoController = require ('./controllers/historico')
+const adicionaController = require ('./controllers/adicional')
 
 
 const cors = require('cors');
 const app = express();
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
 
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useFindAndModify', false);
@@ -44,6 +51,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/reportes/actualiza/huesped",huespedController.actualizaHuesped)
 
+ app.post("/api/reportes/historico",historicoController.postHistorico);
+
+ app.post("/api/actualiza/estatus",estatusController.updateEstatus);
 
 
 //GET
@@ -91,6 +101,11 @@ app.get('/api/reportes/estatus/:id',estatusController.getEstatusbyId);
 app.get('/api/reportes/bloqueos',bloqueoController.getBloqueos)
 
 app.get('/api/get/bloqueos/:id',bloqueoController.getBloqueosbyId);
+
+//Adicional
+
+app.get('/api/adicionales',adicionaController.getAdicional)
+
 
 
 //DELETE

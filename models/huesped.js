@@ -19,7 +19,9 @@ const postSchema = mongoose.Schema({
   telefono: {type:String},
   email: {type:String},
   motivo: {type:String},
-  numeroCuarto: {type:Number}
+  numeroCuarto: {type:Number},
+  creada:{type:String},
+  tipoHuesped:{type:String}
 }
 
 );

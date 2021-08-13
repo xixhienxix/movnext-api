@@ -1,5 +1,6 @@
 const express = require('express');
 const Estatus = require('../models/estatus');
+const huesped = require('../models/huesped');
 
 
 exports.getEstatus = (req,res,next) =>{
@@ -24,13 +25,38 @@ exports.getEstatus = (req,res,next) =>{
 exports.updateEstatus = (req,res,next) =>{
 
   let estatus = req.body.estatus
+  let query
 
-  if(estatus=="Reserva Confirmada"){
-    const query = Estatus.findOneAndUpdate({ estatus: req.params.estatus },{estatus:"Reserva Sin Pago"});
-  }else if(estatus=="Reserva Sin Pago"){
-    const query = Estatus.findOneAndUpdate({ estatus: req.params.estatus },{estatus:"Reserva Confirmada"});
-  }
-
+  if(estatus==1)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Huesped en Casa"}});}
+  else 
+  if(estatus==2)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Sin Pago"}});}
+  else 
+  if(estatus==3)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Confirmada"}});}
+  else  
+  if(estatus==4)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Check-Out"}});}
+  else
+  if(estatus==5)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Uso Interno"}});}
+  else
+  if(estatus==6)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Bloqueo / Sin Llegadas"}});}
+  else
+  if(estatus==7)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Temporal"}});}
+  else 
+  if(estatus==8)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Esperando Deposito"}});}
+  else 
+  if(estatus==9)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Deposito Realizado"}});}
+  else 
+  if(estatus==10)
+  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Totalmente Pagada"}});}
+  
   query.then((doc)=> {
     res.status(200).send(doc)
   });

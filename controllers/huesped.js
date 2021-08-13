@@ -61,29 +61,6 @@ exports.postHuesped = async (req,res,next)=>{
        });
     }
   }
-  // var find  = await Huesped.findOne({llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto}).then(project => {
-  //   // project will be the first entry of the Projects table with the title 'aProject' || null
-  // });
-
-    // const post = new Huesped({
-    //   folio:req.body.folio,
-    //   nombre:req.body.nombre,
-    //   adultos:req.body.adultos,
-    //   ninos:req.body.ninos,
-    //   estatus:req.body.estatus,
-    //   llegada:req.body.llegada,
-    //   salida:req.body.salida,
-    //   noches:req.body.noches,
-    //   habitacion:req.body.habitacion,
-    //   tarifa:req.body.tarifa,
-    //   pendiente:req.body.porPagar,
-    //   porPagar:req.body.pendiente,
-    //   telefono:req.body.telefono,
-    //   email:req.body.email,
-    //   motivo:req.body.motivo,
-    //   numeroCuarto:req.body.numeroCuarto,
-    //   origen:req.body.origen
-    // });
 
     var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto};
 
@@ -104,15 +81,17 @@ exports.postHuesped = async (req,res,next)=>{
       email:req.body.email,
       motivo:req.body.motivo,
       numeroCuarto:req.body.numeroCuarto,
-      origen:req.body.origen
+      origen:req.body.origen,
+      creada:req.body.creada,
+      tipoHuesped:req.body.tipoHuesped
       }, {upsert: true}, function(err, doc) {
         if (err)
         {
           return res.send(500, {error: err});
         }else
         {
-
-          //FOLIADOR UPDATE
+        
+        //FOLIADOR UPDATE
 
         var updateFolio = Estatus.findOne({estatus:req.body.estatus}).then((estatus) => {
 
@@ -155,14 +134,7 @@ exports.postHuesped = async (req,res,next)=>{
         }
     });
 
-    // var saved = await post.save((error)=>{
-    //    if(error){
-    //     // res.status(500).json({msg: "No se pudo guardar el cliente"})
-    //     console.log(error)
-    //    }else{
-    //     //FOLIADOR UPDATE
-    //     }
-    // });
+
   }
 
 exports.actualizaHuesped = async (req,res,next)=>{

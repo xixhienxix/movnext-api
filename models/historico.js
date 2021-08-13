@@ -7,7 +7,7 @@ const postSchema = mongoose.Schema({
   nombre: {type:String,require:true},
   adultos: {type : Number},
   ninos: {type : Number},
-  estatus: {type:Number,require:true}, // Huesped en Casa = 1 | Reserva Sin Pagar = 2 | Reserva Confirmada = 3 | Hizo Checkout = 4 | Uso Interno = 5 | Bloqueo = 6 | Reserva Temporal = 7
+  estatus: {type:String}, // Huesped en Casa = 1 | Reserva Sin Pagar = 2 | Reserva Confirmada = 3 | Hizo Checkout = 4 | Uso Interno = 5 | Bloqueo = 6 | Reserva Temporal = 7
   llegada: {type:String},
   salida: {type:String},
   noches: {type:Number},
@@ -19,7 +19,10 @@ const postSchema = mongoose.Schema({
   telefono: {type:String},
   email: {type:String},
   motivo: {type:String},
-  numeroCuarto: {type:Number}
+  numeroCuarto: {type:Number},
+  creada:{type:String},
+  tipoHuesped:{type:String},
+  estatus_historico:{type:String}
 },{ collection: 'historico_huesped'}
 
 );
