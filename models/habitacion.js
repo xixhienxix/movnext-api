@@ -9,8 +9,7 @@ const postSchemaHabitacion = mongoose.Schema({
   Camas:{type:Number},
   Personas:{type:Number},
   Personas_Extra:{type:Number},
-  Tarifa:{type:Number}
-
+  Tarifa:{type:Number},
 
 },{ collection: 'Habitaciones'});
 

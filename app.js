@@ -55,6 +55,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/actualiza/estatus",estatusController.updateEstatus);
 
+ app.post("/api/reportes/actualiza/estatus/huesped",huespedController.actualizaEstatusHuesped)
 
 //GET
 
