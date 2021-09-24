@@ -14,6 +14,7 @@ const versionController = require('./controllers/version')
 const origenController = require('./controllers/origen')
 const historicoController = require ('./controllers/historico')
 const adicionaController = require ('./controllers/adicional')
+const authController = require ('./controllers/auth')
 
 
 const cors = require('cors');
@@ -57,6 +58,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/reportes/actualiza/estatus/huesped",huespedController.actualizaEstatusHuesped)
 
+ app.post("/api/auth/login",authController.login)
+
+ app.post("/api/auth/registro",authController.registro)
 //GET
 
 app.get('/api/version',versionController.getVersion)
