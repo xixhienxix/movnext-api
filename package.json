@@ -12,9 +12,7 @@
         "express": "^4.17.1",
         "global": "^4.4.0",
         "jsonwebtoken": "^8.5.1",
-        "mogoose": "0.0.1-security",
         "mongoose": "^5.13.9",
-        "mongoose-update-if-current": "^1.4.0",
         "nodemon": "^2.0.12",
         "xmlhttprequest-ssl": "^1.6.2"
     }
