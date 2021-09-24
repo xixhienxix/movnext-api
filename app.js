@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const port = process.env.PORT||4000
+const cors = require('cors');
 
 
 const huespedController = require('./controllers/huesped')
@@ -17,8 +18,11 @@ const adicionaController = require ('./controllers/adicional')
 const authController = require ('./controllers/auth')
 
 
-const cors = require('cors');
 const app = express();
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
@@ -35,7 +39,6 @@ mongoose.connect(
 }).catch(error => handleError(error));
 
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
