@@ -20,9 +20,8 @@ const authController = require ('./controllers/auth')
 
 const app = express();
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors())
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

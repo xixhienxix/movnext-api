@@ -17,8 +17,9 @@ const adicionaController = require ('./controllers/adicional')
 const authController = require ('./controllers/auth')
 
 
-const cors = require('cors');
 const app = express();
+app.use(cors())
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
