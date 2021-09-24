@@ -20,15 +20,8 @@ const authController = require ('./controllers/auth')
 
 const app = express();
 
-var allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://movnext-api.eu-4.evennode.com/api/auth/login');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-  next();
-}
-app.use(allowCrossDomain);
-
+app.use(cors());
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
