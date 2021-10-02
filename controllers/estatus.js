@@ -1,6 +1,8 @@
 const express = require('express');
 const Estatus = require('../models/estatus');
 const huesped = require('../models/huesped');
+const HistoricoModel = require ('../models/historico')
+const Historico = require ('../controllers/historico')
 
 
 exports.getEstatus = (req,res,next) =>{
@@ -37,7 +39,35 @@ exports.updateEstatus = (req,res,next) =>{
   { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Confirmada"}});}
   else  
   if(estatus==4)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Check-Out"}});}
+  {  
+    var huesped;
+
+    huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Check-Out"}},function(err,result){
+      if(err)
+      {res.status(409).send('No se pudo completar el CheckOut intente de nuevo mas tarde')}
+      else
+      {
+        huesped.findOne({folio:req.body.folio},function(err,result){
+          if (err) 
+          {res.status(409).send('No se encontro al huesped')} ;
+          // twiml.message(newDeal.deal)
+          huesped=result
+          console.log("returned from the model: ",result)
+
+          Historico.postHistorico(huesped).then(function(err,result) {
+            if(err)
+              {res.status(500).send('Error al guardar en el Historico')}
+            else
+              {res.status(200).send('Guardado en el Historico Con Exito',result)}
+          });
+
+          return result
+        });
+        res.status(200).send('check out realizado con exito',result)
+      }
+    });
+
+  }
   else
   if(estatus==5)
   { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Uso Interno"}});}

@@ -5,7 +5,7 @@ const Disponibilidad = require('../models/disponibilidad');
 const Foliador = require('../models/folios')
 const Estatus = require('../models/estatus');
 const huesped = require('../models/huesped');
-
+const Edo_Cuenta = require('../models/edo_cuenta')
 
 
 exports.getHuesped = (req,res,next) =>{
@@ -128,6 +128,28 @@ exports.postHuesped = async (req,res,next)=>{
             console.log("Estatus no valido Foliador no Actualizado",req.body.estatus)
           }
 
+          });
+
+          let pago = {
+            Folio: req.body.folio,
+            Fecha:new Date(),
+            Referencia:'',
+            Descripcion:'Alojamiento',
+            Forma_de_Pago:'Estancia',
+            Cantidad:req.body.noches,
+            Cargo:req.body.pendiente,
+            Abono:0,
+            Total:req.body.pendiente
+          }
+        
+      
+          Edo_Cuenta.create(pago, function(err, result) {
+            if (err) {
+              res.send(err.message);
+            } else {
+              console.log('Insercion de Cuenta Exitosa',result);
+              // res.send(result);
+            }
           });
 
           return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');

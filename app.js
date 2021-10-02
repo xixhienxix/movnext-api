@@ -16,6 +16,8 @@ const origenController = require('./controllers/origen')
 const historicoController = require ('./controllers/historico')
 const adicionaController = require ('./controllers/adicional')
 const authController = require ('./controllers/auth')
+const edoCuentaController = require ('./controllers/edoCuenta')
+const codigosController = require ('./controllers/codigos.js')
 
 
 const app = express();
@@ -63,6 +65,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
  app.post("/api/auth/login",authController.login)
 
  app.post("/api/auth/registro",authController.registro)
+
+ app.post("/api/edo_cuenta/pagos",edoCuentaController.agregarPago)
+
 //GET
 
 app.get('/api/version',versionController.getVersion)
@@ -78,6 +83,9 @@ app.get('/api/reportes/huesped/:id',huespedController.getHuespedbyId);
 app.get('/api/reportes/folios/:letra', foliocontroller.getFoliosbyLetra);
 
 app.get('/api/reportes/folios', foliocontroller.getFolios);
+
+app.get('/api/codigos', codigosController.getCodigosDeCargo);
+
 
 //Habitaciones
 
@@ -112,6 +120,10 @@ app.get('/api/get/bloqueos/:id',bloqueoController.getBloqueosbyId);
 //Adicional
 
 app.get('/api/adicionales',adicionaController.getAdicional)
+
+//EDO CUENTA
+
+app.get('/api/edo_cuenta/cuenta/:id',edoCuentaController.getCuentas);
 
 
 
