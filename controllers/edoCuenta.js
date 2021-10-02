@@ -9,7 +9,7 @@ exports.agregarPago=(req,res)=>{
             Fecha:new Date(),
             Referencia:req.body.Referencia,
             Descripcion:req.body.Descripcion,
-            Forma_de_Pago:req.body.Forma_De_Pago,
+            Forma_de_Pago:req.body.Forma_de_Pago,
             Cantidad:req.body.Cantidad,
             Cargo:req.body.Cargo,
             Abono:req.body.Abono,
