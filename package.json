@@ -13,6 +13,7 @@
         "global": "^4.4.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.13.9",
+        "nodemailer": "^6.6.5",
         "nodemon": "^2.0.12",
         "xmlhttprequest-ssl": "^1.6.2"
     }
