@@ -1,5 +1,5 @@
 exports.getVersion = (req,res,next) =>{
 
-  res.send("Version 3.1.0  Fecha: 31/08/2021")
+  res.send("Version 4.0.0  Fecha: 08/10/2021")
   };
 
