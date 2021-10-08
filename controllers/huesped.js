@@ -64,6 +64,12 @@ exports.postHuesped = async (req,res,next)=>{
 
     var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto};
 
+    let notas;
+
+    if(req.body.notas==null){
+      notas=''
+    }else {notas=req.body.notas}
+
     Huesped.findOneAndUpdate(query, {
       folio:req.body.folio,
       nombre:req.body.nombre,
@@ -83,7 +89,8 @@ exports.postHuesped = async (req,res,next)=>{
       numeroCuarto:req.body.numeroCuarto,
       origen:req.body.origen,
       creada:req.body.creada,
-      tipoHuesped:req.body.tipoHuesped
+      tipoHuesped:req.body.tipoHuesped,
+      notas:notas
       }, {upsert: true}, function(err, doc) {
         if (err)
         {
@@ -130,27 +137,31 @@ exports.postHuesped = async (req,res,next)=>{
 
           });
 
-          let pago = {
-            Folio: req.body.folio,
-            Fecha:new Date(),
-            Referencia:'',
-            Descripcion:'Alojamiento',
-            Forma_de_Pago:'Estancia',
-            Cantidad:req.body.noches,
-            Cargo:req.body.pendiente,
-            Abono:0,
-            Total:req.body.pendiente
-          }
-        
-      
-          Edo_Cuenta.create(pago, function(err, result) {
-            if (err) {
-              res.send(err.message);
-            } else {
-              console.log('Insercion de Cuenta Exitosa',result);
-              // res.send(result);
+
+            let pago = {
+              Folio:req.body.folio,
+              Fecha:new Date,
+                Referencia:'',
+              Descripcion:'Alojamiento',
+              Forma_de_Pago:'Estancia',
+              Cantidad:req.body.noches,
+              Cargo:req.body.pendiente,
+              Abono:0,
+              Total:req.body.pendiente
             }
-          });
+          
+        
+            Edo_Cuenta.create(pago, function(err, result) {
+              if (err) {
+                res.send(err.message);
+              } else {
+                console.log('Insercion de Cuenta Exitosa',result);
+                // res.send(result);
+              }
+            });
+          
+
+          
 
           return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');
         }
@@ -162,46 +173,21 @@ exports.postHuesped = async (req,res,next)=>{
 exports.actualizaHuesped = async (req,res,next)=>{
 
         Huesped.updateOne({folio : req.body.folio}, 
-                            {$set: { numeroCuarto : req.body.numeroCuarto,
+                            {$set: {  estatus:req.body.estatus,  
+                                      numeroCuarto : req.body.numeroCuarto,
                                       llegada : req.body.llegada, salida : req.body.salida,
                                       habitacion : req.body.habitacion, tarifa:req.body.tarifa,
-                                      pendiente:req.body.pendiente, porPagar:req.body.porPagar}},
+                                      pendiente:req.body.pendiente, porPagar:req.body.porPagar,
+                                      tipoHuesped:req.body.tipoHuesped, nombre:req.body.nombre,
+                                      email:req.body.email,telefono:req.body.telefono,
+                                      notas:req.body.notas,ID_Socio:req.body.ID_Socio}},
           function(err, doc) {
             if (err) 
             {
               return res.send(500, {error: err});
             }
             actualizaDisponibilidad(req.body.llegada,req.body.salida,req.body.habitacion,req.body.numeroCuarto)
-            // var date1 = new Date(fromDate);
-            // var date2 = new Date(toDate);
-            // To calculate the time difference of two dates
-            // var Difference_In_Time = date2.getTime() - date1.getTime();
-              
-            // To calculate the no. of days between two dates
-            // var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-          
-            // for (;fromDate < toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
-            // for(fromDate; fromDate<toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
-            // {
-            //   const fromDateDia = parseInt(fromDate.getUTCDate())
-            //   const fromDateMes = parseInt(fromDate.getUTCMonth())
-            //   const fromDateAno = parseInt(fromDate.getUTCFullYear())
-
-              
-
-            //     var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:fromDateDia,Mes:fromDateMes,Ano:fromDateAno };
-            //     Disponibilidad.updateOne(query, { Estatus: 0 })
-            //     .exec((err, db_res)=>
-            //      {
-            //        if (err) {
-            //          throw err;
-            //        }
-            //        else {
-            //          console.log("Updated Disponibilidad: ",db_res);
-            //      }
-            //      });
-              
-            // }
+        
 
             return  res.status(200).json({msg: "Modificacion de Huesped realizada con Exito"})//res.send('Succesfully saved.');
         });
@@ -211,7 +197,7 @@ exports.actualizaHuesped = async (req,res,next)=>{
 
 exports.actualizaEstatusHuesped = async (req,res,next)=>{
 
-  Huesped.updateOne({folio : req.body.folio}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion}},
+  Huesped.updateOne({folio : req.body.folio}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion,notas:req.body.notas}},
     function(err, doc) {
       if (err) return res.send(500, {error: err});
       return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');

@@ -14,5 +14,5 @@ const postSchema = mongoose.Schema({
 
 },{collection:'Edo_Cuenta'})
 
-module.exports=mongoose.model('edoCuenta',postSchema);
+module.exports=mongoose.model('Edo_Cuenta',postSchema);
 

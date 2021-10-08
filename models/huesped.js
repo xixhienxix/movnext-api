@@ -21,7 +21,9 @@ const postSchema = mongoose.Schema({
   motivo: {type:String},
   numeroCuarto: {type:Number},
   creada:{type:String},
-  tipoHuesped:{type:String}
+  tipoHuesped:{type:String},
+  notas:{type:String},
+  ID_Socio:{type:Number}
 }
 
 );

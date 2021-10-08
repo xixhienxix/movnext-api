@@ -18,6 +18,9 @@ const adicionaController = require ('./controllers/adicional')
 const authController = require ('./controllers/auth')
 const edoCuentaController = require ('./controllers/edoCuenta')
 const codigosController = require ('./controllers/codigos.js')
+const emailController = require ('./controllers/email.js')
+const promesasController = require ('./controllers/promesas.js')
+const detailsController = require ('./controllers/details.js')
 
 
 const app = express();
@@ -68,6 +71,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/edo_cuenta/pagos",edoCuentaController.agregarPago)
 
+ app.post("/api/email/confirmacion",emailController.enviarConfirmacion)
+ 
+ app.post("/api/reportes/promesa",promesasController.promesaPago);
+
+ app.post("/api/reportes/details",detailsController.postDetails);
+
+
 //GET
 
 app.get('/api/version',versionController.getVersion)
@@ -86,6 +96,7 @@ app.get('/api/reportes/folios', foliocontroller.getFolios);
 
 app.get('/api/codigos', codigosController.getCodigosDeCargo);
 
+app.get('/api/reportes/promesas/:folio',promesasController.getPromesa)
 
 //Habitaciones
 
@@ -125,11 +136,20 @@ app.get('/api/adicionales',adicionaController.getAdicional)
 
 app.get('/api/edo_cuenta/cuenta/:id',edoCuentaController.getCuentas);
 
+//DETAILS
 
+app.get('/api/details',detailsController.getDetails)
+
+app.get('/api/details/:folio',detailsController.getDetailsById)
 
 //DELETE
 
 app.delete("/api/reportes/borrar-bloqueo/:id", bloqueoController.deleteBloqueo)
+
+app.delete("/api/reportes/promesa/delete/:_id", promesasController.deletePromesa)
+
+app.delete("/api/edo_cuenta/pagos/:_id", edoCuentaController.deletePago)
+
 
 //PUT
 

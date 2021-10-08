@@ -26,69 +26,100 @@ exports.getEstatus = (req,res,next) =>{
 
 exports.updateEstatus = (req,res,next) =>{
 
-  let estatus = req.body.estatus
-  let query
+  let estatusActualizado = req.body.estatus
+  let estatusPrevio = req.body.estatus
 
-  if(estatus==1)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Huesped en Casa"}});}
-  else 
-  if(estatus==2)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Sin Pago"}});}
-  else 
-  if(estatus==3)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Confirmada"}});}
-  else  
-  if(estatus==4)
-  {  
-    var huesped;
 
-    huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Check-Out"}},function(err,result){
+
+  if(req.body.estatus==1)
+  { 
+    estatusActualizado ="Huesped en Casa" 
+  }
+  else if(req.body.estatus==2)
+  { 
+  estatusActualizado="Reserva Sin Pago"
+  }
+  else if(req.body.estatus==3)
+  { 
+    estatusActualizado="Reserva Confirmada"
+  }
+  else if(req.body.estatus==4)
+  { 
+    estatusActualizado="Check-Out"
+
+    huesped.updateOne({ folio:req.body.folio },{$set:{estatus:estatusActualizado}},function(err,result){
       if(err)
-      {res.status(409).send('No se pudo completar el CheckOut intente de nuevo mas tarde')}
+      {
+        res.status(409).send(err)
+      }
       else
       {
-        huesped.findOne({folio:req.body.folio},function(err,result){
-          if (err) 
-          {res.status(409).send('No se encontro al huesped')} ;
-          // twiml.message(newDeal.deal)
-          huesped=result
-          console.log("returned from the model: ",result)
+        // huesped.findOne({folio:req.body.folio},function(err,result){
+        //   if (err) 
+        //   {
+        //     res.status(409).send('No se encontro al huesped')
+        //   } ;
+        //   // twiml.message(newDeal.deal)
+        //   let huespeds=result
+        //   console.log("returned from the model: ",result)
 
-          Historico.postHistorico(huesped).then(function(err,result) {
-            if(err)
-              {res.status(500).send('Error al guardar en el Historico')}
-            else
-              {res.status(200).send('Guardado en el Historico Con Exito',result)}
-          });
-
-          return result
-        });
-        res.status(200).send('check out realizado con exito',result)
+        //   Historico.postHistorico(huespeds).then(function(err,result) {
+        //     if(err)
+        //       {res.status(400).send('Error al guardar en el Historico')}
+        //     else
+        //       {}
+        //   });
+        // });
+        res.status(200).send(result)
       }
     });
-
   }
-  else
-  if(estatus==5)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Uso Interno"}});}
-  else
-  if(estatus==6)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Bloqueo / Sin Llegadas"}});}
-  else
-  if(estatus==7)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Reserva Temporal"}});}
-  else 
-  if(estatus==8)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Esperando Deposito"}});}
-  else 
-  if(estatus==9)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Deposito Realizado"}});}
-  else 
-  if(estatus==10)
-  { query = huesped.updateOne({ folio:req.body.folio },{$set:{estatus:"Totalmente Pagada"}});}
-  
-  query.then((doc)=> {
-    res.status(200).send(doc)
-  });
+  else if(req.body.estatus==5)
+  { 
+    estatusActualizado="Uso Interno"
+  }
+  else if(req.body.estatus==6)
+  { 
+    estatusActualizado="Bloqueo / Sin Llegadas"
+  }
+  else if(req.body.estatus==7)
+  { 
+    estatusActualizado="Reserva Temporal"
+  }
+  else if(req.body.estatus==8)
+  { 
+    estatusActualizado="Esperando Deposito"
+  }
+  else if(req.body.estatus==9)
+  { 
+    estatusActualizado="Deposito Realizado"
+  }
+  else if(req.body.estatus==10)
+  { 
+    estatusActualizado="Totalmente Pagada"
+  }
+  else if(req.body.estatus==11)
+  { 
+    estatusActualizado="No Show"
+  }
+  else if(req.body.estatus==12)
+  { 
+    estatusActualizado="Reserva Cancelada"
+  }
 
+    huesped.updateOne({folio:req.body.folio},{$set:{estatus:estatusActualizado}},function(err,result)
+    {
+      if (err) {
+        console.log("Error Al Actualizar Estado :",err.message)
+        return err.message;
+      }
+      else {
+        console.log("Estado Actualizado: ",result);
+        return (result);
+    }
+    }); 
+    
 }
+  
+ 
+

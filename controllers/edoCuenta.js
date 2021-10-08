@@ -38,3 +38,14 @@ exports.getCuentas= (req,res)=>{
 
     })
 }
+
+exports.deletePago = (req,res)=>{
+
+  Edo_Cuenta.deleteOne({_id: req.params._id
+  }).then(result => {
+      console.log(result)
+    res.status(200).json({
+      message: "PAgo deleted!",
+    });
+  });
+}
