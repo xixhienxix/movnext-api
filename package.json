@@ -3,7 +3,9 @@
     "version": "7.2.6",
     "scripts": {
         "start": "node app",
-        "start:server": "nodemon app.js"
+        "start:server": "nodemon app.js",
+        "dev": "nodemon app.js"
+
     },
     "private": true,
     "dependencies": {

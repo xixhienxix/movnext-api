@@ -77,6 +77,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/reportes/details",detailsController.postDetails);
 
+ //Login
+ app.post("/api/auth/forgot",authController.olvidoPassword);
+
 
 //GET
 
