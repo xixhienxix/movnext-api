@@ -156,7 +156,7 @@ app.delete("/api/edo_cuenta/pagos/:_id", edoCuentaController.deletePago)
 
 //PUT
 
-
+app.put("/api/reportes/promesas/update",promesasController.updatePromesa)
 
 
 app.use(function(error, req, res, next){

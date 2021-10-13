@@ -3,7 +3,6 @@ const Historico = require ('../models/historico')
 
 exports.postHistorico = async (req,res) =>
 {
-  console.log(req.body)
     var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto};
 
 if(req.body.estatus=='Reserva Sin Pago'){

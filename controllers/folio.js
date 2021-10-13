@@ -13,7 +13,6 @@ exports.getFoliosbyLetra = (req,res,next) =>{
 
   query.then((doc)=> {
     res.status(200).send(doc)
-    console.log("FOLIOS FLITRADOS",doc)
   });
 
 }
@@ -30,7 +29,6 @@ exports.updateFolio = (req,res,next) =>{
         throw err;
       }
       else {
-        console.log("db_res",db_res);
     }
     });
   } else
@@ -44,7 +42,6 @@ exports.updateFolio = (req,res,next) =>{
         throw err;
       }
       else {
-        console.log("db_res",db_res);
     }
     });
   }
@@ -57,6 +54,5 @@ exports.updateFolio = (req,res,next) =>{
 exports.getFolios = (req,res,next) =>{
    Foliador.find().then((doc)=>{
     res.status(200).send(doc)
-     console.log("FOLIOS ",doc)
   });
 }

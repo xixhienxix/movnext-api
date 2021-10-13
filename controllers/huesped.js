@@ -56,7 +56,6 @@ exports.postHuesped = async (req,res,next)=>{
            throw err;
          }
          else {
-           console.log("Updated Disponibilidad: ",db_res);
        }
        });
     }
@@ -112,7 +111,6 @@ exports.postHuesped = async (req,res,next)=>{
                 throw err;
               }
               else {
-                console.log("db_res",db_res);
             }
             });
           } else
@@ -126,7 +124,6 @@ exports.postHuesped = async (req,res,next)=>{
                 throw err;
               }
               else {
-                console.log("db_res",db_res);
             }
             });
           }

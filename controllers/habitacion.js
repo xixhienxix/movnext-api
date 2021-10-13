@@ -11,7 +11,6 @@ exports.postEstatusHabitacion = (req,res,next) => {
           throw err;
         }
         else {
-          console.log("db_res",db_res);
       }
       }).then((estatus)=>{
         res.status(201).json({
@@ -66,8 +65,6 @@ exports.getHabitacionbyNumber = async (req,res,next) =>{
 exports.getInfoHabitaciones = (req,res,next) =>{
 
   const query = Habitacion.find({ Numero:req.query.numero,Codigo:req.query.tipo});
-  console.log("Numero:req.query.numero",req.query.numero)
-  console.log("Tipo:req.params.tipo",req.query.tipo)
   query.then((doc)=> {
     res.status(200).send(doc)
   });

@@ -25,7 +25,6 @@ exports.login = (req,res) =>{
                                 res.status(409).send('Algo Salio mal')
                             }
                             db_res.accessToken=accessToken
-                            console.log("db_res",db_res);
 
                               res.status(200).send({db_res});
                             //  res.status(200).send('Algo Salio mal')
@@ -79,7 +78,6 @@ exports.registro = (req,res)=>{
       if (err) {
         res.send(err);
       } else {
-        console.log(result);
         res.send(result);
       }
     });
@@ -112,7 +110,6 @@ exports.registro = (req,res)=>{
             // html: "<b>HTML</b>", // html body
           });
         
-          console.log("Message sent: %s", info.messageId);
           return 'Exito'
           // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
         

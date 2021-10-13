@@ -20,10 +20,7 @@ exports.getBloqueos = (req,res,next) =>{
         .lean().exec(function (err, results) {
         if (err) return console.error(err)
         try {
-            console.log(results)
         } catch (error) {
-            console.log("errror getting results")
-            console.log(error)
         }
     })
 
@@ -118,7 +115,6 @@ exports.postBloqueos = async (req,res,next)=>{
       res.status(401).json({
         message: err
       });
-      console.log(err);
     }
 // Add else
 else{
@@ -191,11 +187,9 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
         .exec((err, db_res)=>
          {
            if (err) {
-             console.log("Error Al Actualizar Disponibilidad :",err.message)
             return err.message;
            }
            else {
-             console.log("Updated Disponibilidad: ",db_res);
             return (db_res);
          }
          });
