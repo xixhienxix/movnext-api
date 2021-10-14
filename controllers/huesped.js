@@ -194,7 +194,7 @@ exports.actualizaHuesped = async (req,res,next)=>{
 
 exports.actualizaEstatusHuesped = async (req,res,next)=>{
 
-  Huesped.updateOne({folio : req.body.folio}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion,notas:req.body.notas}},
+  Huesped.updateOne({folio : req.body.folio}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion,notas:req.body.notas,estatus:req.body.estatus}},
     function(err, doc) {
       if (err) return res.send(500, {error: err});
       return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');
