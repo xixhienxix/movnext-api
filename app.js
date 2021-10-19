@@ -158,6 +158,8 @@ app.delete("/api/edo_cuenta/pagos/:_id", edoCuentaController.deletePago)
 
 app.put("/api/reportes/promesas/update",promesasController.updatePromesa)
 
+app.put("/api/reportes/promesas/update/estatus",promesasController.updatePromesaEstatus)
+
 
 app.use(function(error, req, res, next){
   res.json(error);

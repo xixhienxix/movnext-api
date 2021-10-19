@@ -49,7 +49,24 @@ exports.updatePromesa = (req,res) =>{
 
   const _id = req.body.id
 
-  Promesa.findByIdAndUpdate({_id},{"Aplicado": true}, function(err, result){
+
+
+  Promesa.findByIdAndUpdate({_id},{"Aplicado": true,Estatus:req.body.estatus}, function(err, result){
+    if(err){
+        res.send(err)
+    }
+    else{
+        res.send(result)
+    }
+
+})
+}
+
+exports.updatePromesaEstatus = (req,res) =>{
+
+  const _id = req.body.id
+
+  Promesa.findByIdAndUpdate({_id},{Estatus:req.body.estatus}, function(err, result){
     if(err){
         res.send(err)
     }
