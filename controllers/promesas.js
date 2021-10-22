@@ -30,7 +30,8 @@ exports.promesaPago = async (req,res,next)=>{
       Fecha:req.body.fecha,
       Cantidad:req.body.cantidad,
       Estatus:req.body.estatus,
-      Aplicado:false
+      Aplicado:false,
+      
     }
   
     Promesa.create(pago, function(err, result) {

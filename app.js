@@ -151,7 +151,6 @@ app.delete("/api/reportes/borrar-bloqueo/:id", bloqueoController.deleteBloqueo)
 
 app.delete("/api/reportes/promesa/delete/:_id", promesasController.deletePromesa)
 
-app.delete("/api/edo_cuenta/pagos/:_id", edoCuentaController.deletePago)
 
 
 //PUT
@@ -159,6 +158,9 @@ app.delete("/api/edo_cuenta/pagos/:_id", edoCuentaController.deletePago)
 app.put("/api/reportes/promesas/update",promesasController.updatePromesa)
 
 app.put("/api/reportes/promesas/update/estatus",promesasController.updatePromesaEstatus)
+
+app.put("/api/edo_cuenta/pagos", edoCuentaController.updateEstatusPago)
+
 
 
 app.use(function(error, req, res, next){

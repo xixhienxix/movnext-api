@@ -144,7 +144,9 @@ exports.postHuesped = async (req,res,next)=>{
               Cantidad:req.body.noches,
               Cargo:req.body.pendiente,
               Abono:0,
-              Total:req.body.pendiente
+              Total:req.body.pendiente,
+              Estatus:'Activo'
+
             }
           
         

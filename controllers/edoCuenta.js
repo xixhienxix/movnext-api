@@ -13,7 +13,8 @@ exports.agregarPago=(req,res)=>{
             Cantidad:req.body.Cantidad,
             Cargo:req.body.Cargo,
             Abono:req.body.Abono,
-            Total:req.body.Total
+            Total:req.body.Total,
+            Estatus:req.body.Estatus
         }
         
       
@@ -38,12 +39,11 @@ exports.getCuentas= (req,res)=>{
     })
 }
 
-exports.deletePago = (req,res)=>{
+exports.updateEstatusPago = (req,res)=>{
 
-  Edo_Cuenta.deleteOne({_id: req.params._id
-  }).then(result => {
+  Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Estatus:req.body.estatus}}).then(result => {
     res.status(200).json({
-      message: "PAgo deleted!",
+      message: "PAgo actualizado!",
     });
   });
 }
