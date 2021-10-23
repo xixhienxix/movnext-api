@@ -146,7 +146,8 @@ exports.postHuesped = async (req,res,next)=>{
               Cargo:req.body.pendiente,
               Abono:0,
               Total:req.body.pendiente,
-              Estatus:'Activo'
+              Estatus:'Activo',
+              Autorizo:''
 
             }
           

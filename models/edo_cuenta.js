@@ -12,7 +12,8 @@ const postSchema = mongoose.Schema({
     Cargo:{type:Number},
     Abono:{type:Number},
     Total:{type:Number},
-    Estatus:{type:String}
+    Estatus:{type:String},
+    Autorizo:{type:String}
 
 },{collection:'Edo_Cuenta'})
 
