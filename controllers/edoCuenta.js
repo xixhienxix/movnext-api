@@ -43,7 +43,7 @@ exports.getCuentas= (req,res)=>{
 
 exports.updateEstatusPago = (req,res)=>{
 
-  Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Estatus:req.body.estatus,Fecha_Cancelado:req.body.fechaCancelado}}).then(result => {
+  Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Estatus:req.body.estatus,Fecha_Cancelado:req.body.fechaCancelado,Autorizo:req.body.autorizo}}).then(result => {
     res.status(200).json({
       message: "PAgo actualizado!",
     });
