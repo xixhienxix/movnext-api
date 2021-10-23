@@ -138,7 +138,8 @@ exports.postHuesped = async (req,res,next)=>{
             let pago = {
               Folio:req.body.folio,
               Fecha:new Date,
-                Referencia:'',
+              Fecha_Cancelado:new Date,
+              Referencia:'',
               Descripcion:'Alojamiento',
               Forma_de_Pago:'Estancia',
               Cantidad:req.body.noches,

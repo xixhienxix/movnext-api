@@ -7,6 +7,7 @@ exports.agregarPago=(req,res)=>{
         let pago = {
             Folio: req.body.Folio,
             Fecha:new Date(),
+            Fecha_Cancelado:'',
             Referencia:req.body.Referencia,
             Descripcion:req.body.Descripcion,
             Forma_de_Pago:req.body.Forma_de_Pago,
@@ -14,7 +15,8 @@ exports.agregarPago=(req,res)=>{
             Cargo:req.body.Cargo,
             Abono:req.body.Abono,
             Total:req.body.Total,
-            Estatus:req.body.Estatus
+            Estatus:req.body.Estatus,
+            Autorizo:req.body.Autorizo
         }
         
       
@@ -41,7 +43,7 @@ exports.getCuentas= (req,res)=>{
 
 exports.updateEstatusPago = (req,res)=>{
 
-  Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Estatus:req.body.estatus}}).then(result => {
+  Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Estatus:req.body.estatus,Fecha_Cancelado:req.body.fechaCancelado}}).then(result => {
     res.status(200).json({
       message: "PAgo actualizado!",
     });

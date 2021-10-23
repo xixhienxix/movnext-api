@@ -40,6 +40,36 @@ exports.login = (req,res) =>{
 
 }
 
+exports.autoriza = (req,res) =>{
+  const username = req.body.usuario
+  const password = req.body.password
+
+ const query = usuarios.findOne({username:username,password:password})
+  
+  query.lean().exec((err, db_res)=>//lean()convert document to jsObject for easy access
+          {
+            if (err) {
+              res.status(409).json({
+                message: "Usuario No Autorizado",
+              });           
+            }
+            else {
+              if(db_res)
+             { 
+                res.status(200).json(db_res); 
+               }  
+                else
+                {
+                  res.status(200).json({
+                    message: "Usuario No Autorizado",
+                  });
+                }
+            }
+          });    
+  
+
+}
+
 exports.olvidoPassword = (req,res) => {
 
   const email = req.body

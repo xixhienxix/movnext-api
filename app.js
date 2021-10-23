@@ -80,6 +80,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
  //Login
  app.post("/api/auth/forgot",authController.olvidoPassword);
 
+ app.post("/api/auth/autoriza",authController.autoriza);
+
 
 //GET
 
