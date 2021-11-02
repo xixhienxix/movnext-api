@@ -59,6 +59,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/reportes/actualiza/huesped",huespedController.actualizaHuesped)
 
+ app.post("/api/reportes/actualiza/huesped/modifica",huespedController.actualizaHuespedModifica)
+
  app.post("/api/reportes/historico",historicoController.postHistorico);
 
  app.post("/api/actualiza/estatus",estatusController.updateEstatus);

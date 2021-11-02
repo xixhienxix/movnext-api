@@ -52,7 +52,7 @@ exports.updatePromesa = (req,res) =>{
 
 
 
-  Promesa.findByIdAndUpdate({_id},{"Aplicado": true,Estatus:req.body.estatus}, function(err, result){
+  Promesa.findByIdAndUpdate({_id},{"Aplicado": true,Estatus:'Pago Hecho'}, function(err, result){
     if(err){
         res.send(err)
     }

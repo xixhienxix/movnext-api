@@ -111,13 +111,15 @@ exports.updateEstatus = (req,res,next) =>{
     {
       if (err) {
         console.log("Error Al Actualizar Estado :",err.message)
-        return err.message;
+        res.status(500).send(err.message)
       }
       else {
         console.log("Estado Actualizado: ",result);
-        return (result);
+        res.status(200).send(result);
     }
     }); 
+
+    
     
 }
   

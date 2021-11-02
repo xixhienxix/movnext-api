@@ -141,7 +141,7 @@ exports.postHuesped = async (req,res,next)=>{
               Fecha_Cancelado:new Date,
               Referencia:'',
               Descripcion:'Alojamiento',
-              Forma_de_Pago:'Estancia',
+              Forma_de_Pago:'',
               Cantidad:req.body.noches,
               Cargo:req.body.pendiente,
               Abono:0,
@@ -173,25 +173,29 @@ exports.postHuesped = async (req,res,next)=>{
 
 exports.actualizaHuesped = async (req,res,next)=>{
 
-        Huesped.updateOne({folio : req.body.folio}, 
-                            {$set: {  estatus:req.body.estatus,  
-                                      numeroCuarto : req.body.numeroCuarto,
-                                      llegada : req.body.llegada, salida : req.body.salida,
-                                      habitacion : req.body.habitacion, tarifa:req.body.tarifa,
-                                      pendiente:req.body.pendiente, porPagar:req.body.porPagar,
-                                      tipoHuesped:req.body.tipoHuesped, nombre:req.body.nombre,
-                                      email:req.body.email,telefono:req.body.telefono,
-                                      notas:req.body.notas,ID_Socio:req.body.ID_Socio}},
-          function(err, doc) {
+        Huesped.updateOne({folio : req.body.huesped.folio}, 
+                            {$set: {  estatus:req.body.huesped.estatus,  
+                                      numeroCuarto : req.body.huesped.numeroCuarto,
+                                      llegada : req.body.huesped.llegada, salida : req.body.huesped.salida,
+                                      habitacion : req.body.huesped.habitacion, tarifa:req.body.huesped.tarifa,
+                                      pendiente:req.body.huesped.pendiente, porPagar:req.body.huesped.porPagar,
+                                      tipoHuesped:req.body.huesped.tipoHuesped, nombre:req.body.huesped.nombre,
+                                      email:req.body.huesped.email,telefono:req.body.huesped.telefono,
+                                      notas:req.body.huesped.notas,ID_Socio:req.body.huesped.ID_Socio}},
+          function(err, doc) 
+          {
             if (err) 
             {
               return res.send(500, {error: err});
             }
-            actualizaDisponibilidad(req.body.llegada,req.body.salida,req.body.habitacion,req.body.numeroCuarto)
-        
+            else{
 
-            return  res.status(200).json({msg: "Modificacion de Huesped realizada con Exito"})//res.send('Succesfully saved.');
-        });
+              actualizaDisponibilidad(req.body.huesped.llegada, req.body.huesped.salida, req.body.huesped.habitacion, req.body.huesped.numeroCuarto)
+
+              return  res.status(200).json({msg: "Modificacion de Huesped realizada con Exito"})
+            }
+           
+          });
 
 
 }
@@ -205,45 +209,99 @@ exports.actualizaEstatusHuesped = async (req,res,next)=>{
   });
 
 }
+// new Date("2011-09-24T00:00:00".replace(/-/g, '\/').replace(/T.+/, ''));
+// => Sat Sep 24 2011 00:00:00 GMT-0700 (MST) - CORRECT DATE.
+
+exports.actualizaHuespedModifica = async (req,res,next)=>{
+ 
+  const diaLlegada = parseInt(req.body.Llegada.split("/")[0])
+  const mesLlegada = parseInt(req.body.Llegada.split("/")[1])
+  const anoLlegada = parseInt(req.body.Llegada.split("/")[2])
+  const diaSalida = parseInt(req.body.Salida.split("/")[0])
+  const mesSalida = parseInt(req.body.Salida.split("/")[1])
+  const anoSalida = parseInt(req.body.Salida.split("/")[2])
+        
+
+  let stringfromDate = mesLlegada+'-'+diaLlegada+'-'+anoLlegada
+  let stringtoDate = mesSalida+'-'+diaSalida+'-'+anoSalida
+
+  var toDate =   new Date(stringtoDate)
+  var fromDate = new Date(stringfromDate)
+
+  for  (fromDate; fromDate <= toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
+  {
+    var stringDate =fromDate.toISOString().split('T')[0]
+    var ano = stringDate.split('-')[0]
+    var mes = stringDate.split('-')[1]
+    var dia = stringDate.split('-')[2]
+
+        Disponibilidad.updateOne({Dia:dia,
+                                  Mes:mes,
+                                  Ano:ano,
+                                  Habitacion:req.body.Cuarto,
+                                  Cuarto:req.body.Habitacion}, { $set: { Estatus: 1 } }, 
+                                  
+          function(err, result) {
+          if (err) 
+          {
+            // res.status(500);
+          }
+          else 
+          {
+            console.log(result)
+          }
+          // res.status(200)
+        })
+      
+
+  }
 
 
+
+}
 
 
 function actualizaDisponibilidad(desde,hasta,habitacion,numero)
 {
+  const diaLlegada = desde.split("/")[0]
+  const mesLlegada = desde.split("/")[1]
+  const anoLlegada = desde.split("/")[2]
+  const diaSalida = hasta.split("/")[0]
+  const mesSalida = hasta.split("/")[1]
+  const anoSalida = hasta.split("/")[2]
 
-  const diaLlegada = parseInt(desde.split("/")[0])
-  const mesLlegada = parseInt(desde.split("/")[1])
-  const anoLlegada = parseInt(desde.split("/")[2])
-  const diaSalida = parseInt(hasta.split("/")[0])
-  const mesSalida = parseInt(hasta.split("/")[1])
-  const anoSalida = parseInt(hasta.split("/")[2])
+  let stringfromDate = anoLlegada+'-'+mesLlegada+'-'+diaLlegada
+  let stringtoDate = anoSalida+'-'+mesSalida+'-'+diaSalida
 
-  // let toDate =   new Date(Date.UTC(anoSalida, mesSalida, diaSalida))
-  // let fromDate = new Date(Date.UTC(anoLlegada, mesLlegada, diaLlegada))
-  let fromDate =   new Date(Date.UTC(anoLlegada,mesLlegada-1,diaLlegada))
-  let toDate = new Date(Date.UTC(anoSalida,mesSalida-1,diaSalida))
+  var toDate =   new Date(stringtoDate)
+  var fromDate = new Date(stringfromDate)
 
-  for  (fromDate; fromDate <= toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
+
+  for (;fromDate < toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
   {
-        var query = { Cuarto: habitacion,Habitacion:numero,Dia:fromDate.getUTCDate(),Mes:fromDate.getUTCMonth(),Ano:fromDate.getUTCFullYear() };
+      var stringDate =fromDate.toISOString().split('T')[0]
+      var ano = stringDate.split('-')[0]
+      var mes = stringDate.split('-')[1]
+      var dia = stringDate.split('-')[2]
 
-        Disponibilidad.updateOne(query, { Estatus: 0 })
-        .exec((err, db_res)=>
-         {
-           if (err) {
-             console.log("Error Al Actualizar Disponibilidad :",err.message)
-            return err.message;
-           }
-           else {
-             console.log("Updated Disponibilidad: ",db_res);
-            return (db_res);
-         }
-         });
-
-
+      var query = { Cuarto: habitacion,Habitacion:numero,Dia:dia,Mes:mes,Ano:ano };
+      
+      Disponibilidad.updateOne(query, { Estatus: 0 },function(err, result) {
+        if (err) 
+        {
+/*           res.status(500);
+ */        }
+        else 
+        {
+          console.log(result)
+        }
+        // res.status(200)
+      })
+    
   }
 
 }
+ 
+
 
 
