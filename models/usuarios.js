@@ -7,7 +7,8 @@ const postSchema = mongoose.Schema({
     password:{type:String},
     nombre:{type:String},
     email:{type:String},
-    terminos:{type:Boolean}
+    terminos:{type:Boolean},
+    rol:{type:Number}
 }, {collection:'usuarios'})
 
 // Duplicate the ID field.

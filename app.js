@@ -21,7 +21,10 @@ const codigosController = require ('./controllers/codigos.js')
 const emailController = require ('./controllers/email.js')
 const promesasController = require ('./controllers/promesas.js')
 const detailsController = require ('./controllers/details.js')
-
+const amaController = require ('./controllers/ama.js')
+const timeZonesController = require ('./controllers/timezones')
+const divisasController = require ('./controllers/divisas')
+const parametrosController = require('./controllers/parametros')
 
 const app = express();
 
@@ -61,7 +64,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/reportes/actualiza/huesped/modifica",huespedController.actualizaHuespedModifica)
 
- app.post("/api/reportes/historico",historicoController.postHistorico);
+ app.post("/api/guarda/historico",historicoController.postHistorico);
 
  app.post("/api/actualiza/estatus",estatusController.updateEstatus);
 
@@ -79,6 +82,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
  app.post("/api/reportes/details",detailsController.postDetails);
 
+ app.post("/api/disponibilidad/ama",disponibilidadController.getEstatusAma);
+
+ //Parametros
+
+ app.post("/api/parametros",parametrosController.postParametros);
+
  //Login
  app.post("/api/auth/forgot",authController.olvidoPassword);
 
@@ -91,7 +100,17 @@ app.get('/api/version',versionController.getVersion)
 
 app.get('/api/reportes/origen',origenController.getOrigen)
 
+app.get('/api/parametros/timezones',timeZonesController.getTimeZones)
+
+app.get('/api/parametros/divisas',divisasController.getDivisas)
+
+app.get('/api/parametros/divisas/:divisa',divisasController.getDivisasByParametro)
+
+app.get('/api/parametros',parametrosController.getParametros)
+
 app.get('/api/reportes/huesped',huespedController.getHuesped)
+
+app.get('/api/reportes/clientes',historicoController.getClientes)
 
 app.get('/api/reportes/historico',huespedController.getHuespedHistorico)
 
@@ -104,6 +123,10 @@ app.get('/api/reportes/folios', foliocontroller.getFolios);
 app.get('/api/codigos', codigosController.getCodigosDeCargo);
 
 app.get('/api/reportes/promesas/:folio',promesasController.getPromesa)
+
+app.get('/api/reportes/ama_llaves',amaController.getEstatus)
+
+app.get('/api/reportes/ama_llaves/:id',amaController.getEstatusByID)
 
 //Habitaciones
 
@@ -122,6 +145,8 @@ app.get('/api/reportes/tipo',habitacioncontroller.getCodigoHabitacion);
 app.get('/api/huespedes/disponibilidad',disponibilidadController.getDisponibilidadXFecha)
 
 app.get('/api/huespedes/disponibilidad/todos',disponibilidadController.getDisponibilidadTodos)
+
+app.get('/api/disponibilidad/completa',disponibilidadController.getDisponibilidadCompleta)
 
 //Estatus
 
@@ -143,6 +168,9 @@ app.get('/api/adicionales',adicionaController.getAdicional)
 
 app.get('/api/edo_cuenta/cuenta/:id',edoCuentaController.getCuentas);
 
+app.get('/api/edo_cuenta/cuentas',edoCuentaController.getTodasLasCuentas);
+
+
 //DETAILS
 
 app.get('/api/details',detailsController.getDetails)
@@ -155,7 +183,7 @@ app.delete("/api/reportes/borrar-bloqueo/:id", bloqueoController.deleteBloqueo)
 
 app.delete("/api/reportes/promesa/delete/:_id", promesasController.deletePromesa)
 
-
+app.delete("/api/huesped/delete/:_id",huespedController.deleteHuesped)
 
 //PUT
 
@@ -164,6 +192,10 @@ app.put("/api/reportes/promesas/update",promesasController.updatePromesa)
 app.put("/api/reportes/promesas/update/estatus",promesasController.updatePromesaEstatus)
 
 app.put("/api/edo_cuenta/pagos", edoCuentaController.updateEstatusPago)
+
+app.put("/api/edo_cuenta/alojamiento", edoCuentaController.actualizaSaldo)
+
+app.put("/api/update/disponibilidad",disponibilidadController.updateDisponibilidad)
 
 
 

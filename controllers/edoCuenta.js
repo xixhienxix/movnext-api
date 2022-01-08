@@ -41,11 +41,33 @@ exports.getCuentas= (req,res)=>{
     })
 }
 
+exports.getTodasLasCuentas = (req,res)=>{
+
+
+  Edo_Cuenta.find({},(err,result)=>{
+    if(err)
+    {res.status(500).send(err)}
+    else
+    {res.status(200).send(result)}
+
+})
+
+}
+
 exports.updateEstatusPago = (req,res)=>{
 
   Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Estatus:req.body.estatus,Fecha_Cancelado:req.body.fechaCancelado,Autorizo:req.body.autorizo}}).then(result => {
     res.status(200).json({
       message: "PAgo actualizado!",
+    });
+  });
+}
+
+exports.actualizaSaldo = (req,res)=>{
+
+  Edo_Cuenta.updateOne({_id: req.body._id},{$set:{Cargo:req.body.monto}}).then(result => {
+    res.status(200).json({
+      message: "Movimiento actualizado!",
     });
   });
 }

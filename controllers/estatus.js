@@ -47,32 +47,17 @@ exports.updateEstatus = (req,res,next) =>{
   { 
     estatusActualizado="Check-Out"
 
-    huesped.updateOne({ folio:req.body.folio },{$set:{estatus:estatusActualizado}},function(err,result){
-      if(err)
-      {
-        res.status(409).send(err)
-      }
-      else
-      {
-        // huesped.findOne({folio:req.body.folio},function(err,result){
-        //   if (err) 
-        //   {
-        //     res.status(409).send('No se encontro al huesped')
-        //   } ;
-        //   // twiml.message(newDeal.deal)
-        //   let huespeds=result
-        //   console.log("returned from the model: ",result)
-
-        //   Historico.postHistorico(huespeds).then(function(err,result) {
-        //     if(err)
-        //       {res.status(400).send('Error al guardar en el Historico')}
-        //     else
-        //       {}
-        //   });
-        // });
-        res.status(200).send(result)
-      }
-    });
+    // huesped.updateOne({ folio:req.body.folio },{$set:{estatus:estatusActualizado}},function(err,result){
+    //   if(err)
+    //   {
+    //     res.status(409).send(err)
+    //   }
+    //   else
+    //   {
+      
+    //     res.status(200).send(result)
+    //   }
+    // });
   }
   else if(req.body.estatus==5)
   { 
@@ -106,7 +91,24 @@ exports.updateEstatus = (req,res,next) =>{
   { 
     estatusActualizado="Reserva Cancelada"
   }
-
+  if(req.body.estatus==4)
+  {
+    huesped.updateOne({folio:req.body.folio},{$set:{estatus:estatusActualizado,
+                                                      pendiente:req.body.huesped.pendiente,
+                                                      porPagar:req.body.huesped.porPagar,
+                                                      noches:req.body.huesped.noches}},function(err,result)
+    {
+      if (err) {
+        console.log("Error Al Actualizar Estado :",err.message)
+        res.status(500).send(err.message)
+      }
+      else {
+        // Historico.updateHistorico(req.body)
+        console.log("Estado Actualizado: ",result);
+        res.status(200).send(result);
+    }
+    }); 
+  }else {
     huesped.updateOne({folio:req.body.folio},{$set:{estatus:estatusActualizado}},function(err,result)
     {
       if (err) {
@@ -118,9 +120,7 @@ exports.updateEstatus = (req,res,next) =>{
         res.status(200).send(result);
     }
     }); 
-
-    
-    
+  } 
 }
   
  

@@ -22,7 +22,17 @@ const postSchema = mongoose.Schema({
   numeroCuarto: {type:Number},
   creada:{type:String},
   tipoHuesped:{type:String},
-  estatus_historico:{type:String}
+  fechaNacimiento:{type:String},
+  trabajaEn:{type:String},
+  tipoDeID:{type:String},
+  numeroDeID:{type:String},
+  direccion:{type:String},
+  pais:{type:String},
+  ciudad:{type:String},
+  codigoPostal:{type:String},
+  lenguaje:{type:String},
+  estatus_historico:{type:String},
+
 },{ collection: 'historico_huesped'}
 
 );

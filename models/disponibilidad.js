@@ -7,7 +7,9 @@ const postSchemaDisponibilidad = mongoose.Schema({
   Estatus: {type : Number},
   Dia:{type:Number},
   Mes:{type:Number},
-  Ano:{type:Number}
+  Ano:{type:Number},
+  Estatus_Ama_De_Llaves:{type:String},
+  Folio_Huesped:{type:Number}
 
 },{ collection: 'Disponibilidad'});
 

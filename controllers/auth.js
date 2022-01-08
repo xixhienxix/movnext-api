@@ -44,28 +44,45 @@ exports.autoriza = (req,res) =>{
   const username = req.body.usuario
   const password = req.body.password
 
- const query = usuarios.findOne({username:username,password:password})
+  const queryPassword = usuarios.findOne({username:username,password:password})
+  const queryUserName = usuarios.findOne({username:username})
   
-  query.lean().exec((err, db_res)=>//lean()convert document to jsObject for easy access
-          {
-            if (err) {
-              res.status(409).json({
-                message: "Usuario No Autorizado",
-              });           
+  queryUserName.lean().exec((err,result)=>{
+    if(err){
+      res.status(400).json({message:'Error'})
+    }
+    else if (result==null)
+    {
+      res.status(200).json({id:1,message:'Nombre de usuario invalido'})
+    }
+    else {
+      queryPassword.lean().exec((err, usuario)=>//lean()convert document to jsObject for easy access
+      {
+        if (err) {
+          res.status(409).json({
+            message: "Error intente de nuevo mas tarde",
+          });           
+        }
+        else {
+          if(usuario==null)
+          { 
+            res.status(200).json({id:2,message:'Password incorrecto para el usuario: '+username+''}); 
+          }  
+          else 
+            {
+              if(usuario.perfil==1)
+              {
+                res.status(200).json({id:3,message: "Usuario Autorizado"});
+              }else {
+                res.status(200).json({id:4,message:'Usuario No Autorizado'})
+              }
             }
-            else {
-              if(db_res)
-             { 
-                res.status(200).json(db_res); 
-               }  
-                else
-                {
-                  res.status(200).json({
-                    message: "Usuario No Autorizado",
-                  });
-                }
-            }
-          });    
+        }
+      });  
+    }
+  })
+
+  
   
 
 }
@@ -99,7 +116,8 @@ exports.registro = (req,res)=>{
         email : req.body.email,
         username : req.body.username,
         password : req.body.password,
-        terminos : req.body.terminos
+        terminos : req.body.terminos,
+        rol:2
     }
 
     

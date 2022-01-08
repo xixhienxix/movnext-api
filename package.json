@@ -5,7 +5,6 @@
         "start": "node app",
         "start:server": "nodemon app.js",
         "dev": "nodemon app.js"
-
     },
     "private": true,
     "dependencies": {
@@ -14,6 +13,7 @@
         "express": "^4.17.1",
         "global": "^4.4.0",
         "jsonwebtoken": "^8.5.1",
+        "luxon": "^2.2.0",
         "mongoose": "^5.13.9",
         "nodemailer": "^6.6.5",
         "nodemon": "^2.0.12",
