@@ -41,13 +41,13 @@ const postSchema = mongoose.Schema({
 );
 
 // Duplicate the ID field.
-postSchema.virtual('id').get(function(){
-  return this._id.toHexString();
-});
+// postSchema.virtual('id').get(function(){
+//   return this._id.toHexString();
+// });
 
-postSchema.set('toJSON', {
-  virtuals: true
-});
+// postSchema.set('toJSON', {
+//   virtuals: true
+// });
 
 
 module.exports=mongoose.model('Huesped',postSchema);
