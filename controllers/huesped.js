@@ -7,11 +7,83 @@ const Estatus = require('../models/estatus');
 const huesped = require('../models/huesped');
 const Edo_Cuenta = require('../models/edo_cuenta')
 const {DateTime} = require('luxon')
+const Parametros = require('../models/parametros')
 
 exports.getHuesped = (req,res,next) =>{
-  Huesped.find(this).then((huesped) => {
-  res.status(200).send(huesped)
-  });
+  let huespeds=[]
+
+  Parametros.find(this).then((param) => {
+    // console.log(huesped)
+    let today = DateTime.now().setZone(param.zona)
+
+    Huesped.find(this).then(
+      async (huesped) => {
+        for(let i=0;i<huesped.length;i++)
+        {
+          let numeroCuarto = huesped[i].numeroCuarto
+          let habitacion = huesped[i].habitacion
+  
+          const query = Disponibilidad.find({ Dia: today.day, Mes: today.month, Ano: today.year, Habitacion: numeroCuarto, Cuarto:habitacion});
+          let estatus_Ama_De_Llaves
+          
+          await query.then((doc)=> {
+            let estatus_Ama_De_Llaves1
+            for(let i=0;i<doc.length;i++)
+              {
+                let dispo =doc[i]._doc
+                estatus_Ama_De_Llaves1 = dispo.Estatus_Ama_De_Llaves
+              }
+  
+              estatus_Ama_De_Llaves=estatus_Ama_De_Llaves1
+        });
+  
+        let temp = {
+          _id:huesped[i]._id,
+          folio:huesped[i].folio,
+          adultos:huesped[i].adultos,
+          ninos:huesped[i].ninos,
+          adultos:huesped[i].adultos,
+          nombre:huesped[i].nombre,
+          estatus:huesped[i].estatus,
+          llegada:huesped[i].llegada,
+          salida:huesped[i].salida,
+          noches:huesped[i].noches,
+          tarifa:huesped[i].tarifa,
+          porPagar:huesped[i].porPagar,
+          pendiente:huesped[i].pendiente,
+          origen:huesped[i].origen,
+          habitacion:huesped[i].habitacion,
+          telefono:huesped[i].telefono,
+          email:huesped[i].email,
+          motivo:huesped[i].motivo,
+          fechaNacimiento:huesped[i].fechaNacimiento,
+          trabajaEn:huesped[i].trabajaEn,
+          tipoID:huesped[i].tipoID,
+          numeroID:huesped[i].numeroID,
+          direccion:huesped[i].direccion,
+          pais:huesped[i].pais,
+          ciudad:huesped[i].ciudad,
+          codigoPostal:huesped[i].codigoPostal,
+          numeroCuarto:huesped[i].numeroCuarto,
+          lenguaje:huesped[i].lenguaje,
+          numeroCuarto:huesped[i].numeroCuarto,
+          creada:huesped[i].creada,
+          tipoHuesped:huesped[i].tipoHuesped,
+          notas:huesped[i].notas,
+          vip:huesped[i].vip,
+          ID_Socio:huesped[i].ID_Socio,
+          estatus_Ama_De_Llaves:estatus_Ama_De_Llaves,
+        }
+        huespeds.push(temp) 
+        }
+      
+      res.status(200).send(huespeds)
+      });
+    });  
+
+
+  
+
   };
 
   exports.getHuespedHistorico = (req,res,next) =>{
@@ -45,8 +117,12 @@ exports.postHuesped = async (req,res,next)=>{
   {
     if(req.body.estatus!="Reserva Temporal")
     {
+      let estatusAma
+
+      if(req.body.estatus!="Huesped en Casa"){estatusAma='LIMPIA'}else {estatusAma='SUCIA'}
+
       var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:llegadaDateTime.day,Mes:llegadaDateTime.month,Ano:llegadaDateTime.year };
-      Disponibilidad.updateOne(query, { Estatus: 0, Estatus_Ama_De_Llaves:'SUCIA', Folio_Huesped: req.body.folio})
+      Disponibilidad.updateOne(query, { Estatus: 0, Estatus_Ama_De_Llaves:estatusAma, Folio_Huesped: req.body.folio})
       .exec((err, db_res)=>
        {
          if (err) {

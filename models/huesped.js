@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
 
-  // id: {type : Number},
+  _id: {type : String},
   folio:{type:Number},
-  nombre: {type:String,require:true},
   adultos: {type : Number},
   ninos: {type : Number},
+  nombre: {type:String,require:true},
   estatus: {type:String}, // Huesped en Casa = 1 | Reserva Sin Pagar = 2 | Reserva Confirmada = 3 | Hizo Checkout = 4 | Uso Interno = 5 | Bloqueo = 6 | Reserva Temporal = 7
   llegada: {type:String},
   salida: {type:String},
@@ -19,11 +19,23 @@ const postSchema = mongoose.Schema({
   telefono: {type:String},
   email: {type:String},
   motivo: {type:String},
+  fechaNacimiento:{type:String},
+  trabajaEn:{type:String},
+  tipoID: {type : String},
+  numeroID: {type : String},
+  direccion: {type : String},
+  pais: {type : String},
+  ciudad: {type : String},
+  codigoPostal: {type : String},
+  lenguaje: {type : String},
   numeroCuarto: {type:Number},
   creada:{type:String},
   tipoHuesped:{type:String},
   notas:{type:String},
-  ID_Socio:{type:Number}
+  vip: {type : String},
+  ID_Socio:{type:Number},
+  estatus_Ama_De_Llaves: {type : String},
+
 }
 
 );
