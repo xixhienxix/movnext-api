@@ -164,7 +164,8 @@ exports.postHuesped = async (req,res,next)=>{
       origen:req.body.origen,
       creada:req.body.creada,
       tipoHuesped:req.body.tipoHuesped,
-      notas:notas
+      notas:notas,
+      estatus_Ama_De_Llaves:'LIMPIA'
       }, {upsert: true}, function(err, doc) {
         if (err)
         {
