@@ -128,6 +128,11 @@ app.get('/api/reportes/ama_llaves',amaController.getEstatus)
 
 app.get('/api/reportes/ama_llaves/:id',amaController.getEstatusByID)
 
+//Historicos
+
+app.post('/api/historico/visitas',historicoController.getHistoricoVisitas)
+
+
 //Habitaciones
 
 app.get('/api/reportes/habitaciones',habitacioncontroller.getHabitacion)

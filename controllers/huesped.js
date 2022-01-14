@@ -165,6 +165,7 @@ exports.postHuesped = async (req,res,next)=>{
       creada:req.body.creada,
       tipoHuesped:req.body.tipoHuesped,
       notas:notas,
+      ID_Socio:req.body.ID_Socio,
       estatus_Ama_De_Llaves:'LIMPIA'
       }, {upsert: true}, function(err, doc) {
         if (err)
@@ -176,6 +177,17 @@ exports.postHuesped = async (req,res,next)=>{
         //FOLIADOR UPDATE
 
         var updateFolio = Estatus.findOne({estatus:req.body.estatus}).then((estatus) => {
+
+          const query = Foliador.findOneAndUpdate({Letra:'S'},{ $inc: { Folio: 1} },{new:true},
+
+            ).exec((err, db_res)=>
+            {
+              if (err) {
+                throw err;
+              }
+              else {
+            }
+            });
 
           if(estatus._doc.id==1)
           {

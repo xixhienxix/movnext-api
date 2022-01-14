@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
 
   // id: {type : Number},
+  id_Socio:{type:Number},
   folio:{type:Number},
   nombre: {type:String,require:true},
   adultos: {type : Number},
