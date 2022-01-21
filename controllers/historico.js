@@ -99,6 +99,43 @@ else
 
 }
 
+exports.actualizaDatos=(req,res,next)=>{
+  Historico.findOneAndUpdate({folio:req.body.folio}, {
+    tipoHuesped:req.body.tipoHuesped,
+    fechaNacimiento:req.body.fechaNacimiento,
+    trabajaEn:req.body.trabajaEn,
+    tipoDeID:req.body.tipoDeID,
+    numeroDeID:req.body.numeroDeID,
+    direccion:req.body.direccion,
+    pais:req.body.pais,
+    ciudad:req.body.ciudad,
+    codigoPostal:req.body.codigoPostal,
+    lenguaje:req.body.lenguaje,
+    razonsocial:req.body.razonsocial,
+    rfc:req.body.rfc,
+    cfdi:req.body.cfdi,
+    email:req.body.email
+   
+    }, {upsert: true}, function(err, doc) {
+      if (err)
+      {
+        return res.send(500, {error: err});
+      }else
+      {
+          huesped.deleteOne({folio:req.body.folio}, function(err, doc) {
+          if (err)
+          {
+            return res.status(200).json({msg:"Huesped no pudo ser borrado de la lista de huespedes"});          
+          }else
+          {
+            return  res.status(200).json({msg: "Huesped Guardado en Historico"})//res.send('Succesfully saved.');
+
+          }
+        })
+     }
+  }); 
+}
+
 
 exports.getClientes = (req,res,next) =>{
   Historico.find(this).then((cliente) => {
@@ -107,7 +144,7 @@ exports.getClientes = (req,res,next) =>{
   };
 
 exports.getHistoricoVisitas = (req,res,next) =>{
-    Historico.find({id_Socio:req.body.id_Socio}).then((cliente) => {
+    Historico.find({id_Socio:req.params.id}).then((cliente) => {
     res.status(200).send(cliente)
     });
     };
@@ -122,3 +159,4 @@ exports.getHuespedbyId = (req,res,next) =>{
     });
 
 }
+

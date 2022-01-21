@@ -33,6 +33,9 @@ const postSchema = mongoose.Schema({
   codigoPostal:{type:String},
   lenguaje:{type:String},
   estatus_historico:{type:String},
+  cfdi:{type:String},
+  razonsocial:{type:String},
+  rfc:{type:String},
 
 },{ collection: 'historico_huesped'}
 
