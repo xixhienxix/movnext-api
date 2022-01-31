@@ -1,6 +1,7 @@
 const express = require('express');
 const Disponibilidad = require('../models/disponibilidad');
-const {DateTime} = require("luxon")
+const {DateTime} = require("luxon");
+const huesped = require('../models/huesped');
 exports.getDisponibilidadTodos = (req,res,next) =>{
 
   const query = Disponibilidad.find({ Dia: req.query.dia, Mes: req.query.mes, Ano: req.query.ano });
@@ -129,5 +130,18 @@ console.log(req.body)
           res.status(200).send(doc)
         }
       })
+
+      huesped.findOneAndUpdate({numeroCuarto:req.body.Habitacion,habitacion:req.body.Cuarto},
+        {
+          $set :
+            {estatus_Ama_De_Llaves:req.body.Estatus_Ama_De_Llaves}  
+        },(err,doc)=>{
+          if(err){
+            console.log(err)
+          }else
+          {
+            console.log(doc)
+          }
+        })
 
 }

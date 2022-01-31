@@ -2,6 +2,7 @@ const express = require('express');
 const Bloqueo = require('../models/bloqueo');
 const Disponibilidad = require('../models/disponibilidad');
 const mongoose = require('mongoose');
+const {DateTime} = require("luxon");
 
 
 exports.getBloqueos = (req,res,next) =>{
@@ -152,17 +153,22 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
   const mesSalida = hasta.split("/")[1]
   const anoSalida = hasta.split("/")[2]
 
-  let toDate =   new Date(Date.UTC(anoSalida, mesSalida, diaSalida));
-  let fromDate = new Date(Date.UTC(anoLlegada, mesLlegada, diaLlegada))
+  // let toDate =   new Date(Date.UTC(anoSalida, mesSalida, diaSalida));
+  // let fromDate = new Date(Date.UTC(anoLlegada, mesLlegada, diaLlegada));
 
+  let fromDate = DateTime.fromObject({day:desde.split('/')[0],month:desde.split('/')[1],year:desde.split('/')[2]});
+  let toDate = DateTime.fromObject({day:hasta.split('/')[0],month:hasta.split('/')[1],year:hasta.split('/')[2]});
+  
+  let diasDif = toDate.diff(fromDate, ["days"])
+  if(diasDif<1){diasDif=1}
 
-  for  (fromDate; fromDate <= toDate; fromDate.setUTCDate(fromDate.getUTCDate()+1))
+  for(let a=0; a <=diasDif.days;a++)
   {
     for(let i=0;i<habitacion.length;i++)
     {
       for(let k=0; k<numero.length;k++)
       {
-        var query = { Cuarto: habitacion[i],Habitacion:numero[k],Dia:fromDate.getUTCDate(),Mes:fromDate.getUTCMonth(),Ano:fromDate.getUTCFullYear() };
+        var query = { Cuarto: habitacion[i],Habitacion:numero[k],Dia:fromDate.day,Mes:fromDate.month,Ano:fromDate.year };
 
 
         let estatus;
@@ -196,6 +202,7 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
 
       }
     }
+    fromDate = fromDate.plus({ days: +1 })
   }
 
 }

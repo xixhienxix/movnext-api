@@ -16,7 +16,6 @@
         "luxon": "^2.2.0",
         "mongoose": "^5.13.9",
         "nodemailer": "^6.6.5",
-        "nodemon": "^2.0.12",
         "xmlhttprequest-ssl": "^1.6.2"
     }
 }

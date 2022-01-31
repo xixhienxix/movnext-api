@@ -101,6 +101,7 @@ else
 
 exports.actualizaDatos=(req,res,next)=>{
   Historico.findOneAndUpdate({folio:req.body.folio}, {
+    telefono:req.body.telefono,
     tipoHuesped:req.body.tipoHuesped,
     fechaNacimiento:req.body.fechaNacimiento,
     trabajaEn:req.body.trabajaEn,
