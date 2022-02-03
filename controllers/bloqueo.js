@@ -160,9 +160,10 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
   let toDate = DateTime.fromObject({day:hasta.split('/')[0],month:hasta.split('/')[1],year:hasta.split('/')[2]});
   
   let diasDif = toDate.diff(fromDate, ["days"])
-  if(diasDif<1){diasDif=1}
+  let dias
+  if(diasDif.days<1){dias=1}else {dias=diasDif.days}
 
-  for(let a=0; a <=diasDif.days;a++)
+  for(let a=0; a <=dias;a++)
   {
     for(let i=0;i<habitacion.length;i++)
     {
@@ -202,7 +203,7 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
 
       }
     }
-    fromDate = fromDate.plus({ days: +1 })
+    fromDate = fromDate.plus({ days: 1 })
   }
 
 }
