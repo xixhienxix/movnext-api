@@ -118,6 +118,8 @@ var upload = multer({ storage: storage });
 
  app.post("/api/habitacion/guardar",habitacioncontroller.nuevaHabitacion)
 
+ app.post("/api/habitacion/agregar",habitacioncontroller.agregarInventario)
+
  app.post("/api/habitacion/buscar",habitacioncontroller.buscarHabitacion)
 
 //Tarifas

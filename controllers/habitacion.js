@@ -112,6 +112,47 @@ exports.nuevaHabitacion = (req,res,next) => {
   
 }
 
+exports.agregarInventario = (req,res,next) => {
+
+
+  for(let i=0; i<req.body.habitacion.Inventario; i++){
+    let numero
+
+    if(req.body.habitacion.Numero[i].nombreHabs==''){
+      numero=req.body.habitacion.Codigo + '_'+(req.body.inventario+i)
+    }else numero = req.body.habitacion.Numero[i].nombreHabs
+
+      Habitacion.create({
+        Codigo:req.body.habitacion.Codigo,
+        Numero:numero,
+        Descripcion:req.body.habitacion.Descripcion,
+        Tipo:req.body.habitacion.Tipo,
+        Personas:req.body.habitacion.Personas,
+        Personas_Extra:req.body.habitacion.Personas_Extra,
+        Vista:req.body.habitacion.Vista,
+        Camas:req.body.habitacion.Camas,
+        Tarifa:0,
+        Inventario:req.body.habitacion.Inventario,
+        checkbox:false,
+        Orden:req.body.habitacion.Orden,
+        Amenidades:req.body.habitacion.Amenidades,
+        Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
+        if (err) {
+          res.send(err);
+          return
+        } else {
+          if(i==(req.body.habitacion.Inventario-1)){
+            res.status(200).json({
+              message:'Habitaciones Dadas de Alta'
+            });
+          }
+        }
+      });
+  }
+
+  
+}
+
 
 //getInfoHabitaciones
 
