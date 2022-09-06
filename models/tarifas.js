@@ -1,7 +1,7 @@
 const mongoose =  require('mongoose')
 
 const promesaSchema = mongoose.Schema({
-
+_id:{type:String},
     Tarifa:{type:String},
     Habitacion:{type:Array},
     Llegada:{type:String},
@@ -11,13 +11,10 @@ const promesaSchema = mongoose.Schema({
     EstanciaMinima:{type:Number},
     EstanciaMaxima:{type:Number},
     TarifaRack:{type:Number},
-    Tarifa1Persona:{type:Number},
-    Tarifa2Persona:{type:Number},
-    Tarifa3Persona:{type:Number},
-    Tarifa4Persona:{type:Number},
+    TarifaxPersona:{type:Array},
     Estado:{type:Boolean},
-    Dias:{type:Array}
-
+    Dias:{type:Array},
+Descuento:{type:Number}
   },{ collection: 'Tarifas'});
   module.exports=mongoose.model('Tarifas',promesaSchema);
   

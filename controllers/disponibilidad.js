@@ -2,6 +2,8 @@ const express = require('express');
 const Disponibilidad = require('../models/disponibilidad');
 const {DateTime} = require("luxon");
 const huesped = require('../models/huesped');
+
+
 exports.getDisponibilidadTodos = (req,res,next) =>{
 
   const query = Disponibilidad.find({ Dia: req.query.dia, Mes: req.query.mes, Ano: req.query.ano });
@@ -10,6 +12,48 @@ exports.getDisponibilidadTodos = (req,res,next) =>{
     res.status(200).send(doc)
   });
 
+}
+
+exports.crearDisponibilidad = async (req,res,next)=>{
+  
+  let disponibilidadNuevaGeneral=[]
+  let query
+        for(let h=0;h<req.body.numeroHabs.length;h++){
+          for(let y=0;y<4;y++){
+            for(let m=1;m<13;m++){
+              for(let d=1; d<31;d++){
+                dispo={
+                  Cuarto:req.body.nombreCuarto,
+                  Habitacion:req.body.numeroHabs[h].nombreHabs,
+                  Estatus:1,
+                  Dia:d,
+                  Mes:m,
+                  Ano:2022+y,
+                  Estatus_Ama_De_Llaves:'Limpia',
+                  Folio_Huesped:0
+                }
+                disponibilidadNuevaGeneral.push(dispo)
+
+              }
+            }
+          }
+        }
+
+        (async function(){
+
+          const insertMany = await Disponibilidad.insertMany(disponibilidadNuevaGeneral);
+  
+          console.log(JSON.stringify(insertMany,'','\t'));
+  
+          res.status(200).send('Ok');
+      })();
+
+        // Disponibilidad.insertMany(disponibilidadNuevaGeneral, 
+        //   { ordered: false })
+        // then((res) => {
+        //   console.log("Number of records inserted: " + res.insertedCount);
+        //   })
+  
 }
 
 exports.getDisponibilidadCompleta= async (req,res,next)=>{
@@ -117,7 +161,6 @@ exports.getEstatusAma = (req,res,next) =>{
 }
 
 exports.updateDisponibilidad = (req,res) => {
-console.log(req.body)
   Disponibilidad.findOneAndUpdate({Dia:req.body.Dia,Mes:req.body.Mes,Ano:req.body.Ano,Habitacion:req.body.Habitacion,Cuarto:req.body.Cuarto},
       {
         $set :

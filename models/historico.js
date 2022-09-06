@@ -12,7 +12,7 @@ const postSchema = mongoose.Schema({
   llegada: {type:String},
   salida: {type:String},
   noches: {type:Number},
-  tarifa:{type:Number},
+  tarifa:{type:String},
   porPagar: {type:Number},
   pendiente: {type:Number},
   origen: {type:String},

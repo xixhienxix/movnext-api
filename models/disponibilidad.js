@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const postSchemaDisponibilidad = mongoose.Schema({
 
   Cuarto: {type : String},
-  Habitacion: {type : Number},
+  Habitacion: {type : String},
   Estatus: {type : Number},
   Dia:{type:Number},
   Mes:{type:Number},

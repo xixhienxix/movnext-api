@@ -105,37 +105,6 @@ exports.getHuesped = (req,res,next) =>{
 
 exports.postHuesped = async (req,res,next)=>{
   
-  let llegada = req.body.llegada
-  let salida = req.body.salida
-
-   let llegadaDateTime = DateTime.fromObject({day:llegada.split('/')[0],month:llegada.split('/')[1],year:llegada.split('/')[2]});
-   let SalidaDateTime = DateTime.fromObject({day:salida.split('/')[0],month:salida.split('/')[1],year:salida.split('/')[2]});
-  
-  let diaDif=SalidaDateTime.diff(llegadaDateTime, ["days"])
-
-  for (let i=0;i<=(diaDif.days+1);i++)
-  {
-    if(req.body.estatus!="Reserva Temporal")
-    {
-      let estatusAma
-
-      if(req.body.estatus!="Huesped en Casa"){estatusAma='LIMPIA'}else {estatusAma='SUCIA'}
-
-      var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:llegadaDateTime.day,Mes:llegadaDateTime.month,Ano:llegadaDateTime.year };
-      Disponibilidad.updateOne(query, { Estatus: 0, Estatus_Ama_De_Llaves:estatusAma, Folio_Huesped: req.body.folio})
-      .exec((err, db_res)=>
-       {
-         if (err) {
-           throw err;
-         }
-         else {
-       }
-       });
-    }
-    llegadaDateTime=llegadaDateTime.plus({days:1})
-
-  }
-
     var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto};
 
     let notas;
@@ -173,6 +142,37 @@ exports.postHuesped = async (req,res,next)=>{
           return res.send(500, {error: err});
         }else
         {
+          /*Mueve la Disponibilidad*/
+          let llegada = req.body.llegada
+          let salida = req.body.salida
+        
+           let llegadaDateTime = DateTime.fromObject({day:llegada.split('/')[0],month:llegada.split('/')[1],year:llegada.split('/')[2]});
+           let SalidaDateTime = DateTime.fromObject({day:salida.split('/')[0],month:salida.split('/')[1],year:salida.split('/')[2]});
+          
+          let diaDif=SalidaDateTime.diff(llegadaDateTime, ["days"])
+        
+          for (let i=0;i<=(diaDif.days+1);i++)
+          {
+            if(req.body.estatus!="Reserva Temporal")
+            {
+              let estatusAma
+        
+              if(req.body.estatus!="Huesped en Casa"){estatusAma='LIMPIA'}else {estatusAma='SUCIA'}
+        
+              var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:llegadaDateTime.day,Mes:llegadaDateTime.month,Ano:llegadaDateTime.year };
+              Disponibilidad.updateOne(query, { Estatus: 0, Estatus_Ama_De_Llaves:estatusAma, Folio_Huesped: req.body.folio})
+              .exec((err, db_res)=>
+               {
+                 if (err) {
+                   throw err;
+                 }
+                 else {
+               }
+               });
+            }
+            llegadaDateTime=llegadaDateTime.plus({days:1})
+        
+          }
         
         //FOLIADOR UPDATE
 

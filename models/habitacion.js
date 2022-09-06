@@ -15,7 +15,8 @@ const postSchemaHabitacion = mongoose.Schema({
   Amenidades:{type:Array},
   Tipos_Camas:{type:Array},
   Inventario:{type:Number},
-  Orden:{type:Number}
+  Orden:{type:Number},
+
   // Codigo:req.body.habitacion.Codigo,
   // Numero:req.body.habitacion.Numero[i].nombreHabs,
   // Descripcion:req.body.habitacion.Descripcion,

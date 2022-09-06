@@ -40,74 +40,77 @@ exports.buscarHabitacion = (req,res)=>{
 
 exports.nuevaHabitacion = (req,res,next) => {
 
-
-  for(let i=0; i<req.body.habitacion.Inventario; i++){
-    let numero
-
-    if(req.body.editar){
-      Habitacion.findOneAndUpdate({Numero:req.body.habitacion.Numero},{
-        Codigo:req.body.habitacion.Codigo,
-        Numero:req.body.habitacion.Numero,
-        Descripcion:req.body.habitacion.Descripcion,
-        Tipo:req.body.habitacion.Tipo,
-        Personas:req.body.habitacion.Personas,
-        Personas_Extra:req.body.habitacion.Personas_Extra,
-        Vista:req.body.habitacion.Vista,
-        Camas:req.body.habitacion.Camas,
-        Tarifa:0,
-        Inventario:req.body.habitacion.Inventario,
-        checkbox:false,
-        Orden:req.body.habitacion.Orden,
-        Amenidades:req.body.habitacion.Amenidades,
-        Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
-        if (err) {
-          res.send(err);
-          return
-        } else {
-          if(i==(req.body.habitacion.Inventario-1)){
-            res.status(200).json({
-              message:'Habitaciones Dadas de Alta'
-            });
-          }
-        }
-      });
-    }
-    else{
-
-      if(req.body.habitacion.Numero[i].nombreHabs==''){
-        numero=req.body.habitacion.Codigo + '_'+i
-      }else numero = req.body.habitacion.Numero[i].nombreHabs
-
-      Habitacion.create({
-        Codigo:req.body.habitacion.Codigo,
-        Numero:numero,
-        Descripcion:req.body.habitacion.Descripcion,
-        Tipo:req.body.habitacion.Tipo,
-        Personas:req.body.habitacion.Personas,
-        Personas_Extra:req.body.habitacion.Personas_Extra,
-        Vista:req.body.habitacion.Vista,
-        Camas:req.body.habitacion.Camas,
-        Tarifa:0,
-        Inventario:req.body.habitacion.Inventario,
-        checkbox:false,
-        Orden:req.body.habitacion.Orden,
-        Amenidades:req.body.habitacion.Amenidades,
-        Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
-        if (err) {
-          res.send(err);
-          return
-        } else {
-          if(i==(req.body.habitacion.Inventario-1)){
-            res.status(200).json({
-              message:'Habitaciones Dadas de Alta'
-            });
-          }
-        }
-      });
-    }
-
-
+  if(req.body.editar){
+    Habitacion.findOneAndUpdate({_id:req.body.habitacion._id},{
+      Codigo:req.body.habitacion.Codigo,
+      Numero:req.body.habitacion.Numero,
+      Descripcion:req.body.habitacion.Descripcion,
+      Tipo:req.body.habitacion.Tipo,
+      Personas:req.body.habitacion.Personas,
+      Personas_Extra:req.body.habitacion.Personas_Extra,
+      Vista:req.body.habitacion.Vista,
+      Camas:req.body.habitacion.Camas,
+      Tarifa:0,
+      Inventario:req.body.habitacion.Inventario,
+      checkbox:false,
+      Orden:req.body.habitacion.Orden,
+      Tarifa:req.body.habitacion.Tarifa,
+      Amenidades:req.body.habitacion.Amenidades,
+      Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
+      if (err) {
+        res.send(err);
+        return
+      } else {
+          res.status(200).json({
+            message:'Habitaciones Dadas de Alta'
+          });
+        
+      }
+    });
   }
+  else {
+    for(let i=0; i<req.body.habitacion.Inventario; i++){
+      let numero
+  
+  
+        if(req.body.habitacion.Numero[i].nombreHabs==''){
+          numero=req.body.habitacion.Codigo + '_'+i
+        }else numero = req.body.habitacion.Numero[i].nombreHabs
+  
+        Habitacion.create({
+          Codigo:req.body.habitacion.Codigo,
+          Numero:numero,
+          Descripcion:req.body.habitacion.Descripcion,
+          Tipo:req.body.habitacion.Tipo,
+          Personas:req.body.habitacion.Personas,
+          Personas_Extra:req.body.habitacion.Personas_Extra,
+          Vista:req.body.habitacion.Vista,
+          Camas:req.body.habitacion.Camas,
+          Tarifa:0,
+          Inventario:req.body.habitacion.Inventario,
+          checkbox:false,
+          Orden:req.body.habitacion.Orden,
+          Tarifa:req.body.habitacion.Tarifa,
+          Amenidades:req.body.habitacion.Amenidades,
+          Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
+          if (err) {
+            res.send(err);
+            return
+          } else {
+            if(i==(req.body.habitacion.Inventario-1)){
+              res.status(200).json({
+                message:'Habitaciones Dadas de Alta'
+              });
+            }
+          }
+        });
+      
+  
+  
+    }
+  }
+
+ 
 
   
 }
@@ -135,6 +138,7 @@ exports.agregarInventario = (req,res,next) => {
         Inventario:req.body.habitacion.Inventario,
         checkbox:false,
         Orden:req.body.habitacion.Orden,
+        Tarifa:req.body.habitacion.Tarifa,
         Amenidades:req.body.habitacion.Amenidades,
         Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
         if (err) {

@@ -105,6 +105,8 @@ var upload = multer({ storage: storage });
 
  app.post("/api/disponibilidad/ama",disponibilidadController.getEstatusAma);
 
+ app.post("/api/disponibilidad/crear",disponibilidadController.crearDisponibilidad);
+
  //Parametros
 
  app.post("/api/parametros",parametrosController.postParametros);
@@ -247,6 +249,8 @@ app.delete("/api/huesped/delete/:_id",huespedController.deleteHuesped)
 app.delete("/api/habitacion/delete/:_id",habitacioncontroller.deleteHabitacion)
 
 app.post("/api/tarifas/rack/delete",tarifasController.deleteTarifaRack);
+
+app.post("/api/tarifas/especial/delete",tarifasController.deleteTarifaRackEspecial);
 
 
 //PUT
