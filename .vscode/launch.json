@@ -8,10 +8,15 @@
         "name": "Attach by Process ID",
         "processId": "${command:PickProcess}",
         "request": "attach",
-        "skipFiles": [
-          "<node_internals>/**"
-        ],
-        "type": "pwa-node"
-      }
+        "type": "pwa-node",
+        "port":"4000"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/app.js",
+        "runtimeExecutable": "/usr/local/bin/node",
+      },
     ]
 }

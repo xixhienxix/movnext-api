@@ -20,24 +20,6 @@ exports.postEstatusHabitacion = (req,res,next) => {
       });
 }
 
-exports.actualizaUrlImagen = (req,res) => {
-
-
-        try {
-          Habitacion.updateOne({Codigo:req.query.fileUploadName},{$set:{URL:req.query.downloadURL}},{ upsert: true }).then(result => {
-            res.status(200).json({
-              message: "data Updated",
-            });
-          });
-            }
-          catch (e){
-            res.status(200).json({
-              message: "Failed to Save Url",
-            });
-             print(e);
-          }
-}
-
 exports.deleteHabitacion = (req,res)=>{
   var numHab
   
@@ -135,6 +117,10 @@ exports.nuevaHabitacion = (req,res,next) => {
   
     }
   }
+
+ 
+
+  
 }
 
 exports.agregarInventario = (req,res,next) => {

@@ -10,9 +10,10 @@ const postSchemaDisponibilidad = mongoose.Schema({
   Ano:{type:Number},
   Estatus_Ama_De_Llaves:{type:String},
   Folio_Huesped:{type:Number},
-  Fecha:{type:String},
+  Fecha:{type:String}
 
 },{ collection: 'Disponibilidad'});
 
 
 module.exports=mongoose.model('Disponibilidad',postSchemaDisponibilidad);
+

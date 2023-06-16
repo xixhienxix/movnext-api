@@ -30,6 +30,7 @@ const divisasController = require ('./controllers/divisas')
 const parametrosController = require('./controllers/parametros')
 const tarifasController = require('./controllers/tarifas')
 const imageController = require('./controllers/images.js')
+const calendarioController = require('./controllers/calendario.js')
 
 /**Models */
 var imgModel = require('./models/img.js');
@@ -124,6 +125,9 @@ var upload = multer({ storage: storage });
 
  app.post("/api/habitacion/buscar",habitacioncontroller.buscarHabitacion)
 
+ app.post("/api/update/habitaciones/url",habitacioncontroller.actualizaUrlImagen)
+
+
 //Tarifas
 
 app.post("/api/tarifas/agregar",tarifasController.postTarifas);
@@ -193,6 +197,9 @@ app.get('/api/codigos/amenidades',codigosController.getAmenidades)
 
 app.get('/api/codigos/camas',codigosController.getCamas)
 
+//Calendario
+
+app.get('/api/calendario/habitaciones',calendarioController.getHabitaciones)
 
 
 //Disponibilidad
@@ -202,6 +209,7 @@ app.get('/api/huespedes/disponibilidad',disponibilidadController.getDisponibilid
 app.get('/api/huespedes/disponibilidad/todos',disponibilidadController.getDisponibilidadTodos)
 
 app.get('/api/disponibilidad/completa',disponibilidadController.getDisponibilidadCompleta)
+
 
 //Estatus
 
@@ -265,15 +273,24 @@ app.put("/api/edo_cuenta/alojamiento", edoCuentaController.actualizaSaldo)
 
 app.put("/api/update/disponibilidad",disponibilidadController.updateDisponibilidad)
 
+
 //IMAGES
 
 app.get("/api/upload/image/habitacion",imageController.uploadHabitacion)
+
+
+//BOOKING
+
+app.get("/api/booking/disponibilidad", disponibilidadController.disponibilidadBooking)
 
 
 app.use(function(error, req, res, next){
   res.json(error);
 });
 
+app.get("/", (req,res)=>{
+  res.send("HELLO")
+})
 
 
 
