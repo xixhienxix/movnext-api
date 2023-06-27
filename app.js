@@ -125,7 +125,7 @@ var upload = multer({ storage: storage });
 
  app.post("/api/habitacion/buscar",habitacioncontroller.buscarHabitacion)
 
- app.post("/api/update/habitaciones/url",habitacioncontroller.actualizaUrlImagen)
+ app.post("/api/update/habitacion/imageurl",habitacioncontroller.actualizaUrlImagen)
 
 
 //Tarifas

@@ -1,5 +1,6 @@
 const express = require('express');
 const Disponibilidad = require('../models/disponibilidad');
+const Habitacion = require('../models/habitacion');
 const {DateTime} = require("luxon");
 const huesped = require('../models/huesped');
 
@@ -62,9 +63,7 @@ exports.crearDisponibilidad = async (req,res,next)=>{
         (async function(){
 
           const insertMany = await Disponibilidad.insertMany(disponibilidadNuevaGeneral);
-  
-          console.log(JSON.stringify(insertMany,'','\t'));
-  
+    
           res.status(200).send('Ok');
       })();
 
@@ -79,7 +78,6 @@ exports.crearDisponibilidad = async (req,res,next)=>{
 exports.getDisponibilidadCompleta= async (req,res,next)=>{
 
   let mySet = new Set();
-  let disponibilidad=[];
   let sinDisponibilidad=[];
 
   let llegada = req.query.llegada
@@ -158,9 +156,6 @@ exports.getDisponibilidadCompleta= async (req,res,next)=>{
 
   exports.getDisponibilidadXFecha = (req,res,next) =>{
 
-    // var queryParameters = req.query
-    // res.json(queryParameters)
-
     const query = Disponibilidad.find({ Dia: req.query.dia, Mes: req.query.mes, Ano: req.query.ano, Cuarto: req.query.cuarto });
 
     query.then((doc)=> {
@@ -210,3 +205,81 @@ exports.updateDisponibilidad = (req,res) => {
         })
 
 }
+
+exports.disponibilidadBooking = async (req,res) =>{
+
+  let infoCuartos = [];
+  let mySet = new Set();
+  let sinDisponibilidad=[];
+
+  let llegada = req.query.fechaInicial
+  let salida = req.query.fechaFinal
+  let dias = req.query.dias
+
+
+  let llegadaDateTime = DateTime.fromObject({day:llegada.split('/')[0],month:llegada.split('/')[1],year:llegada.split('/')[2]});
+  let SalidaDateTime = DateTime.fromObject({day:salida.split('/')[0],month:salida.split('/')[1],year:salida.split('/')[2]});
+  
+  let setArray=[]
+  let query
+  //Estatus:0=No Disponible (Ni Llegadas ni Salidas)
+  //Estatus:1=Disponible
+  //Estatus:2=No Llegadas
+  //Estatus:3=No Salidas
+  //Estatus:4=Fuera de Servicio
+
+    for(let y=0;y<=parseInt(dias);y++)
+    {
+
+        query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year});
+      
+        await query.then((doc)=> {
+    
+            for(let i=0;i<doc.length;i++)
+              {
+                let dispo =doc[i]._doc
+
+                if(dispo.Estatus==0)
+                {
+                  sinDisponibilidad.push(dispo.Cuarto)
+                }
+                if( y==0 && dispo.Estatus==2 )
+                {
+                  sinDisponibilidad.push(dispo.Cuarto)
+                }
+                if( y==parseInt(dias)+1 & dispo.Estatus==3 )
+                {
+                  sinDisponibilidad.push(dispo.Cuarto)
+                }
+                if(dispo.Estatus==4)
+                {
+                  sinDisponibilidad.push(dispo.Cuarto)
+                }
+                mySet.add(dispo.Cuarto)
+              }
+              for(let x=0;x<sinDisponibilidad.length;x++)
+              {
+                mySet.delete(sinDisponibilidad[x])
+              }
+        });
+        llegadaDateTime=llegadaDateTime.plus({days:1})
+    }
+    for (let item of mySet) 
+    {
+      setArray.push(item);
+    }
+
+    for (let k=0;k<setArray.length;k++){
+      const queryDetallesDelCuarto = Habitacion.find({ Codigo:setArray[k]});
+      await queryDetallesDelCuarto.then((doc)=> {
+          if(doc.length!=0){
+            infoCuartos.push(doc[0])
+          }
+      });
+    }
+
+    res.status(200).send(infoCuartos)
+
+  }
+
+

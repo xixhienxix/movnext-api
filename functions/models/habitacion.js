@@ -16,19 +16,8 @@ const postSchemaHabitacion = mongoose.Schema({
   Tipos_Camas:{type:Array},
   Inventario:{type:Number},
   Orden:{type:Number},
+  URL:{type:String},
 
-  // Codigo:req.body.habitacion.Codigo,
-  // Numero:req.body.habitacion.Numero[i].nombreHabs,
-  // Descripcion:req.body.habitacion.Descripcion,
-  // Tipo:req.body.habitacion.Tipo,
-  // Personas:req.body.habitacion.Personas,
-  // Personas_Extra:req.body.habitacion.Personas_Extra,
-  // Vista:req.body.habitacion.Vista,
-  // Camas:conteoCamas,
-  // Tarifa:0,
-  // checkbox:false,
-  // Amenidades:req.body.habitacion.Amenidades,
-  // Tipos_Camas:req.body.habitacion.Camas}
 },{ collection: 'Habitaciones'});
 
 

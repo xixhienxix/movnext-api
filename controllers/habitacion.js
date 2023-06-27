@@ -22,9 +22,9 @@ exports.postEstatusHabitacion = (req,res,next) => {
 
 exports.actualizaUrlImagen = (req,res) => {
 
-
+const codigoCuarto = req.body.fileUploadName.split('.')[0]
         try {
-          Habitacion.updateOne({Codigo:req.query.fileUploadName},{$set:{URL:req.query.downloadURL}},{ upsert: true }).then(result => {
+          Habitacion.updateOne({Codigo:codigoCuarto},{$set:{URL:req.body.downloadURL}},{ upsert: true }).then(result => {
             res.status(200).json({
               message: "data Updated",
             });
@@ -188,7 +188,7 @@ exports.getHabitacion = (req,res,next) =>{
   });
   };
 
-  exports.getAll = (req,res,next) =>{
+exports.getAll = (req,res,next) =>{
     Habitacion.find(this).then((habitacion) => {
     res.status(200).send(habitacion)
     });
