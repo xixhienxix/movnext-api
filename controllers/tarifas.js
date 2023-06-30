@@ -35,7 +35,7 @@ let estado=true
       TarifaxPersona:req.body.tarifa.TarifaxPersona,
       Estado:estado,
       Dias:req.body.tarifa.Dias,
-      Descuento:req.body.tarifa.Descuento
+      Descuento: req.body.tarifa.Descuento != null ? req.body.tarifa.Descuento : 0
      }, {upsert: true}, function(err, doc) {
         if (err)
         {
