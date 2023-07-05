@@ -43,7 +43,9 @@ exports.deleteHabitacion = (req,res)=>{
   
   Habitacion.find({_id: req.params._id})
   .then(result=>{
-    numHab = result[0].Numero
+    if(result.hasOwnProperty(Numero)){
+      numHab = result[0].Numero
+    }
   });
 
   Habitacion.deleteOne({_id: req.params._id
