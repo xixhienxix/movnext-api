@@ -32,7 +32,8 @@ let estado=true
       EstanciaMinima:parseInt(req.body.tarifa.EstanciaMinima),
       EstanciaMaxima:parseInt(req.body.tarifa.EstanciaMaxima),
       TarifaRack:parseInt(req.body.tarifa.TarifaRack),
-      TarifaxPersona:req.body.tarifa.TarifaxPersona,
+      TarifaXAdulto:req.body.tarifa.TarifaXAdulto,
+      TarifaXNino:req.body.tarifa.TarifaXNino,
       Estado:estado,
       Dias:req.body.tarifa.Dias,
       Descuento:req.body.tarifa.Descuento
@@ -64,7 +65,8 @@ exports.postTarifaEspecial=(req,res)=>{
       EstanciaMinima:parseInt(req.body.tarifa.EstanciaMinima),
       EstanciaMaxima:parseInt(req.body.tarifa.EstanciaMaxima),
       TarifaRack:parseInt(req.body.tarifa.TarifaRack),
-      TarifaxPersona:req.body.tarifa.TarifaxPersona,
+      TarifaXAdulto:req.body.tarifa.TarifaXAdulto,
+      TarifaXNino:req.body.tarifa.TarifaXNino,
       Estado:estado,
       Dias:req.body.tarifa.Dias,
       Descuento:req.body.tarifa.Descuento

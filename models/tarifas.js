@@ -11,9 +11,12 @@ _id:{type:String},
     EstanciaMinima:{type:Number},
     EstanciaMaxima:{type:Number},
     TarifaRack:{type:Number},
-    TarifaxPersona:{type:Array},
+    TarifaXAdulto:{type:Array},
+    TarifaXNino:{type:Array},
     Estado:{type:Boolean},
     Dias:{type:Array},
+    Adultos:{type:Number},
+    Ninos:{type:Number},
 Descuento:{type:Number}
   },{ collection: 'Tarifas'});
   module.exports=mongoose.model('Tarifas',promesaSchema);
