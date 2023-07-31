@@ -4,10 +4,12 @@ const mongoose = require('mongoose');
 const port = process.env.PORT||4000
 const cors = require('cors');
 const multer= require('multer')
-
+var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
 /**Controllers
  * 
  */
+const createController = require('./controllers/create')
+
 const huespedController = require('./controllers/huesped')
 const foliocontroller = require('./controllers/folio')
 const estatusController = require('./controllers/estatus')
@@ -45,15 +47,21 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-mongoose.set('useUnifiedTopology', true);
-mongoose.set('useFindAndModify', false);
 mongoose.set('debug', true);//Muestra el Query en Consola
-mongoose.connect(
-  "mongodb://xixzeroxix:34nj6efH@cluster0-shard-00-00.kjzuz.mongodb.net:27017,cluster0-shard-00-01.kjzuz.mongodb.net:27017,cluster0-shard-00-02.kjzuz.mongodb.net:27017/MovNext?ssl=true&replicaSet=atlas-lzt57i-shard-0&authSource=admin&retryWrites=true&w=majority",
-  { useNewUrlParser: true })
-.then(()=>{
-  console.log("Connexion a BD Correcta 123")
-}).catch(error => handleError(error));
+mongoose
+  .connect(db_url, {
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log('Connected to the Database Master.');
+  })
+  .catch(err => console.error(err));
+// mongoose.connect(
+//   "mongodb://xixzeroxix:34nj6efH@cluster0-shard-00-00.kjzuz.mongodb.net:27017,cluster0-shard-00-01.kjzuz.mongodb.net:27017,cluster0-shard-00-02.kjzuz.mongodb.net:27017/MovNext?ssl=true&replicaSet=atlas-lzt57i-shard-0&authSource=admin&retryWrites=true&w=majority",
+//   { useNewUrlParser: true })
+// .then(()=>{
+//   console.log("Connexion a BD Correcta 123")
+// }).catch(error => console.log(error));
 
 
 app.use(bodyParser.json());
@@ -93,6 +101,8 @@ var upload = multer({ storage: storage });
  app.post("/api/reportes/actualiza/estatus/huesped",huespedController.actualizaEstatusHuesped)
 
  app.post("/api/auth/login",authController.login)
+
+ app.post("/api/createdb",createController.create)
 
  app.post("/api/auth/registro",authController.registro)
 
@@ -291,6 +301,7 @@ app.use(function(error, req, res, next){
 app.get("/", (req,res)=>{
   res.send("HELLO")
 })
+
 
 
 

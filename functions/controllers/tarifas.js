@@ -35,8 +35,10 @@ let estado=true
       TarifaXAdulto:req.body.tarifa.TarifaXAdulto,
       TarifaXNino:req.body.tarifa.TarifaXNino,
       Estado:estado,
+      Adultos:req.body.tarifa.Adultos,
+      Ninos:req.body.tarifa.Ninos,
       Dias:req.body.tarifa.Dias,
-      Descuento:req.body.tarifa.Descuento
+      Descuento: req.body.tarifa.Descuento != null ? req.body.tarifa.Descuento : 0
      }, {upsert: true}, function(err, doc) {
         if (err)
         {
@@ -61,6 +63,8 @@ exports.postTarifaEspecial=(req,res)=>{
       Llegada:req.body.tarifa.Llegada,
       Salida:req.body.tarifa.Salida,
       Plan:req.body.tarifa.Plan,
+      Adultos:req.body.tarifa.Adultos,
+      Ninos:req.body.tarifa.Ninos,
       Politicas:req.body.tarifa.Politicas,
       EstanciaMinima:parseInt(req.body.tarifa.EstanciaMinima),
       EstanciaMaxima:parseInt(req.body.tarifa.EstanciaMaxima),

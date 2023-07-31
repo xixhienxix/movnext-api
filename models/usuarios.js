@@ -8,7 +8,8 @@ const postSchema = mongoose.Schema({
     nombre:{type:String},
     email:{type:String},
     terminos:{type:Boolean},
-    rol:{type:Number}
+    rol:{type:Number},
+    hotel:{type:String}
 }, {collection:'usuarios'})
 
 // Duplicate the ID field.

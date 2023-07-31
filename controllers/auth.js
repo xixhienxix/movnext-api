@@ -2,9 +2,19 @@ const jwt = require('jsonwebtoken')
 const usuarios = require('../models/usuarios')
 const private_key='b8b96d8661599441631edc161db8d15c'
 const nodemailer = require('nodemailer')
+const mongoose = require('mongoose');
+
+
 
 
 exports.login = (req,res) =>{
+
+  mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', {
+    useNewUrlParser: true,})
+              .then(() => {
+              console.log('Connected to the Database Master');
+    })
+
     const username = req.body.username
     const password = req.body.password
 
@@ -30,14 +40,14 @@ exports.login = (req,res) =>{
                             //  res.status(200).send('Algo Salio mal')
 
                           })
+                mongoose.connection.close()
 
                 }else 
                 {
                   res.status(409).send('Usuario y/o Contraseñas incorrectas')}
+                  mongoose.connection.close()
                 }
             });    
-    
-
 }
 
 exports.autoriza = (req,res) =>{
@@ -119,8 +129,6 @@ exports.registro = (req,res)=>{
         terminos : req.body.terminos,
         rol:2
     }
-
-    
   
     usuarios.create(user, function(err, result) {
       if (err) {
@@ -130,7 +138,6 @@ exports.registro = (req,res)=>{
       }
     });
       
-
 };
 
 

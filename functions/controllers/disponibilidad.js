@@ -64,7 +64,7 @@ exports.crearDisponibilidad = async (req,res,next)=>{
 
           const insertMany = await Disponibilidad.insertMany(disponibilidadNuevaGeneral);
     
-          res.status(200).send('Ok');
+          res.status(200).send({mensaje:"ok"});
       })();
 
         // Disponibilidad.insertMany(disponibilidadNuevaGeneral, 

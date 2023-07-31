@@ -11,6 +11,7 @@ const postSchemaDivisas = mongoose.Schema({
     zona:{type:String},
     codigoZona:{type:String},
     id:{type:String},
+    hotel:{type:String}
 
 },{ collection: 'Parametros'});
 

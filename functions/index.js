@@ -1,15 +1,16 @@
 const functions = require("firebase-functions");
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const port = process.env.PORT||4000
 const cors = require('cors');
 const multer= require('multer')
-
+var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
 /**Controllers
  * 
  */
+const createController = require('./controllers/create')
+
 const huespedController = require('./controllers/huesped')
 const foliocontroller = require('./controllers/folio')
 const estatusController = require('./controllers/estatus')
@@ -44,16 +45,21 @@ const app = express();
 app.use(cors());
 
 
-
-// mongoose.set('useUnifiedTopology', true);
-// mongoose.set('useFindAndModify', false);
 mongoose.set('debug', true);//Muestra el Query en Consola
-mongoose.connect(
-  "mongodb://xixzeroxix:34nj6efH@cluster0-shard-00-00.kjzuz.mongodb.net:27017,cluster0-shard-00-01.kjzuz.mongodb.net:27017,cluster0-shard-00-02.kjzuz.mongodb.net:27017/MovNext?ssl=true&replicaSet=atlas-lzt57i-shard-0&authSource=admin&retryWrites=true&w=majority",
-  { useNewUrlParser: true })
-.then(()=>{
-  console.log("Connexion a BD Correcta 123")
-}).catch(error => handleError(error));
+mongoose
+  .connect(db_url, {
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log('Connected to the Database Master.');
+  })
+  .catch(err => console.error(err));
+// mongoose.connect(
+//   "mongodb://xixzeroxix:34nj6efH@cluster0-shard-00-00.kjzuz.mongodb.net:27017,cluster0-shard-00-01.kjzuz.mongodb.net:27017,cluster0-shard-00-02.kjzuz.mongodb.net:27017/MovNext?ssl=true&replicaSet=atlas-lzt57i-shard-0&authSource=admin&retryWrites=true&w=majority",
+//   { useNewUrlParser: true })
+// .then(()=>{
+//   console.log("Connexion a BD Correcta 123")
+// }).catch(error => console.log(error));
 
 
 app.use(bodyParser.json());
@@ -94,6 +100,8 @@ var upload = multer({ storage: storage });
 
  app.post("/api/auth/login",authController.login)
 
+ app.post("/api/createdb",createController.create)
+
  app.post("/api/auth/registro",authController.registro)
 
  app.post("/api/edo_cuenta/pagos",edoCuentaController.agregarPago)
@@ -124,6 +132,9 @@ var upload = multer({ storage: storage });
  app.post("/api/habitacion/agregar",habitacioncontroller.agregarInventario)
 
  app.post("/api/habitacion/buscar",habitacioncontroller.buscarHabitacion)
+
+ app.post("/api/update/habitacion/imageurl",habitacioncontroller.actualizaUrlImagen)
+
 
 //Tarifas
 
@@ -270,17 +281,27 @@ app.put("/api/edo_cuenta/alojamiento", edoCuentaController.actualizaSaldo)
 
 app.put("/api/update/disponibilidad",disponibilidadController.updateDisponibilidad)
 
+
 //IMAGES
 
 app.get("/api/upload/image/habitacion",imageController.uploadHabitacion)
+
+
+//BOOKING
+
+app.get("/api/booking/disponibilidad", disponibilidadController.disponibilidadBooking)
 
 
 app.use(function(error, req, res, next){
   res.json(error);
 });
 
-app.get('/', (req,res)=>{
-  res.send("HELLO");
-});
+app.get("/", (req,res)=>{
+  res.send("HELLO")
+})
+
+
+
+
 
 exports.app = functions.https.onRequest(app);

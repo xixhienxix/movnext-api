@@ -15,6 +15,8 @@ _id:{type:String},
     TarifaXNino:{type:Array},
     Estado:{type:Boolean},
     Dias:{type:Array},
+    Adultos:{type:Number},
+    Ninos:{type:Number},
 Descuento:{type:Number}
   },{ collection: 'Tarifas'});
   module.exports=mongoose.model('Tarifas',promesaSchema);

@@ -1,14 +1,27 @@
 const Parametros = require('../models/parametros')
 var mongo = require('mongodb');
+const express = require('express');
+const mongoose = require('mongoose');
+const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
 
 
-exports.getParametros = (req,res) =>
+exports.getParametros = async (req,res) =>
 {
-
-    Parametros.find(this).then((param) => {
-        // console.log(huesped)
-        res.status(200).send(param)
-        });  
+    if(req.query.hotel!='undefined'){
+        try {
+            mongoose.connect(url+req.query.hotel.replace(/\s/g, ''), {useNewUrlParser: true,})
+                .then(
+                    () => 
+                        {
+                            Parametros.find(this).then((param) => {
+                                res.status(200).send(param)
+                                }); 
+                        }
+                    )
+        } catch (error) {
+            console.log('Error connecting to DB ::', error);
+        }
+    }
 }
 
 exports.postParametros = (req,res)=>{
