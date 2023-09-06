@@ -25,7 +25,10 @@ const parametros_default_values = require('../defaultValues/parametros')
 const timezones_default_values = require('../defaultValues/timezones')
 
 exports.create = (req,res)=>{
-
+    console.log('Conexion de base de datos', mongoose.connection.readyState);
+    if(mongoose.connection.readyState===1){
+      mongoose.close()
+    }
     mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', {
                     useNewUrlParser: true,})
                               .then(() => {
@@ -51,7 +54,7 @@ exports.create = (req,res)=>{
 
     usuarios.find({username : username}, function (err, docs) {
         if (docs.length){
-            res.status(200).send({response:'El usuario ya existe especifique otro nombre de usuario'});
+            res.status(200).send({response:'El nombre de usuario no se puede usar, especifique otro'});
         }else{
             usuarios.create(user, function(err, result) {
                 if (err) {
@@ -76,7 +79,7 @@ exports.create = (req,res)=>{
                               useNewUrlParser: true,
                               })
                               .then(() => {
-                              console.log('Connected to the Database.'+req.body.nombreHotel);
+                              console.log('Connected to the Database.'+req.body.hotel);
                               
                               //Collection Creation
                                 Ama.insertMany(ama_defaults.ama_llaves_defaults).then((result) => {
@@ -102,6 +105,9 @@ exports.create = (req,res)=>{
                                 });
                                 Parametros.insertMany(parametros_default_values.parametros_default_values).then((result) => {
                                     console.log('Parametros Collection Creada Exitosamente')
+                                });
+                                TimeZones.insertMany(timezones_default_values.timezones_default_values).then((result) => {
+                                    console.log('TimeZones Collection Creada Exitosamente')
                                 });
                         
                               })

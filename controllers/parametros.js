@@ -36,6 +36,7 @@ exports.postParametros = (req,res)=>{
                 zona:req.body.zona,
                 codigoZona:req.body.codigoZona,
                 checkOut:req.body.checkOut,
+                checkIn:req.body.checkIn,
                 noShow:req.body.noShow,
                 divisa:req.body.divisa
                 }

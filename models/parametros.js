@@ -4,6 +4,7 @@ const postSchemaDivisas = mongoose.Schema({
     _id:{type:String},
     auditoria:{type:String},
     checkOut:{type:String},
+    checkIn:{type:String},
     divisa:{type:String},
     ish:{type:String},
     iva:{type:String},

@@ -39,7 +39,12 @@ var imgModel = require('./models/img.js');
 
 
 const app = express();
-
+const serverStatus = () => {
+  return { 
+     state: 'up', 
+     dbState: mongoose.STATES[mongoose.connection.readyState] 
+  }
+};
 
 app.use(cors());
 
@@ -78,7 +83,9 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-
+app.use('/api/status', require('express-healthcheck')({
+  healthy: serverStatus
+}));
 //POST
  app.post("/api/reportes/huesped",huespedController.postHuesped);
 

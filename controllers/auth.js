@@ -8,7 +8,10 @@ const mongoose = require('mongoose');
 
 
 exports.login = (req,res) =>{
-
+  console.log('Conexion de base de datos', mongoose.connection.readyState);
+  if(mongoose.connection.readyState===1){
+    mongoose.close()
+  }
   mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', {
     useNewUrlParser: true,})
               .then(() => {
