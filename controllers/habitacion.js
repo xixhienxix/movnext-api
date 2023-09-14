@@ -185,17 +185,25 @@ exports.agregarInventario = (req,res,next) => {
 //getInfoHabitaciones
 
 exports.getHabitacion = (req,res,next) =>{
+  
   Habitacion.find(this).then((habitacion) => {
   res.status(200).send(habitacion)
   });
   };
 
 exports.getAll = (req,res,next) =>{
-    Habitacion.find(this).then((habitacion) => {
-    res.status(200).send(habitacion)
-    });
+
+  if(req.query.hotel!='undefined'){
+
+    const db = mongoose.connect(url+req.query.hotel, { useNewUrlParser: true })
+      .then(() => {
+        Habitacion.find(this).then((habitacion) => {
+          res.status(200).send(habitacion)
+          });
+      })
+      .catch(err => console.error(err));
     };
-  
+  };
 
 
 //Tipos de Cuarto
