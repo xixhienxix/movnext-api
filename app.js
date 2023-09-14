@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const port = process.env.PORT||4000
 const cors = require('cors');
 const multer= require('multer')
-var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
+var url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
 /**Controllers
  * 
  */
@@ -39,6 +39,7 @@ var imgModel = require('./models/img.js');
 
 
 const app = express();
+var Admin = mongoose.mongo.Admin
 const serverStatus = () => {
   return { 
      state: 'up', 
@@ -53,10 +54,7 @@ app.listen(port, () => {
 })
 
 mongoose.set('debug', true);//Muestra el Query en Consola
-mongoose
-  .connect(db_url, {
-    useNewUrlParser: true,
-  })
+mongoose.connect(url+'Master', { useNewUrlParser: true },{server: {poolSize: 100}})
   .then(() => {
     console.log('Connected to the Database Master.');
   })
@@ -81,7 +79,41 @@ var storage = multer.diskStorage({
   }
 });
 
+// If the connection throws an error
+mongoose.connection.on("error", function(err) {
+  console.error('Failed to connect to DB ' + url + ' on startup ', err);
+});
+
+// When the connection is disconnected
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose default connection to DB :' + url + ' disconnected');
+});
+
+var gracefulExit = function() { 
+  mongoose.connection.close(function () {
+    console.log('Mongoose default connection with DB :' + url + ' is disconnected through app termination');
+    process.exit(0);
+  });
+}
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
+
 var upload = multer({ storage: storage });
+app.get("/api/listaHoteles", (req,res)=>{
+/// create a connection to the DB    
+var connection = mongoose.createConnection(
+  'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master');
+connection.on('open', function() {
+  // connection established
+  new Admin(connection.db).listDatabases(function(err, result) {
+      // database list stored in result.databases
+      var allDatabases = result.databases;   
+      return  res.status(200).send(result.databases)//res.send('Succesfully saved.');
+ 
+  });
+});
+})
 
 app.use('/api/status', require('express-healthcheck')({
   healthy: serverStatus

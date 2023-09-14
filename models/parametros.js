@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const postSchemaDivisas = mongoose.Schema({
+const postSchemaParametros = mongoose.Schema({
     _id:{type:String},
     auditoria:{type:String},
     checkOut:{type:String},
@@ -17,4 +17,4 @@ const postSchemaDivisas = mongoose.Schema({
 },{ collection: 'Parametros'});
 
 
-module.exports=mongoose.model('Parametros',postSchemaDivisas);
+module.exports=mongoose.model('Parametros',postSchemaParametros);

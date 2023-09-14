@@ -1,16 +1,33 @@
-
 const Ama = require('../models/ama.js')
+const mongoose = require('mongoose');
+var url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
 
-exports.getEstatus = (req,res) =>
+
+function mongooseConnection(hotel) {
+    return new Promise((resolve, reject) => {
+            const db = mongoose.connect(url + hotel, { useNewUrlParser: true }).then(() => {
+                    resolve(true);
+            })
+                    .catch(err => reject(err));
+    })
+}
+
+exports.getEstatus = async (req,res) =>
 {
-
-    Ama.find(this).then((ama) => {
-        // console.log(huesped)
-        res.status(200).send(ama)
-        });
-
-
-        
+    if (req.query.hotel != 'undefined') {
+        const conn = await mongooseConnection(req.query.hotel)
+        if (conn) {
+            const query = Ama.find(this)
+            query.exec((err,result)=>{
+                if(err){
+                    res.status(200).send(err)
+                }else {
+                    res.status(200).send(ama)
+                }
+                mongoose.connection.close();
+            })
+        }
+    } 
 }
 
 exports.getEstatusByID=(req,res)=>{

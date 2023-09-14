@@ -27,7 +27,7 @@ const timezones_default_values = require('../defaultValues/timezones')
 exports.create = (req,res)=>{
     console.log('Conexion de base de datos', mongoose.connection.readyState);
     if(mongoose.connection.readyState===1){
-      mongoose.close()
+        mongoose.connection.useDb('Master'); 
     }
     mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', {
                     useNewUrlParser: true,})
@@ -45,7 +45,7 @@ exports.create = (req,res)=>{
         hotel:req.body.hotel
     }
 
-    var nombreHotel = req.body.hotel.replace(/\s/g, '');
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
     var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/'
     db_url = db_url+nombreHotel
 
