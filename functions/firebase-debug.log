@@ -1,0 +1,517 @@
+[debug] [2023-09-06T03:13:29.893Z] ----------------------------------------------------------------------
+[debug] [2023-09-06T03:13:29.895Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2023-09-06T03:13:29.895Z] CLI Version:   12.5.2
+[debug] [2023-09-06T03:13:29.895Z] Platform:      win32
+[debug] [2023-09-06T03:13:29.895Z] Node Version:  v16.14.2
+[debug] [2023-09-06T03:13:29.896Z] Time:          Tue Sep 05 2023 22:13:29 GMT-0500 (hora de verano central)
+[debug] [2023-09-06T03:13:29.896Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-06T03:13:29.948Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-06T03:13:29.949Z] > authorizing via signed-in user (zefraoracle@gmail.com)
+[debug] [2023-09-06T03:13:29.949Z] [iam] checking project movnext-api for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2023-09-06T03:13:29.950Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions [none]
+[debug] [2023-09-06T03:13:29.950Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:13:29.951Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-09-06T03:13:30.336Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions 200
+[debug] [2023-09-06T03:13:30.336Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-09-06T03:13:30.337Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2023-09-06T03:13:30.337Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-09-06T03:13:30.679Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2023-09-06T03:13:30.679Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'movnext-api'...
+[info] 
+[info] i  deploying functions 
+[info] +  functions: Finished running predeploy script. 
+[debug] [2023-09-06T03:13:30.683Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api [none]
+[debug] [2023-09-06T03:13:30.957Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api 200
+[debug] [2023-09-06T03:13:30.957Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api {"projectId":"movnext-api","projectNumber":"82604568171","displayName":"Movnext-api","name":"projects/movnext-api","resources":{"hostingSite":"movnext-api","realtimeDatabaseInstance":"movnext-api-default-rtdb","storageBucket":"movnext-api.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_5d3b00a0-533e-4040-8255-0c44322b861c"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2023-09-06T03:13:30.959Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com [none]
+[debug] [2023-09-06T03:13:30.959Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:13:30.960Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com [none]
+[debug] [2023-09-06T03:13:30.960Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:13:30.961Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com [none]
+[debug] [2023-09-06T03:13:30.961Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:13:30.961Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com [none]
+[debug] [2023-09-06T03:13:30.961Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:13:31.431Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com 200
+[debug] [2023-09-06T03:13:31.431Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2023-09-06T03:13:31.462Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com 200
+[debug] [2023-09-06T03:13:31.462Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2023-09-06T03:13:31.497Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com 200
+[debug] [2023-09-06T03:13:31.498Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2023-09-06T03:13:31.520Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com 200
+[debug] [2023-09-06T03:13:31.520Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2023-09-06T03:13:31.520Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api/adminSdkConfig [none]
+[debug] [2023-09-06T03:13:31.766Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api/adminSdkConfig 200
+[debug] [2023-09-06T03:13:31.766Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api/adminSdkConfig {"projectId":"movnext-api","databaseURL":"https://movnext-api-default-rtdb.firebaseio.com","storageBucket":"movnext-api.appspot.com","locationId":"us-central"}
+[debug] [2023-09-06T03:13:31.767Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/movnext-api/configs [none]
+[debug] [2023-09-06T03:13:31.990Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/movnext-api/configs 200
+[debug] [2023-09-06T03:13:31.990Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/movnext-api/configs {}
+[debug] [2023-09-06T03:13:31.991Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2023-09-06T03:13:32.932Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-healthcheck": "^0.1.0",
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1",
+    "g": "^2.0.1",
+    "global": "^4.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "luxon": "^2.2.0",
+    "mongoose": "^6.8.4",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.6.5",
+    "nodemon": "^2.0.16",
+    "xmlhttprequest-ssl": "^1.6.2"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2023-09-06T03:13:32.932Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2023-09-06T03:13:32.933Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-09-06T03:13:32.941Z] Found firebase-functions binary at 'C:\Users\carlo\OneDrive\Documentos\Angular\movnext\movnext-api\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8198
+
+[error] (node:18848) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[debug] [2023-09-06T03:13:33.508Z] Got response from /__/functions.yaml {"endpoints":{"app":{"platform":"gcfv1","httpsTrigger":{},"entryPoint":"app"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] shutdown requested via /__/quitquitquit
+
+[info] Connected to the Database Master.
+
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\carlo\OneDrive\Documentos\Angular\movnext\movnext-api\functions (133.56 KB) for uploading 
+[debug] [2023-09-06T03:13:43.620Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/-/functions [none]
+[debug] [2023-09-06T03:13:44.238Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/-/functions 200
+[debug] [2023-09-06T03:13:44.238Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/-/functions {"functions":[{"name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"0713fa989d7b13f38eeb5599312111e0f005add6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/91493f32-d948-447a-bdd0-bc449e03ef0a.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"}]}
+[debug] [2023-09-06T03:13:44.239Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/movnext-api/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2023-09-06T03:13:44.753Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/movnext-api/locations/-/functions 200
+[debug] [2023-09-06T03:13:44.753Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/movnext-api/locations/-/functions {}
+[debug] [2023-09-06T03:13:44.755Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api [none]
+[debug] [2023-09-06T03:13:45.001Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api 200
+[debug] [2023-09-06T03:13:45.001Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api {"projectId":"movnext-api","projectNumber":"82604568171","displayName":"Movnext-api","name":"projects/movnext-api","resources":{"hostingSite":"movnext-api","realtimeDatabaseInstance":"movnext-api-default-rtdb","storageBucket":"movnext-api.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_5d3b00a0-533e-4040-8255-0c44322b861c"}
+[debug] [2023-09-06T03:13:45.002Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2023-09-06T03:13:45.002Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl {}
+[debug] [2023-09-06T03:13:45.559Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2023-09-06T03:13:45.559Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D"}
+[debug] [2023-09-06T03:13:45.559Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip GoogleAccessId=service-82604568171%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D
+[debug] [2023-09-06T03:13:45.560Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip [stream]
+[debug] [2023-09-06T03:13:45.929Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip 200
+[debug] [2023-09-06T03:13:45.929Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip [omitted]
+[info] +  functions: functions folder uploaded successfully 
+[info] i  functions: updating Node.js 16 (1st Gen) function app(us-central1)... 
+[debug] [2023-09-06T03:13:45.932Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app updateMask=name%2CsourceUploadUrl%2CentryPoint%2Cruntime%2CdockerRegistry%2Clabels%2ChttpsTrigger.securityLevel%2CenvironmentVariables%2CavailableMemoryMb%2CsourceToken%2CbuildEnvironmentVariables
+[debug] [2023-09-06T03:13:45.932Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app {"name":"projects/movnext-api/locations/us-central1/functions/app","sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","entryPoint":"app","runtime":"nodejs16","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"httpsTrigger":{"securityLevel":"SECURE_OPTIONAL"},"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"availableMemoryMb":256,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2023-09-06T03:13:46.490Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app 200
+[debug] [2023-09-06T03:13:46.490Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z"}}
+[debug] [2023-09-06T03:13:46.491Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:13:46.719Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:13:46.719Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z"}}
+[debug] [2023-09-06T03:13:47.231Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:13:47.231Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:13:47.451Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:13:47.451Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z","buildId":"490ed416-870e-4e6c-8996-d4444a878fbc","buildName":"projects/82604568171/locations/us-central1/builds/490ed416-870e-4e6c-8996-d4444a878fbc"}}
+[debug] [2023-09-06T03:13:48.463Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:13:48.463Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:13:48.700Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:13:48.700Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z","buildId":"490ed416-870e-4e6c-8996-d4444a878fbc","buildName":"projects/82604568171/locations/us-central1/builds/490ed416-870e-4e6c-8996-d4444a878fbc"}}
+[debug] [2023-09-06T03:13:50.707Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:13:50.707Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:13:50.919Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:13:50.919Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z","buildId":"490ed416-870e-4e6c-8996-d4444a878fbc","buildName":"projects/82604568171/locations/us-central1/builds/490ed416-870e-4e6c-8996-d4444a878fbc"}}
+[debug] [2023-09-06T03:13:54.928Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:13:54.929Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:13:55.148Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:13:55.148Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z","buildId":"490ed416-870e-4e6c-8996-d4444a878fbc","buildName":"projects/82604568171/locations/us-central1/builds/490ed416-870e-4e6c-8996-d4444a878fbc"}}
+[debug] [2023-09-06T03:14:03.153Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:14:03.154Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:14:03.363Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:14:03.363Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:13:47Z","buildId":"490ed416-870e-4e6c-8996-d4444a878fbc","buildName":"projects/82604568171/locations/us-central1/builds/490ed416-870e-4e6c-8996-d4444a878fbc"}}
+[debug] [2023-09-06T03:14:13.377Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:14:13.377Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR [none]
+[debug] [2023-09-06T03:14:13.578Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR 200
+[debug] [2023-09-06T03:14:13.578Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL1l1M19MWndvM3hR","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/5e734d5f-f6dd-4435-9b52-b947be070168.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971826&Signature=TEuE9Qo6VT6U5mGPMcCG6p5%2BkhKSndejrXJkZ0%2FjSTDHyKd4Jw2QbnM%2FVg5CRgdNeBHtY3riI0PC9Cp3GxlECC3Khdw49VwztLHL94%2BCVeNA4qH51d1XJud8M%2B6mXQi5zdgWNFwr0PLrHMPtQBvWA7%2FDTQ408HuNg10c4h21adgfbQqfpXxf3RzmGD5BuX4VaQeEV10qaFnxnFIg8cN6hfdOq3Ibe7%2Bla%2BmHU3YW2L%2BWaMlpq8jOJm34yEAXuJEyM8qnThKO8cxgZrE4Z5rVBfJQHnELlbzB8%2BeqhwykEeNS4%2FamRAoAlIDC%2BzpT8IfS8S6NvE2SQqX%2B3gYNmfwOfQ%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"17","updateTime":"2023-09-06T03:14:06Z","buildId":"490ed416-870e-4e6c-8996-d4444a878fbc","buildName":"projects/82604568171/locations/us-central1/builds/490ed416-870e-4e6c-8996-d4444a878fbc"},"done":true,"error":{"code":3,"message":"Build failed: npm ERR! code EUSAGE\nnpm ERR! \nnpm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm ERR! \nnpm ERR! Missing: @firebase/app-compat@0.2.18 from lock file\nnpm ERR! Missing: @firebase/app@0.9.18 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: idb@7.1.1 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]\nnpm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]\nnpm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]\nnpm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     /www-data-home/.npm/_logs/2023-09-06T03_14_04_048Z-debug-0.log; Error ID: beaf8772"}}
+[debug] [2023-09-06T03:14:13.578Z] Got source token undefined for region us-central1
+[error] Build failed: npm ERR! code EUSAGE
+npm ERR! 
+npm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm ERR! 
+npm ERR! Missing: @firebase/app-compat@0.2.18 from lock file
+npm ERR! Missing: @firebase/app@0.9.18 from lock file
+npm ERR! Missing: @firebase/component@0.6.4 from lock file
+npm ERR! Missing: @firebase/logger@0.4.0 from lock file
+npm ERR! Missing: @firebase/util@1.9.3 from lock file
+npm ERR! Missing: @firebase/component@0.6.4 from lock file
+npm ERR! Missing: @firebase/logger@0.4.0 from lock file
+npm ERR! Missing: @firebase/util@1.9.3 from lock file
+npm ERR! Missing: idb@7.1.1 from lock file
+npm ERR! 
+npm ERR! Clean install a project
+npm ERR! 
+npm ERR! Usage:
+npm ERR! npm ci
+npm ERR! 
+npm ERR! Options:
+npm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]
+npm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]
+npm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]
+npm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]
+npm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm ERR! 
+npm ERR! aliases: clean-install, ic, install-clean, isntall-clean
+npm ERR! 
+npm ERR! Run "npm help ci" for more info
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /www-data-home/.npm/_logs/2023-09-06T03_14_04_048Z-debug-0.log; Error ID: beaf8772
+[debug] [2023-09-06T03:14:13.580Z] Total Function Deployment time: 27648
+[debug] [2023-09-06T03:14:13.580Z] 1 Functions Deployed
+[debug] [2023-09-06T03:14:13.580Z] 1 Functions Errored
+[debug] [2023-09-06T03:14:13.580Z] 0 Function Deployments Aborted
+[debug] [2023-09-06T03:14:13.580Z] Average Function Deployment time: 27648
+[info] 
+[info] Functions deploy had errors with the following functions:
+	app(us-central1)
+[debug] [2023-09-06T03:14:13.581Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[info] i  functions: cleaning up build files... 
+[debug] [2023-09-06T03:14:13.582Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app [none]
+[debug] [2023-09-06T03:14:13.583Z] >>> [apiv2][query] GET https://us.gcr.io/v2/movnext-api/gcf/us-central1/tags/list [none]
+[debug] [2023-09-06T03:14:13.856Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app 200
+[debug] [2023-09-06T03:14:13.856Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app {"name":"projects/movnext-api/locations/us-central1/operations/1935932a-bab8-4dcc-bb93-27db06f5b2fa","metadata":{"@type":"type.googleapis.com/google.devtools.artifactregistry.v1beta2.OperationMetadata"}}
+[debug] [2023-09-06T03:14:13.856Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/operations/1935932a-bab8-4dcc-bb93-27db06f5b2fa [none]
+[debug] [2023-09-06T03:14:13.949Z] <<< [apiv2][status] GET https://us.gcr.io/v2/movnext-api/gcf/us-central1/tags/list 200
+[debug] [2023-09-06T03:14:13.949Z] <<< [apiv2][body] GET https://us.gcr.io/v2/movnext-api/gcf/us-central1/tags/list {"child":[],"manifest":{},"name":"movnext-api/gcf/us-central1","tags":[]}
+[debug] [2023-09-06T03:14:13.949Z] Could not find image for function projects/movnext-api/locations/us-central1/functions/app
+[debug] [2023-09-06T03:14:14.062Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/operations/1935932a-bab8-4dcc-bb93-27db06f5b2fa 200
+[debug] [2023-09-06T03:14:14.062Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/operations/1935932a-bab8-4dcc-bb93-27db06f5b2fa {"name":"projects/movnext-api/locations/us-central1/operations/1935932a-bab8-4dcc-bb93-27db06f5b2fa","metadata":{"@type":"type.googleapis.com/google.devtools.artifactregistry.v1beta2.OperationMetadata"},"done":true,"response":{"@type":"type.googleapis.com/google.protobuf.Empty"}}
+[debug] [2023-09-06T03:14:14.063Z] Functions deploy failed.
+[debug] [2023-09-06T03:14:14.063Z] {
+  "endpoint": {
+    "id": "app",
+    "project": "movnext-api",
+    "region": "us-central1",
+    "entryPoint": "app",
+    "platform": "gcfv1",
+    "runtime": "nodejs16",
+    "httpsTrigger": {},
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}",
+      "GCLOUD_PROJECT": "movnext-api",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/movnext-api/locations/us-central1/functions/app"
+    },
+    "codebase": "default",
+    "availableMemoryMb": 256,
+    "securityLevel": "SECURE_OPTIONAL",
+    "targetedByOnly": false,
+    "hash": "9d31b07af79e180311dd9a1fef4db9214efd92d6",
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    }
+  },
+  "op": "update",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Build failed: npm ERR! code EUSAGE\nnpm ERR! \nnpm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm ERR! \nnpm ERR! Missing: @firebase/app-compat@0.2.18 from lock file\nnpm ERR! Missing: @firebase/app@0.9.18 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: idb@7.1.1 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]\nnpm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]\nnpm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]\nnpm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     /www-data-home/.npm/_logs/2023-09-06T03_14_04_048Z-debug-0.log; Error ID: beaf8772",
+    "status": 3,
+    "code": 3
+  }
+}
+[debug] [2023-09-06T03:14:14.064Z] Error: Failed to update function app in region us-central1
+    at C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:51:11
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Fabricator.updateV1Function (C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:344:32)
+    at async Fabricator.updateEndpoint (C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:150:13)
+    at async handle (C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:88:17)
+[error] 
+[error] Error: There was an error deploying functions
+[debug] [2023-09-06T03:16:08.832Z] ----------------------------------------------------------------------
+[debug] [2023-09-06T03:16:08.834Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2023-09-06T03:16:08.834Z] CLI Version:   12.5.2
+[debug] [2023-09-06T03:16:08.835Z] Platform:      win32
+[debug] [2023-09-06T03:16:08.835Z] Node Version:  v16.14.2
+[debug] [2023-09-06T03:16:08.835Z] Time:          Tue Sep 05 2023 22:16:08 GMT-0500 (hora de verano central)
+[debug] [2023-09-06T03:16:08.835Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-06T03:16:08.895Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-06T03:16:08.895Z] > authorizing via signed-in user (zefraoracle@gmail.com)
+[debug] [2023-09-06T03:16:08.896Z] [iam] checking project movnext-api for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2023-09-06T03:16:08.897Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions [none]
+[debug] [2023-09-06T03:16:08.898Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:16:08.898Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-09-06T03:16:09.221Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions 200
+[debug] [2023-09-06T03:16:09.221Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/movnext-api:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-09-06T03:16:09.221Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2023-09-06T03:16:09.222Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-09-06T03:16:09.518Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2023-09-06T03:16:09.518Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/movnext-api/serviceAccounts/movnext-api@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'movnext-api'...
+[info] 
+[info] i  deploying functions 
+[info] +  functions: Finished running predeploy script. 
+[debug] [2023-09-06T03:16:09.521Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api [none]
+[debug] [2023-09-06T03:16:09.749Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api 200
+[debug] [2023-09-06T03:16:09.749Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api {"projectId":"movnext-api","projectNumber":"82604568171","displayName":"Movnext-api","name":"projects/movnext-api","resources":{"hostingSite":"movnext-api","realtimeDatabaseInstance":"movnext-api-default-rtdb","storageBucket":"movnext-api.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_5d3b00a0-533e-4040-8255-0c44322b861c"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2023-09-06T03:16:09.751Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com [none]
+[debug] [2023-09-06T03:16:09.751Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:16:09.752Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com [none]
+[debug] [2023-09-06T03:16:09.752Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:16:09.753Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com [none]
+[debug] [2023-09-06T03:16:09.753Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:16:09.753Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com [none]
+[debug] [2023-09-06T03:16:09.753Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com x-goog-quota-user=projects/movnext-api
+[debug] [2023-09-06T03:16:10.109Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com 200
+[debug] [2023-09-06T03:16:10.109Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2023-09-06T03:16:10.122Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com 200
+[debug] [2023-09-06T03:16:10.122Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2023-09-06T03:16:10.131Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com 200
+[debug] [2023-09-06T03:16:10.132Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2023-09-06T03:16:10.273Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com 200
+[debug] [2023-09-06T03:16:10.273Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/movnext-api/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2023-09-06T03:16:10.273Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api/adminSdkConfig [none]
+[debug] [2023-09-06T03:16:10.507Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api/adminSdkConfig 200
+[debug] [2023-09-06T03:16:10.507Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api/adminSdkConfig {"projectId":"movnext-api","databaseURL":"https://movnext-api-default-rtdb.firebaseio.com","storageBucket":"movnext-api.appspot.com","locationId":"us-central"}
+[debug] [2023-09-06T03:16:10.508Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/movnext-api/configs [none]
+[debug] [2023-09-06T03:16:11.010Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/movnext-api/configs 200
+[debug] [2023-09-06T03:16:11.010Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/movnext-api/configs {}
+[debug] [2023-09-06T03:16:11.011Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2023-09-06T03:16:11.892Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-healthcheck": "^0.1.0",
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1",
+    "g": "^2.0.1",
+    "global": "^4.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "luxon": "^2.2.0",
+    "mongoose": "^6.8.4",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.6.5",
+    "nodemon": "^2.0.16",
+    "xmlhttprequest-ssl": "^1.6.2"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2023-09-06T03:16:11.892Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2023-09-06T03:16:11.893Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-09-06T03:16:11.901Z] Found firebase-functions binary at 'C:\Users\carlo\OneDrive\Documentos\Angular\movnext\movnext-api\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8928
+
+[error] (node:11944) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7. Use `mongoose.set('strictQuery', false);` if you want to prepare for this change. Or use `mongoose.set('strictQuery', true);` to suppress this warning.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[debug] [2023-09-06T03:16:12.446Z] Got response from /__/functions.yaml {"endpoints":{"app":{"platform":"gcfv1","httpsTrigger":{},"entryPoint":"app"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] shutdown requested via /__/quitquitquit
+
+[info] Connected to the Database Master.
+
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\carlo\OneDrive\Documentos\Angular\movnext\movnext-api\functions (133.56 KB) for uploading 
+[debug] [2023-09-06T03:16:22.551Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/-/functions [none]
+[debug] [2023-09-06T03:16:23.171Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/-/functions 200
+[debug] [2023-09-06T03:16:23.171Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/-/functions {"functions":[{"name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"0713fa989d7b13f38eeb5599312111e0f005add6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/91493f32-d948-447a-bdd0-bc449e03ef0a.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"}]}
+[debug] [2023-09-06T03:16:23.172Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/movnext-api/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2023-09-06T03:16:23.663Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/movnext-api/locations/-/functions 200
+[debug] [2023-09-06T03:16:23.663Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/movnext-api/locations/-/functions {}
+[debug] [2023-09-06T03:16:23.665Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api [none]
+[debug] [2023-09-06T03:16:23.911Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api 200
+[debug] [2023-09-06T03:16:23.911Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/movnext-api {"projectId":"movnext-api","projectNumber":"82604568171","displayName":"Movnext-api","name":"projects/movnext-api","resources":{"hostingSite":"movnext-api","realtimeDatabaseInstance":"movnext-api-default-rtdb","storageBucket":"movnext-api.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_5d3b00a0-533e-4040-8255-0c44322b861c"}
+[debug] [2023-09-06T03:16:23.912Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2023-09-06T03:16:23.912Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl {}
+[debug] [2023-09-06T03:16:24.507Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2023-09-06T03:16:24.507Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D"}
+[debug] [2023-09-06T03:16:24.508Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip GoogleAccessId=service-82604568171%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D
+[debug] [2023-09-06T03:16:24.508Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip [stream]
+[debug] [2023-09-06T03:16:24.893Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip 200
+[debug] [2023-09-06T03:16:24.893Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip [omitted]
+[info] +  functions: functions folder uploaded successfully 
+[info] i  functions: updating Node.js 16 (1st Gen) function app(us-central1)... 
+[debug] [2023-09-06T03:16:24.897Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app updateMask=name%2CsourceUploadUrl%2CentryPoint%2Cruntime%2CdockerRegistry%2Clabels%2ChttpsTrigger.securityLevel%2CenvironmentVariables%2CavailableMemoryMb%2CsourceToken%2CbuildEnvironmentVariables
+[debug] [2023-09-06T03:16:24.897Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app {"name":"projects/movnext-api/locations/us-central1/functions/app","sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","entryPoint":"app","runtime":"nodejs16","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"httpsTrigger":{"securityLevel":"SECURE_OPTIONAL"},"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"availableMemoryMb":256,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2023-09-06T03:16:25.429Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app 200
+[debug] [2023-09-06T03:16:25.429Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/movnext-api/locations/us-central1/functions/app {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z"}}
+[debug] [2023-09-06T03:16:25.430Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:25.644Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:25.645Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z"}}
+[debug] [2023-09-06T03:16:26.149Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:16:26.149Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:26.400Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:26.400Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z","buildId":"2ff5c841-78a1-437b-a9c1-41c40b02437d","buildName":"projects/82604568171/locations/us-central1/builds/2ff5c841-78a1-437b-a9c1-41c40b02437d"}}
+[debug] [2023-09-06T03:16:27.409Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:16:27.409Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:27.639Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:27.639Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z","buildId":"2ff5c841-78a1-437b-a9c1-41c40b02437d","buildName":"projects/82604568171/locations/us-central1/builds/2ff5c841-78a1-437b-a9c1-41c40b02437d"}}
+[debug] [2023-09-06T03:16:29.651Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:16:29.652Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:29.862Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:29.862Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z","buildId":"2ff5c841-78a1-437b-a9c1-41c40b02437d","buildName":"projects/82604568171/locations/us-central1/builds/2ff5c841-78a1-437b-a9c1-41c40b02437d"}}
+[debug] [2023-09-06T03:16:33.868Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:16:33.869Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:34.115Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:34.115Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z","buildId":"2ff5c841-78a1-437b-a9c1-41c40b02437d","buildName":"projects/82604568171/locations/us-central1/builds/2ff5c841-78a1-437b-a9c1-41c40b02437d"}}
+[debug] [2023-09-06T03:16:42.130Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:16:42.130Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:42.289Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:42.289Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:26Z","buildId":"2ff5c841-78a1-437b-a9c1-41c40b02437d","buildName":"projects/82604568171/locations/us-central1/builds/2ff5c841-78a1-437b-a9c1-41c40b02437d"}}
+[debug] [2023-09-06T03:16:52.290Z] [update-default-us-central1-app] Retrying task index 0
+[debug] [2023-09-06T03:16:52.291Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn [none]
+[debug] [2023-09-06T03:16:52.496Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn 200
+[debug] [2023-09-06T03:16:52.496Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn {"name":"operations/bW92bmV4dC1hcGkvdXMtY2VudHJhbDEvYXBwL0N2MGw5QkJJMGdn","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/movnext-api/locations/us-central1/functions/app","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/movnext-api/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-movnext-api.cloudfunctions.net/app","securityLevel":"SECURE_OPTIONAL"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"movnext-api@appspot.gserviceaccount.com","updateTime":"2023-07-30T01:02:52.001Z","versionId":"15","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"9d31b07af79e180311dd9a1fef4db9214efd92d6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-630111391686.us-central1.cloudfunctions.appspot.com/a30b0eac-b0e7-4df4-88db-aba474e039b6.zip?GoogleAccessId=service-82604568171@gcf-admin-robot.iam.gserviceaccount.com&Expires=1693971985&Signature=dB28qw65RNkmgUDzAuIAAmvS2oyzXMVi40ZmR3nhVwTS5EGRQZNB5wSOG5qOPPOWUDCoWUz4GFXpmUQMSntnr18a69blbj1XiGLupcv5kKoJMGQPql0cNQn54f3KZGacEuSSh058VFG0RSVpV5abwnERLnXe5lHiiHjUC%2FJToDY2tInSKAM9rOYSr1i8oznqzspvnL%2FqwUZ7NZBtg6RQRCOsg0t2ARq7s9rY4YPHmPCzRlewzD7OEPTdau63cVHGJTS6wUlMMiU%2B8UNxLkuro5CPCwWzCPXmABIdD7qfptW5fl2BfdVUfR%2FyoO0nGur7w7GBqNY7fotO6%2FM0PY9%2F2A%3D%3D","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"movnext-api","EVENTARC_CLOUD_EVENT_SOURCE":"projects/movnext-api/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"8b8d141c-14ee-4381-9417-5fae508515e1","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/82604568171/locations/us-central1/builds/8b8d141c-14ee-4381-9417-5fae508515e1","dockerRegistry":"ARTIFACT_REGISTRY"},"versionId":"18","updateTime":"2023-09-06T03:16:47Z","buildId":"2ff5c841-78a1-437b-a9c1-41c40b02437d","buildName":"projects/82604568171/locations/us-central1/builds/2ff5c841-78a1-437b-a9c1-41c40b02437d"},"done":true,"error":{"code":3,"message":"Build failed: npm ERR! code EUSAGE\nnpm ERR! \nnpm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm ERR! \nnpm ERR! Missing: @firebase/app-compat@0.2.18 from lock file\nnpm ERR! Missing: @firebase/app@0.9.18 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: idb@7.1.1 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]\nnpm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]\nnpm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]\nnpm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     /www-data-home/.npm/_logs/2023-09-06T03_16_43_063Z-debug-0.log; Error ID: beaf8772"}}
+[debug] [2023-09-06T03:16:52.496Z] Got source token undefined for region us-central1
+[error] Build failed: npm ERR! code EUSAGE
+npm ERR! 
+npm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm ERR! 
+npm ERR! Missing: @firebase/app-compat@0.2.18 from lock file
+npm ERR! Missing: @firebase/app@0.9.18 from lock file
+npm ERR! Missing: @firebase/component@0.6.4 from lock file
+npm ERR! Missing: @firebase/logger@0.4.0 from lock file
+npm ERR! Missing: @firebase/util@1.9.3 from lock file
+npm ERR! Missing: @firebase/component@0.6.4 from lock file
+npm ERR! Missing: @firebase/logger@0.4.0 from lock file
+npm ERR! Missing: @firebase/util@1.9.3 from lock file
+npm ERR! Missing: idb@7.1.1 from lock file
+npm ERR! 
+npm ERR! Clean install a project
+npm ERR! 
+npm ERR! Usage:
+npm ERR! npm ci
+npm ERR! 
+npm ERR! Options:
+npm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]
+npm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]
+npm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]
+npm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]
+npm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm ERR! 
+npm ERR! aliases: clean-install, ic, install-clean, isntall-clean
+npm ERR! 
+npm ERR! Run "npm help ci" for more info
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /www-data-home/.npm/_logs/2023-09-06T03_16_43_063Z-debug-0.log; Error ID: beaf8772
+[debug] [2023-09-06T03:16:52.499Z] Total Function Deployment time: 27603
+[debug] [2023-09-06T03:16:52.500Z] 1 Functions Deployed
+[debug] [2023-09-06T03:16:52.500Z] 1 Functions Errored
+[debug] [2023-09-06T03:16:52.500Z] 0 Function Deployments Aborted
+[debug] [2023-09-06T03:16:52.500Z] Average Function Deployment time: 27602
+[info] 
+[info] Functions deploy had errors with the following functions:
+	app(us-central1)
+[debug] [2023-09-06T03:16:52.500Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[info] i  functions: cleaning up build files... 
+[debug] [2023-09-06T03:16:52.502Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app [none]
+[debug] [2023-09-06T03:16:52.503Z] >>> [apiv2][query] GET https://us.gcr.io/v2/movnext-api/gcf/us-central1/tags/list [none]
+[debug] [2023-09-06T03:16:52.710Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app 404
+[debug] [2023-09-06T03:16:52.710Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app {"error":{"code":404,"message":"Package \"projects/movnext-api/locations/us-central1/repositories/gcf-artifacts/packages/app\" was not found.","status":"NOT_FOUND"}}
+[debug] [2023-09-06T03:16:52.778Z] <<< [apiv2][status] GET https://us.gcr.io/v2/movnext-api/gcf/us-central1/tags/list 200
+[debug] [2023-09-06T03:16:52.778Z] <<< [apiv2][body] GET https://us.gcr.io/v2/movnext-api/gcf/us-central1/tags/list {"child":[],"manifest":{},"name":"movnext-api/gcf/us-central1","tags":[]}
+[debug] [2023-09-06T03:16:52.778Z] Could not find image for function projects/movnext-api/locations/us-central1/functions/app
+[debug] [2023-09-06T03:16:52.778Z] Functions deploy failed.
+[debug] [2023-09-06T03:16:52.778Z] {
+  "endpoint": {
+    "id": "app",
+    "project": "movnext-api",
+    "region": "us-central1",
+    "entryPoint": "app",
+    "platform": "gcfv1",
+    "runtime": "nodejs16",
+    "httpsTrigger": {},
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"movnext-api\",\"databaseURL\":\"https://movnext-api-default-rtdb.firebaseio.com\",\"storageBucket\":\"movnext-api.appspot.com\",\"locationId\":\"us-central\"}",
+      "GCLOUD_PROJECT": "movnext-api",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/movnext-api/locations/us-central1/functions/app"
+    },
+    "codebase": "default",
+    "availableMemoryMb": 256,
+    "securityLevel": "SECURE_OPTIONAL",
+    "targetedByOnly": false,
+    "hash": "9d31b07af79e180311dd9a1fef4db9214efd92d6",
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    }
+  },
+  "op": "update",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Build failed: npm ERR! code EUSAGE\nnpm ERR! \nnpm ERR! `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm ERR! \nnpm ERR! Missing: @firebase/app-compat@0.2.18 from lock file\nnpm ERR! Missing: @firebase/app@0.9.18 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: @firebase/component@0.6.4 from lock file\nnpm ERR! Missing: @firebase/logger@0.4.0 from lock file\nnpm ERR! Missing: @firebase/util@1.9.3 from lock file\nnpm ERR! Missing: idb@7.1.1 from lock file\nnpm ERR! \nnpm ERR! Clean install a project\nnpm ERR! \nnpm ERR! Usage:\nnpm ERR! npm ci\nnpm ERR! \nnpm ERR! Options:\nnpm ERR! [-S|--save|--no-save|--save-prod|--save-dev|--save-optional|--save-peer|--save-bundle]\nnpm ERR! [-E|--save-exact] [-g|--global] [--global-style] [--legacy-bundling]\nnpm ERR! [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm ERR! [--strict-peer-deps] [--no-package-lock] [--foreground-scripts]\nnpm ERR! [--ignore-scripts] [--no-audit] [--no-bin-links] [--no-fund] [--dry-run]\nnpm ERR! [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm ERR! [-ws|--workspaces] [--include-workspace-root] [--install-links]\nnpm ERR! \nnpm ERR! aliases: clean-install, ic, install-clean, isntall-clean\nnpm ERR! \nnpm ERR! Run \"npm help ci\" for more info\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     /www-data-home/.npm/_logs/2023-09-06T03_16_43_063Z-debug-0.log; Error ID: beaf8772",
+    "status": 3,
+    "code": 3
+  }
+}
+[debug] [2023-09-06T03:16:52.779Z] Error: Failed to update function app in region us-central1
+    at C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:51:11
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Fabricator.updateV1Function (C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:344:32)
+    at async Fabricator.updateEndpoint (C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:150:13)
+    at async handle (C:\Users\carlo\AppData\Roaming\nvm\v16.14.2\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:88:17)
+[error] 
+[error] Error: There was an error deploying functions
