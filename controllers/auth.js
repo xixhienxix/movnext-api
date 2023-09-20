@@ -2,26 +2,12 @@ const jwt = require('jsonwebtoken')
 const usuarios = require('../models/usuarios')
 const private_key = 'b8b96d8661599441631edc161db8d15c'
 const nodemailer = require('nodemailer')
-const mongoose = require('mongoose');
+const tarifas = require('../models/tarifas');
 const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
-
-function mongooseConnection() {
-  return new Promise((resolve, reject) => {
-    const db = mongoose.connect(url + 'Master', { useNewUrlParser: true }).then((conn) => {
-      resolve(conn);
-    })
-      .catch(err => reject(err));
-  })
-}
 
 
 exports.login = async (req, res) => {
 
-  const disconnect = await mongoose.connection.close()
-
-  const conn = await mongooseConnection();
-
-  if (conn) {
     const username = req.body.username
     const password = req.body.password
 
@@ -44,25 +30,19 @@ exports.login = async (req, res) => {
               db_res.accessToken = accessToken
 
               res.status(200).send({ db_res });
-              //  res.status(200).send('Algo Salio mal')
 
             })
-          mongoose.connection.close()
 
         } else {
           res.status(409).send('Usuario y/o Contraseñas incorrectas')
         }
-        mongoose.connection.close()
       }
     });
-  } else {
-    res.status(500).send('No hay conexion a base de datos intente de nuevo mas tarde')
-  }
+
 }
 
 exports.autoriza = async (req, res) => {
 
-  const conn = await mongooseConnection();
 
   const username = req.body.usuario
   const password = req.body.password
@@ -108,7 +88,6 @@ exports.autoriza = async (req, res) => {
 
 exports.olvidoPassword = async (req, res) => {
 
-  const conn = await mongooseConnection();
 
   const email = req.body
   const query = usuarios.findOne({ email: req.body.email })
@@ -130,7 +109,6 @@ exports.olvidoPassword = async (req, res) => {
 }
 
 exports.registro = async (req, res) => {
-  const conn = await mongooseConnection();
 
   let user = {
     nombre: req.body.fullname,

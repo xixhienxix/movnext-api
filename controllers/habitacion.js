@@ -3,6 +3,8 @@ const Habitacion = require('../models/habitacion');
 const Huespedes = require('../models/huesped');
 const Disponibilidad = require('../models/disponibilidad')
 
+
+
 exports.postEstatusHabitacion = (req,res,next) => {
 
       const query = Habitacion.findOneAndUpdate({Cuarto:req.params.id})

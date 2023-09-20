@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const port = process.env.PORT||4000
 const cors = require('cors');
 const multer= require('multer')
+const initDB= require('./config/db')
 var url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
 /**Controllers
  * 
@@ -54,18 +55,11 @@ app.listen(port, () => {
 })
 
 mongoose.set('debug', true);//Muestra el Query en Consola
-mongoose.connect(url+'Master', { useNewUrlParser: true },{server: {poolSize: 100}})
+mongoose.connect(url, { useNewUrlParser: true },{server: {poolSize: 100}})
   .then(() => {
-    console.log('Connected to the Database Master.');
+    console.log('Connected to MongoDB.');
   })
   .catch(err => console.error(err));
-// mongoose.connect(
-//   "mongodb://xixzeroxix:34nj6efH@cluster0-shard-00-00.kjzuz.mongodb.net:27017,cluster0-shard-00-01.kjzuz.mongodb.net:27017,cluster0-shard-00-02.kjzuz.mongodb.net:27017/MovNext?ssl=true&replicaSet=atlas-lzt57i-shard-0&authSource=admin&retryWrites=true&w=majority",
-//   { useNewUrlParser: true })
-// .then(()=>{
-//   console.log("Connexion a BD Correcta 123")
-// }).catch(error => console.log(error));
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -114,6 +108,7 @@ connection.on('open', function() {
   });
 });
 })
+
 
 app.use('/api/status', require('express-healthcheck')({
   healthy: serverStatus
@@ -219,6 +214,9 @@ app.get('/api/reportes/ama_llaves',amaController.getEstatus)
 app.get('/api/reportes/ama_llaves/:id',amaController.getEstatusByID)
 
 //Historicos
+
+// app.get('/api/parametros/timezones', parametrosController.getTimeZones)
+
 
 app.get('/api/reportes/historico/visitas/:id',historicoController.getHistoricoVisitas)
 

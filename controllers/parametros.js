@@ -1,37 +1,36 @@
 const Parametros = require('../models/parametros')
-var mongo = require('mongodb');
 const express = require('express');
 const mongoose = require('mongoose');
 const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
 
-// Function to compute the product of p1 and p2
 function mongooseConnection(hotel) {
     return new Promise((resolve, reject) => {
-        const db = mongoose.connect(url + hotel, { useNewUrlParser: true }).then((value) => {
-            resolve(value);
-        })
-            .catch(err => reject(err));
+      const db = mongoose.createConnection(url + hotel, { useNewUrlParser: true }).then((conn) => {
+        resolve(conn);
+      })
+        .catch(err => reject(err));
     })
-}
+  }
 
 exports.getParametros = async (req, res) => {
-    if (req.query.hotel != 'undefined') {
-        const conn = await mongooseConnection(req.query.hotel)
-        if (conn) {
-            const query = Parametros.find(this)
 
-            query.exec().then(
-                (result) => {
-                    res.status(200).send(result)
-                })
-                .then(
-                    () => mongoose.connection.close)
-                .catch((err) => {
-                    res.json(err);
-                });
-        } else {
-            res.status(200).send(err)
-        }
+    if (req.query.hotel != 'undefined') {
+
+            const conn = await mongooseConnection(req.query.hotel)
+
+            if(conn){
+                const query = Parametros.find(this)
+
+                query.exec().then(
+                    (result) => {
+                        res.status(200).send(result)
+                    }).then(
+                        ()=>{
+                        })
+                    .catch((err) => {
+                        res.json(err);
+                    });
+            }
     }
 }
 
