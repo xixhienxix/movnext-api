@@ -2,43 +2,80 @@ const jwt = require('jsonwebtoken')
 const usuarios = require('../models/usuarios')
 const private_key = 'b8b96d8661599441631edc161db8d15c'
 const nodemailer = require('nodemailer')
-const tarifas = require('../models/tarifas');
 const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
+var Promise = require('bluebird');
+const mongoose = require('mongoose')
+mongoose.Promise = Promise;
 
+// function mongooseConnection() {
+//   return new Promise((resolve, reject) => {
+//     const db = mongoose.connect(url + 'Master', { useNewUrlParser: true }).then((conn) => {
+//       resolve(conn);
+//     })
+//       .catch(err => reject(err));
+//   })
+// }
 
 exports.login = async (req, res) => {
 
-    const username = req.body.username
-    const password = req.body.password
-
-    const query = usuarios.findOne({ username: username, password: password })
-
-    query.lean().exec((err, db_res) =>//lean()convert document to jsObject for easy access
-    {
-      if (err) {
-        res.status(200).send({ err });
-      }
-      else {
-        if (db_res) {
-          const id = db_res._id.toString()
-
-          jwt.sign({ db_res }, private_key, { expiresIn: '30m' },
-            (err, accessToken) => {
-              if (err) {
-                res.status(409).send('Algo Salio mal')
+  const username = req.body.username
+  const password = req.body.password
+    
+  mongoose.connect(url, { useMongoClient: true, promiseLibrary: require('bluebird')})
+  .then(() => {
+      usuarios.findOne({ username: username, password: password }).lean().exec()
+          .then((res) => {
+            if (db_res) {
+              const id = db_res._id.toString()
+    
+              jwt.sign({ db_res }, private_key, { expiresIn: '30m' },
+                (err, accessToken) => {
+                  if (err) {
+                    res.status(409).send('Algo Salio mal')
+                  }
+                  db_res.accessToken = accessToken
+    
+                  res.status(200).send({ db_res });
+    
+                })
               }
-              db_res.accessToken = accessToken
-
-              res.status(200).send({ db_res });
-
-            })
-
-        } else {
-          res.status(409).send('Usuario y/o Contraseñas incorrectas')
-        }
-      }
-    });
-
+          }) 
+          .catch((err) => {
+            res.status(200).send(err)
+          })
+          .finally(() => {
+              mongoose.connection.close();
+          });
+  })
+  .catch((err) => {
+    res.status(200).send(err)
+  });
+    
+        // query.lean().exec((err, db_res) =>
+        // {
+        //   if (err) {
+        //     res.status(200).send({ err });
+        //   }
+        //   else {
+        //     if (db_res) {
+        //       const id = db_res._id.toString()
+    
+        //       jwt.sign({ db_res }, private_key, { expiresIn: '30m' },
+        //         (err, accessToken) => {
+        //           if (err) {
+        //             res.status(409).send('Algo Salio mal')
+        //           }
+        //           db_res.accessToken = accessToken
+    
+        //           res.status(200).send({ db_res });
+    
+        //         })
+    
+        //     } else {
+        //       res.status(409).send('Usuario y/o Contraseñas incorrectas')
+        //     }
+        //   }
+        // });
 }
 
 exports.autoriza = async (req, res) => {

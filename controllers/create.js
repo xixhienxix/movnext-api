@@ -25,10 +25,7 @@ const parametros_default_values = require('../defaultValues/parametros')
 const timezones_default_values = require('../defaultValues/timezones')
 
 exports.create = (req,res)=>{
-    console.log('Conexion de base de datos', mongoose.connection.readyState);
-    if(mongoose.connection.readyState===1){
-        mongoose.connection.useDb('Master'); 
-    }
+
     mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', {
                     useNewUrlParser: true,})
                               .then(() => {
@@ -56,65 +53,128 @@ exports.create = (req,res)=>{
         if (docs.length){
             res.status(200).send({response:'El nombre de usuario no se puede usar, especifique otro'});
         }else{
+
             usuarios.create(user, function(err, result) {
                 if (err) {
                   res.send(err);
                 } else {
                     if(result){
         
-                        const id= result._id.toString()
-        
-                        jwt.sign({result},private_key,{expiresIn:'30m'},
-                                (err,accessToken)=>{
-                                if(err){
-                                    res.status(409).send('Algo Salio mal')
-                                }
-                                result.accessToken=accessToken
-                              })
-                              
-                              mongoose.connection.close()
+                            mongoose.connection.close()
                             //New Mongo Connection
-                              mongoose
-                              .connect(db_url, {
-                              useNewUrlParser: true,
-                              })
-                              .then(() => {
-                              console.log('Connected to the Database.'+req.body.hotel);
-                              
-                              //Collection Creation
-                                Ama.insertMany(ama_defaults.ama_llaves_defaults).then((result) => {
-                                    console.log('Amma de Llaves Collection Creada Exitosamente')
-                                });
-                                Codigos.insertMany(codigos_defaults.codigos_default).then((result) => {
-                                    console.log('Codigos Collection Creada Exitosamente')
-                                });
-                                Divisas.insertMany(divisas_default.divisas_defaults).then((result) => {
-                                    console.log('Divisas Collection Creada Exitosamente')
-                                });
-                                Estatus.insertMany(estatus_default.estatus_default).then((result) => {
-                                    console.log('Estatus Collection Creada Exitosamente')
-                                });
-                                Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo).then((result) => {
-                                    console.log('Estatus Bloqueos Collection Creada Exitosamente')
-                                });
-                                Foliador.insertMany(foliador_default_values.foliador_default).then((result) => {
-                                    console.log('Foliador Bloqueos Collection Creada Exitosamente')
-                                });
-                                Origen.insertMany(origen_default_values.origen_default_values).then((result) => {
-                                    console.log('Origen Collection Creada Exitosamente')
-                                });
-                                Parametros.insertMany(parametros_default_values.parametros_default_values).then((result) => {
-                                    console.log('Parametros Collection Creada Exitosamente')
-                                });
-                                TimeZones.insertMany(timezones_default_values.timezones_default_values).then((result) => {
-                                    console.log('TimeZones Collection Creada Exitosamente')
-                                });
-                        
-                              })
-                              .catch(err => 
-                              console.error(err));
 
-                              res.status(200).send({mensaje:"Tablas creadas correctamente"})
+                            mongoose.connect(db_url, { useMongoClient: true, promiseLibrary: require('bluebird')})
+                            .then(() => {
+                                Ama.insertMany(ama_defaults.ama_llaves_defaults)
+                                    .then((res) => {
+                                        console.log('Amma de Llaves Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                      res.status(200).send(err)
+                                    })
+                                Codigos.insertMany(codigos_defaults.codigos_default)
+                                    .then((res) => {
+                                    console.log('Codigos Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                Divisas.insertMany(divisas_default.divisas_defaults)
+                                    .then((res) => {
+                                    console.log('Divisas Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                Estatus.insertMany(estatus_default.estatus_default)
+                                    .then((res) => {
+                                    console.log('Estatus Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo)
+                                    .then((res) => {
+                                    console.log('Estatus Bloqueo Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                Foliador.insertMany(foliador_default_values.foliador_default)
+                                    .then((res) => {
+                                    console.log('Foliador Bloqueo Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                Origen.insertMany(origen_default_values.origen_default_values)
+                                    .then((res) => {
+                                    console.log('Origen Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                Parametros.insertMany(parametros_default_values.parametros_default_values)
+                                    .then((res) => {
+                                    console.log('Parametros Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                                TimeZones.insertMany(timezones_default_values.timezones_default_values)
+                                    .then((res) => {
+                                    console.log('Parametros Collection Creada Exitosamente')
+                                    }) 
+                                    .catch((err) => {
+                                    res.status(200).send(err)
+                                    })
+                            })
+                            .catch((err) => {
+                              res.status(200).send(err)
+                            }).finally(
+                                ()=>{
+                                    mongoose.connection.close()
+                            });
+
+                            //   mongoose.connect(db_url, {
+                            //   useNewUrlParser: true,
+                            //   })
+                            //   .then(() => {
+                            //   console.log('Connected to the Database.'+req.body.hotel);
+                              
+                            //     Ama.insertMany(ama_defaults.ama_llaves_defaults).then((result) => {
+                            //         console.log('Amma de Llaves Collection Creada Exitosamente')
+                            //     });
+                            //     Codigos.insertMany(codigos_defaults.codigos_default).then((result) => {
+                            //         console.log('Codigos Collection Creada Exitosamente')
+                            //     });
+                            //     Divisas.insertMany(divisas_default.divisas_defaults).then((result) => {
+                            //         console.log('Divisas Collection Creada Exitosamente')
+                            //     });
+                            //     Estatus.insertMany(estatus_default.estatus_default).then((result) => {
+                            //         console.log('Estatus Collection Creada Exitosamente')
+                            //     });
+                            //     Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo).then((result) => {
+                            //         console.log('Estatus Bloqueos Collection Creada Exitosamente')
+                            //     });
+                            //     Foliador.insertMany(foliador_default_values.foliador_default).then((result) => {
+                            //         console.log('Foliador Bloqueos Collection Creada Exitosamente')
+                            //     });
+                            //     Origen.insertMany(origen_default_values.origen_default_values).then((result) => {
+                            //         console.log('Origen Collection Creada Exitosamente')
+                            //     });
+                            //     Parametros.insertMany(parametros_default_values.parametros_default_values).then((result) => {
+                            //         console.log('Parametros Collection Creada Exitosamente')
+                            //     });
+                            //     TimeZones.insertMany(timezones_default_values.timezones_default_values).then((result) => {
+                            //         console.log('TimeZones Collection Creada Exitosamente')
+                            //     });
+                        
+                            //   })
+                            //   .catch(err => 
+                            //   console.error(err));
+
+                            //   res.status(200).send({mensaje:"Tablas creadas correctamente"})
         
                     }else 
                     {
