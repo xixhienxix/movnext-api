@@ -25,163 +25,177 @@ const parametros_default_values = require('../defaultValues/parametros')
 const timezones_default_values = require('../defaultValues/timezones')
 
 exports.create = (req,res)=>{
+    let errorLogs = []
+    mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', 
+    { useNewUrlParser: true, promiseLibrary: require('bluebird')})
+    .then(async () => {
 
-    mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', {
-                    useNewUrlParser: true,})
-                              .then(() => {
-                              console.log('Connected to the Database Master');
+            let user = {
+                nombre : req.body.fullname,
+                email : req.body.email,
+                username : req.body.username,
+                password : req.body.password,
+                terminos : req.body.terminos,
+                rol:2,
+                hotel:req.body.hotel
+            }
+
+            var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+            var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/'
+            db_url = db_url+nombreHotel
+
+            const username = req.body.username
+
+            let userExist = await usuarios.find({username : username})
+                .then((docs) => {
+                    if (docs.length){
+                        return true
+                        
+                    }else{
+                        return false
+                    }
+                }) 
+                .catch((err) => {
+                    errorLogs.push({userExistQuery:err})
+                    console.log(errorLogs)
+                    res.status(200).send(err)
                 })
-
-    let user = {
-        nombre : req.body.fullname,
-        email : req.body.email,
-        username : req.body.username,
-        password : req.body.password,
-        terminos : req.body.terminos,
-        rol:2,
-        hotel:req.body.hotel
-    }
-
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
-    var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/'
-    db_url = db_url+nombreHotel
-
-    //Usuario Existe?
-    const username = req.body.username
-
-    usuarios.find({username : username}, function (err, docs) {
-        if (docs.length){
-            res.status(200).send({response:'El nombre de usuario no se puede usar, especifique otro'});
-        }else{
-
-            usuarios.create(user, function(err, result) {
-                if (err) {
-                  res.send(err);
-                } else {
-                    if(result){
         
-                            mongoose.connection.close()
-                            //New Mongo Connection
-
-                            mongoose.connect(db_url, { useMongoClient: true, promiseLibrary: require('bluebird')})
-                            .then(() => {
-                                Ama.insertMany(ama_defaults.ama_llaves_defaults)
-                                    .then((res) => {
-                                        console.log('Amma de Llaves Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                      res.status(200).send(err)
-                                    })
-                                Codigos.insertMany(codigos_defaults.codigos_default)
-                                    .then((res) => {
-                                    console.log('Codigos Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                Divisas.insertMany(divisas_default.divisas_defaults)
-                                    .then((res) => {
-                                    console.log('Divisas Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                Estatus.insertMany(estatus_default.estatus_default)
-                                    .then((res) => {
-                                    console.log('Estatus Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo)
-                                    .then((res) => {
-                                    console.log('Estatus Bloqueo Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                Foliador.insertMany(foliador_default_values.foliador_default)
-                                    .then((res) => {
-                                    console.log('Foliador Bloqueo Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                Origen.insertMany(origen_default_values.origen_default_values)
-                                    .then((res) => {
-                                    console.log('Origen Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                Parametros.insertMany(parametros_default_values.parametros_default_values)
-                                    .then((res) => {
-                                    console.log('Parametros Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                                TimeZones.insertMany(timezones_default_values.timezones_default_values)
-                                    .then((res) => {
-                                    console.log('Parametros Collection Creada Exitosamente')
-                                    }) 
-                                    .catch((err) => {
-                                    res.status(200).send(err)
-                                    })
-                            })
-                            .catch((err) => {
-                              res.status(200).send(err)
+            if(userExist==false){
+                let createdUser = await usuarios.create(user)
+                            .then((res) => {
+                                if(res){
+                                    return true
+                                }else{
+                                    return false
+                                }
+                            }).catch((err) => {
+                                errorLogs.push({createdUser:err})
+                                console.log(errorLogs)
+                                res.status(200).send(err)
                             }).finally(
                                 ()=>{
                                     mongoose.connection.close()
                             });
+                if(createdUser==true){
+                    //New Conection to Hotel to Crerate DBs
+                    const newHotelConn = await mongoose.connect(db_url, { promiseLibrary: require('bluebird')})
+                    .then(async() => {
+                        const amaQueryResult = await Ama.insertMany(ama_defaults.ama_llaves_defaults)
+                            .then((res) => {
+                                console.log('Amma de Llaves Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({amaQueryResult:err})
+                                console.log(err)
+                                return false
+                            })
+                        const codigoQueryResult = await Codigos.insertMany(codigos_defaults.codigos_default)
+                            .then((res) => {
+                                console.log('Codigos Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({codigoQueryResult:err})
+                                console.log(err)
+                                return false
+                            })
+                        const divisasQueryResult = await Divisas.insertMany(divisas_default.divisas_defaults)
+                            .then((res) => {
+                                console.log('Divisas Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({divisasQueryResult:err})
+                                console.log(err)
+                                return false
+                            })
+                        const estatusQueryResult = await Estatus.insertMany(estatus_default.estatus_default)
+                            .then((res) => {
+                                console.log('Estatus Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({estatusQueryResult:err})
+                                console.log(errorLogs)
+                                return false
+                            })
+                        const estatusBloqueoQueryResult = await Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo)
+                            .then((res) => {
+                                console.log('Estatus Bloqueo Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({estatusBloqueoQueryResult:err})
+                                console.log(errorLogs)
+                                return false
+                            })
+                        const foliadorQueryResult = await Foliador.insertMany(foliador_default_values.foliador_default)
+                            .then((res) => {
+                                console.log('Foliador Bloqueo Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({foliadorQueryResult:err})
+                                console.log(errorLogs)
+                                return false
+                            })
+                        const origenQueryResult = await Origen.insertMany(origen_default_values.origen_default_values)
+                            .then((res) => {
+                                console.log('Origen Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({origenQueryResult:err})
+                                console.log(errorLogs)
+                                return false
+                            })
+                        const parametrosQueryResult = await Parametros.insertMany(parametros_default_values.parametros_default_values)
+                            .then((res) => {
+                                console.log('Parametros Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({parametrosQueryResult:err})
+                                console.log(errorLogs)
+                                return false
+                            })
+                        const timezonesQueryResult = await TimeZones.insertMany(timezones_default_values.timezones_default_values)
+                            .then((res) => {
+                                console.log('Parametros Collection Creada Exitosamente')
+                                return true
+                            }) 
+                            .catch((err) => {
+                                errorLogs.push({timezonesQueryResult:err})
+                                console.log(err)
+                                return false
+                            })
+                    })
+                    .catch((err) => {
+                        errorLogs.push(err)
+                        console.log(errorLogs)
+                        res.status(200).send(err)
+                    }).finally(
+                        ()=>{
+                            mongoose.connection.close()
+                    });
+                }else{
+                    res.status(409).send('No se pudo registrar su hotel intente nuevamente')
+                }
 
-                            //   mongoose.connect(db_url, {
-                            //   useNewUrlParser: true,
-                            //   })
-                            //   .then(() => {
-                            //   console.log('Connected to the Database.'+req.body.hotel);
-                              
-                            //     Ama.insertMany(ama_defaults.ama_llaves_defaults).then((result) => {
-                            //         console.log('Amma de Llaves Collection Creada Exitosamente')
-                            //     });
-                            //     Codigos.insertMany(codigos_defaults.codigos_default).then((result) => {
-                            //         console.log('Codigos Collection Creada Exitosamente')
-                            //     });
-                            //     Divisas.insertMany(divisas_default.divisas_defaults).then((result) => {
-                            //         console.log('Divisas Collection Creada Exitosamente')
-                            //     });
-                            //     Estatus.insertMany(estatus_default.estatus_default).then((result) => {
-                            //         console.log('Estatus Collection Creada Exitosamente')
-                            //     });
-                            //     Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo).then((result) => {
-                            //         console.log('Estatus Bloqueos Collection Creada Exitosamente')
-                            //     });
-                            //     Foliador.insertMany(foliador_default_values.foliador_default).then((result) => {
-                            //         console.log('Foliador Bloqueos Collection Creada Exitosamente')
-                            //     });
-                            //     Origen.insertMany(origen_default_values.origen_default_values).then((result) => {
-                            //         console.log('Origen Collection Creada Exitosamente')
-                            //     });
-                            //     Parametros.insertMany(parametros_default_values.parametros_default_values).then((result) => {
-                            //         console.log('Parametros Collection Creada Exitosamente')
-                            //     });
-                            //     TimeZones.insertMany(timezones_default_values.timezones_default_values).then((result) => {
-                            //         console.log('TimeZones Collection Creada Exitosamente')
-                            //     });
-                        
-                            //   })
-                            //   .catch(err => 
-                            //   console.error(err));
+            }else{
+                res.status(200).send({response:'El nombre de usuario no se puede usar, especifique otro'});
+            }
 
-                            //   res.status(200).send({mensaje:"Tablas creadas correctamente"})
-        
-                    }else 
-                    {
-                      res.status(409).send('Usuario y/o Contraseñas incorrectas')}
-                    }
-              });
-        }   
-    });
-
+        })
+        .catch((err) => {
+            errorLogs.push(err)
+            console.log(errorLogs)
+            res.status(200).send(err)
+        }).finally(
+            ()=>{
+                mongoose.connection.close()
+                res.status(200).send({mensaje:"Tablas creadas correctamente"})
+        });
   }

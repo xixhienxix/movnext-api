@@ -2,80 +2,49 @@ const jwt = require('jsonwebtoken')
 const usuarios = require('../models/usuarios')
 const private_key = 'b8b96d8661599441631edc161db8d15c'
 const nodemailer = require('nodemailer')
-const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
+const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master';
 var Promise = require('bluebird');
 const mongoose = require('mongoose')
 mongoose.Promise = Promise;
 
-// function mongooseConnection() {
-//   return new Promise((resolve, reject) => {
-//     const db = mongoose.connect(url + 'Master', { useNewUrlParser: true }).then((conn) => {
-//       resolve(conn);
-//     })
-//       .catch(err => reject(err));
-//   })
-// }
-
 exports.login = async (req, res) => {
-
+  const errorLogs = []
   const username = req.body.username
   const password = req.body.password
-    
-  mongoose.connect(url, { useMongoClient: true, promiseLibrary: require('bluebird')})
-  .then(() => {
-      usuarios.findOne({ username: username, password: password }).lean().exec()
-          .then((res) => {
+ 
+  const newHotelConn = await mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', { promiseLibrary: require('bluebird')})
+  .then(async() => {
+      const usuariosResultQuery = await usuarios.findOne({ username: username, password: password }).lean()
+          .then(
+            (db_res) => {
             if (db_res) {
               const id = db_res._id.toString()
     
               jwt.sign({ db_res }, private_key, { expiresIn: '30m' },
                 (err, accessToken) => {
                   if (err) {
+                    errorLogs.push({jwt:err})
+                    console.log(errorLogs)
                     res.status(409).send('Algo Salio mal')
                   }
                   db_res.accessToken = accessToken
-    
                   res.status(200).send({ db_res });
-    
                 })
               }
           }) 
           .catch((err) => {
-            res.status(200).send(err)
-          })
-          .finally(() => {
-              mongoose.connection.close();
-          });
+            errorLogs.push({usuariosResultQuery:err})
+            console.log(err)
+            return false
+          }).finally(() => {
+            mongoose.connection.close();
+        });
   })
   .catch((err) => {
     res.status(200).send(err)
+  }).finally(() => {
+    mongoose.connection.close();
   });
-    
-        // query.lean().exec((err, db_res) =>
-        // {
-        //   if (err) {
-        //     res.status(200).send({ err });
-        //   }
-        //   else {
-        //     if (db_res) {
-        //       const id = db_res._id.toString()
-    
-        //       jwt.sign({ db_res }, private_key, { expiresIn: '30m' },
-        //         (err, accessToken) => {
-        //           if (err) {
-        //             res.status(409).send('Algo Salio mal')
-        //           }
-        //           db_res.accessToken = accessToken
-    
-        //           res.status(200).send({ db_res });
-    
-        //         })
-    
-        //     } else {
-        //       res.status(409).send('Usuario y/o Contraseñas incorrectas')
-        //     }
-        //   }
-        // });
 }
 
 exports.autoriza = async (req, res) => {

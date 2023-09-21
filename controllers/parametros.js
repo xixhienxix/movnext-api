@@ -3,34 +3,27 @@ const express = require('express');
 const mongoose = require('mongoose');
 const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
 
-function mongooseConnection(hotel) {
-    return new Promise((resolve, reject) => {
-      const db = mongoose.createConnection(url + hotel, { useNewUrlParser: true }).then((conn) => {
-        resolve(conn);
-      })
-        .catch(err => reject(err));
-    })
-  }
-
 exports.getParametros = async (req, res) => {
-
     if (req.query.hotel != 'undefined') {
-
-            const conn = await mongooseConnection(req.query.hotel)
-
-            if(conn){
-                const query = Parametros.find(this)
-
-                query.exec().then(
-                    (result) => {
-                        res.status(200).send(result)
-                    }).then(
-                        ()=>{
+        let parametrosQueryResult
+        const conn = await mongoose.connect(url+req.query.hotel, { promiseLibrary: require('bluebird')})
+            .then(async()=>{
+                    parametrosQueryResult = await Parametros.find(this)
+                    .then(
+                        (res)=>{
+                            return res
+                        }).catch((err)=>{
+                            console.log({queryParametrosResult:err})
+                            return err
                         })
-                    .catch((err) => {
-                        res.json(err);
-                    });
-            }
+                }).catch(
+                    (err)=>{
+                        console.log({conn:err})
+                        res.status(200).send("Failed to connect to the Database: "+req.query.hotel)
+                }).finally(
+                    ()=>{
+                        res.status(200).send(parametrosQueryResult)
+                    })           
     }
 }
 

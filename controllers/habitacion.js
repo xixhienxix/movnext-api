@@ -191,7 +191,8 @@ exports.getHabitacion = (req,res,next) =>{
   Habitacion.find(this).then((habitacion) => {
   res.status(200).send(habitacion)
   });
-  };
+  
+};
 
 exports.getAll = (req,res,next) =>{
 
