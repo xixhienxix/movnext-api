@@ -2,8 +2,13 @@
 const express = require('express');
 const Habitacion = require('../models/habitacion');
 
-  exports.getHabitaciones = (req,res,next) =>{
-    Habitacion.find(this).distinct("Codigo").then((habitacion) => {
-    res.status(200).send(habitacion)
+exports.getHabitaciones = (req, res, next) => {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+  Habitacion.find({ hotel: nombreHotel }).distinct("Codigo")
+    .then((habitacion) => {
+      res.status(200).send(habitacion)
+    }).catch((err)=>{
+      res.status(200).send(err)
     });
-    };
+};

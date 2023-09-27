@@ -1,14 +1,17 @@
 const Detalles_Huesped = require('../models/huesped_details')
 
 exports.getDetails = (req,res)=>{
-    Detalles_Huesped.findOne().sort({created_at: 1}).exec(function(err, detalles) {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Detalles_Huesped.findOne({hotel:nombreHotel}).sort({created_at: 1}).exec(function(err, detalles) {
         res.status(200).send(detalles)
         });
 }
 
 exports.getDetailsById = (req,res)=>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    Detalles_Huesped.findOne({ID_Socio:req.params.folio}).exec(function(err, detalles) {
+    Detalles_Huesped.findOne({ID_Socio:req.params.folio, hotel:nombreHotel}).exec(function(err, detalles) {
         if(detalles){
             res.status(200).send(detalles._doc)
         }
@@ -18,7 +21,7 @@ exports.getDetailsById = (req,res)=>{
 
 exports.postDetails = (req,res)=>{
 
-    Detalles_Huesped.updateOne({ID_Socio : req.body.ID_Socio}, 
+    Detalles_Huesped.updateOne({ID_Socio : req.body.ID_Socio, hotel:nombreHotel}, 
         {$set: {  ID_Socio:req.body.ID_Socio,  
             Nombre : req.body.Nombre,
             email : req.body.email, telefono : req.body.telefono,

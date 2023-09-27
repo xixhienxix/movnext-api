@@ -3,26 +3,30 @@ const {DateTime} = require("luxon");
 var ObjectId = require('mongodb').ObjectID;
 
 exports.getTarifas = (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    Tarifas.find(this).then((tarifas) => {
+    Tarifas.find({hotel:nombreHotel}).then((tarifas) => {
         // console.log(huesped)
         res.status(200).send(tarifas)
         });  
 }
 
 exports.getTarifaRack = (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  Tarifas.find({Tarifa:'Tarifa Estandar'}).then((tarifas) => {
+  Tarifas.find({Tarifa:'Tarifa Estandar',hotel:nombreHotel}).then((tarifas) => {
       res.status(200).send(tarifas)
       });  
 }
 
 exports.postTarifas=(req,res)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
 let estado=true
   if(req.body.tarifa.Estado=='Activa'){estado=true}
   if(req.body.tarifa.Estado=='Inactiva'){estado=false}
 
-    Tarifas.findOneAndUpdate({Tarifa:req.body.tarifa.Tarifa,Habitacion:req.body.tarifa.Habitacion}, {
+    Tarifas.findOneAndUpdate({Tarifa:req.body.tarifa.Tarifa,Habitacion:req.body.tarifa.Habitacion,hotel:nombreHotel}, {
       Tarifa:req.body.tarifa.Tarifa,
       Habitacion:req.body.tarifa.Habitacion,
       Llegada:req.body.tarifa.Llegada,
@@ -53,11 +57,13 @@ let estado=true
     
 
 exports.postTarifaEspecial=(req,res)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
   let estado=true
   if(req.body.tarifa.Estado=='Activa'){estado=true}
   if(req.body.tarifa.Estado=='Inactiva'){estado=false}
 
-    Tarifas.findOneAndUpdate({Tarifa:req.body.tarifa.Tarifa,Habitacion:req.body.tarifa.Habitacion}, {
+    Tarifas.findOneAndUpdate({Tarifa:req.body.tarifa.Tarifa,Habitacion:req.body.tarifa.Habitacion,hotel:nombreHotel}, {
       Tarifa:req.body.tarifa.Tarifa,
       Habitacion:req.body.tarifa.Habitacion,
       Llegada:req.body.tarifa.Llegada,
@@ -88,11 +94,13 @@ exports.postTarifaEspecial=(req,res)=>{
   }
 
 exports.deleteTarifaRack = (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
   let estado=true
   if(req.body.tarifa.Estado=='Activa'){estado=true}
   if(req.body.tarifa.Estado=='Inactiva'){estado=false}
   
-  Tarifas.deleteOne({Tarifa:req.body.tarifa.Tarifa,Habitacion:req.body.tarifa.Habitacion}, 
+  Tarifas.deleteOne({Tarifa:req.body.tarifa.Tarifa,Habitacion:req.body.tarifa.Habitacion,hotel:nombreHotel}, 
      function(err, doc) {
       if (err)
       {
@@ -107,9 +115,10 @@ exports.deleteTarifaRack = (req,res) =>{
 }
 
 exports.deleteTarifaRackEspecial= (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   try {
-    Tarifas.deleteOne( { Tarifa :req.body.tarifa.Tarifa}, 
+    Tarifas.deleteOne( { Tarifa :req.body.tarifa.Tarifa,hotel:nombreHotel}, 
       function(err, doc) {
        if (err)
        {

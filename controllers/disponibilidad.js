@@ -6,6 +6,7 @@ const huesped = require('../models/huesped');
 
 
 exports.getDisponibilidadTodos = (req,res,next) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   // {$and: [
   //   {Fecha: { $gte: parseInt(req.query.ano) }},
@@ -15,7 +16,7 @@ exports.getDisponibilidadTodos = (req,res,next) =>{
   const query = Disponibilidad.find(
     { 
       Fecha: { $gte: new Date(''+req.query.ano+'-'+req.query.mes+'-'+req.query.dia+''),
-      $lte: new Date(''+(parseInt(req.query.ano)+1).toString()+'-'+req.query.mes+'-'+req.query.dia+'') } 
+      $lte: new Date(''+(parseInt(req.query.ano)+1).toString()+'-'+req.query.mes+'-'+req.query.dia+'') },hotel:nombreHotel 
     }) 
     
 
@@ -26,7 +27,8 @@ exports.getDisponibilidadTodos = (req,res,next) =>{
 }
 
 exports.crearDisponibilidad = async (req,res,next)=>{
-  
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
   let disponibilidadNuevaGeneral=[]
   let query
   let ano =  new Date().getFullYear()
@@ -44,7 +46,8 @@ exports.crearDisponibilidad = async (req,res,next)=>{
                   Ano:ano+y,
                   Estatus_Ama_De_Llaves:'Limpia',
                   Folio_Huesped:0,
-                  Fecha:new Date(''+(ano+y)+'-'+m+'-'+d)
+                  Fecha:new Date(''+(ano+y)+'-'+m+'-'+d),
+                  hotel:nombreHotel
                 }
                 disponibilidadNuevaGeneral.push(dispo)
 
@@ -76,6 +79,7 @@ exports.crearDisponibilidad = async (req,res,next)=>{
 }
 
 exports.getDisponibilidadCompleta= async (req,res,next)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   let mySet = new Set();
   let sinDisponibilidad=[];
@@ -101,9 +105,9 @@ exports.getDisponibilidadCompleta= async (req,res,next)=>{
     for(let y=0;y<=parseInt(dias);y++)
     {
       if(cuarto!='1'){
-         query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year,Cuarto: cuarto});
+         query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year,Cuarto: cuarto, hotel:nombreHotel});
       }else{
-         query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year});
+         query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year, hotel:nombreHotel});
       }
         await query.then((doc)=> {
     
@@ -155,8 +159,9 @@ exports.getDisponibilidadCompleta= async (req,res,next)=>{
 
 
   exports.getDisponibilidadXFecha = (req,res,next) =>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    const query = Disponibilidad.find({ Dia: req.query.dia, Mes: req.query.mes, Ano: req.query.ano, Cuarto: req.query.cuarto });
+    const query = Disponibilidad.find({ Dia: req.query.dia, Mes: req.query.mes, Ano: req.query.ano, Cuarto: req.query.cuarto, hotel:nombreHotel });
 
     query.then((doc)=> {
       res.status(200).send(doc)
@@ -166,10 +171,10 @@ exports.getDisponibilidadCompleta= async (req,res,next)=>{
 
 exports.getEstatusAma = (req,res,next) =>{
 
-  // var queryParameters = req.query
-  // res.json(queryParameters)
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  const query = Disponibilidad.find({ Dia: req.body.dia, Mes: req.body.mes, Ano: req.body.ano, Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto });
+
+  const query = Disponibilidad.find({ Dia: req.body.dia, Mes: req.body.mes, Ano: req.body.ano, Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto, hotel:nombreHotel });
 
   query.then((doc)=> {
     res.status(200).send(doc)
@@ -178,7 +183,9 @@ exports.getEstatusAma = (req,res,next) =>{
 }
 
 exports.updateDisponibilidad = (req,res) => {
-  Disponibilidad.findOneAndUpdate({Dia:req.body.Dia,Mes:req.body.Mes,Ano:req.body.Ano,Habitacion:req.body.Habitacion,Cuarto:req.body.Cuarto},
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+  Disponibilidad.findOneAndUpdate({Dia:req.body.Dia,Mes:req.body.Mes,Ano:req.body.Ano,Habitacion:req.body.Habitacion,Cuarto:req.body.Cuarto, hotel:nombreHotel},
       {
         $set :
           {Estatus_Ama_De_Llaves:req.body.Estatus_Ama_De_Llaves}  
@@ -191,7 +198,7 @@ exports.updateDisponibilidad = (req,res) => {
         }
       })
 
-      huesped.findOneAndUpdate({numeroCuarto:req.body.Habitacion,habitacion:req.body.Cuarto},
+      huesped.findOneAndUpdate({numeroCuarto:req.body.Habitacion,habitacion:req.body.Cuarto, hotel:nombreHotel},
         {
           $set :
             {estatus_Ama_De_Llaves:req.body.Estatus_Ama_De_Llaves}  
@@ -207,6 +214,7 @@ exports.updateDisponibilidad = (req,res) => {
 }
 
 exports.disponibilidadBooking = async (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   let infoCuartos = [];
   let mySet = new Set();
@@ -231,7 +239,7 @@ exports.disponibilidadBooking = async (req,res) =>{
     for(let y=0;y<=parseInt(dias);y++)
     {
 
-        query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year});
+        query = Disponibilidad.find({ Dia: llegadaDateTime.day, Mes: llegadaDateTime.month, Ano: llegadaDateTime.year, hotel:nombreHotel});
       
         await query.then((doc)=> {
     

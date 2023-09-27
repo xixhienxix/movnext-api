@@ -11,19 +11,20 @@ const Parametros = require('../models/parametros')
 
 exports.getHuesped = (req,res,next) =>{
   let huespeds=[]
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  Parametros.find(this).then((param) => {
+  Parametros.find({hotel:nombreHotel}).then((param) => {
     // console.log(huesped)
     let today = DateTime.now().setZone(param.zona)
 
-    Huesped.find(this).then(
+    Huesped.find({hotel:nombreHotel}).then(
       async (huesped) => {
         for(let i=0;i<huesped.length;i++)
         {
           let numeroCuarto = huesped[i].numeroCuarto
           let habitacion = huesped[i].habitacion
   
-          const query = Disponibilidad.find({ Dia: today.day, Mes: today.month, Ano: today.year, Habitacion: numeroCuarto, Cuarto:habitacion});
+          const query = Disponibilidad.find({ Dia: today.day, Mes: today.month, Ano: today.year, Habitacion: numeroCuarto, Cuarto:habitacion,hotel:nombreHotel});
           let estatus_Ama_De_Llaves
           
           await query.then((doc)=> {
@@ -87,15 +88,18 @@ exports.getHuesped = (req,res,next) =>{
   };
 
   exports.getHuespedHistorico = (req,res,next) =>{
-    Historico.find(this).then((historico) => {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Historico.find({hotel:nombreHotel}).then((historico) => {
     res.status(200).send(historico)
     });
     };
 
 
   exports.getHuespedbyId = (req,res,next) =>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    const query = Huesped.findOne({ folio: req.params.id });
+    const query = Huesped.findOne({ folio: req.params.id,hotel:nombreHotel });
 
     query.then((doc)=> {
       res.status(200).send(doc)
@@ -104,8 +108,9 @@ exports.getHuesped = (req,res,next) =>{
 }
 
 exports.postHuesped = async (req,res,next)=>{
-  
-    var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto};
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto,hotel:nombreHotel};
 
     let notas;
 
@@ -159,7 +164,7 @@ exports.postHuesped = async (req,res,next)=>{
         
               if(req.body.estatus!="Huesped en Casa"){estatusAma='LIMPIA'}else {estatusAma='SUCIA'}
         
-              var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:llegadaDateTime.day,Mes:llegadaDateTime.month,Ano:llegadaDateTime.year };
+              var query = { Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto,Dia:llegadaDateTime.day,Mes:llegadaDateTime.month,Ano:llegadaDateTime.year,hotel:nombreHotel };
               Disponibilidad.updateOne(query, { Estatus: 0, Estatus_Ama_De_Llaves:estatusAma, Folio_Huesped: req.body.folio})
               .exec((err, db_res)=>
                {
@@ -176,9 +181,9 @@ exports.postHuesped = async (req,res,next)=>{
         
         //FOLIADOR UPDATE
 
-        var updateFolio = Estatus.findOne({estatus:req.body.estatus}).then((estatus) => {
+        var updateFolio = Estatus.findOne({estatus:req.body.estatus,hotel:nombreHotel}).then((estatus) => {
 
-          const query = Foliador.findOneAndUpdate({Letra:'S'},{ $inc: { Folio: 1} },{new:true},
+          const query = Foliador.findOneAndUpdate({Letra:'S',hotel:nombreHotel},{ $inc: { Folio: 1} },{new:true},
 
             ).exec((err, db_res)=>
             {
@@ -191,7 +196,7 @@ exports.postHuesped = async (req,res,next)=>{
 
           if(estatus._doc.id==1)
           {
-            const query = Foliador.findOneAndUpdate({Letra:'W'},{ $inc: { Folio: 1} },{new:true},
+            const query = Foliador.findOneAndUpdate({Letra:'W',hotel:nombreHotel},{ $inc: { Folio: 1} },{new:true},
 
             ).exec((err, db_res)=>
             {
@@ -205,7 +210,7 @@ exports.postHuesped = async (req,res,next)=>{
 
           if(estatus._doc.id==6 || estatus._doc.id==5 || estatus._doc.id==7 || estatus._doc.id==2)
           {
-            const query = Foliador.findOneAndUpdate({Letra:'R'},{ $inc: { Folio: 1} },{new:true},
+            const query = Foliador.findOneAndUpdate({Letra:'R',hotel:nombreHotel},{ $inc: { Folio: 1} },{new:true},
             ).exec((err, db_res)=>
             {
               if (err) {
@@ -235,7 +240,8 @@ exports.postHuesped = async (req,res,next)=>{
               Abono:0,
               Total:req.body.pendiente,
               Estatus:'Activo',
-              Autorizo:''
+              Autorizo:'',
+              hotel:nombreHotel
 
             }
           
@@ -261,7 +267,7 @@ exports.postHuesped = async (req,res,next)=>{
 
 exports.actualizaHuesped = async (req,res,next)=>{
 
-        Huesped.updateOne({folio : req.body.huesped.folio}, 
+        Huesped.updateOne({folio : req.body.huesped.folio,hotel:nombreHotel}, 
                             {$set: {  estatus:req.body.huesped.estatus,
                                       noches:req.body.huesped.noches,  
                                       numeroCuarto : req.body.huesped.numeroCuarto,
@@ -279,7 +285,7 @@ exports.actualizaHuesped = async (req,res,next)=>{
             }
             else{
 
-              actualizaDisponibilidad(req.body.huesped.llegada, req.body.huesped.salida, req.body.huesped.habitacion, req.body.huesped.numeroCuarto)
+              actualizaDisponibilidad(req.body.huesped.llegada, req.body.huesped.salida, req.body.huesped.habitacion, req.body.huesped.numeroCuarto, nombreHotel)
 
               return  res.status(200).json({msg: "Modificacion de Huesped realizada con Exito"})
             }
@@ -290,8 +296,9 @@ exports.actualizaHuesped = async (req,res,next)=>{
 }
 
 exports.actualizaEstatusHuesped = async (req,res,next)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  Huesped.updateOne({folio : req.body.folio}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion,notas:req.body.notas,estatus:req.body.estatus}},
+  Huesped.updateOne({folio : req.body.folio,hotel:nombreHotel}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion,notas:req.body.notas,estatus:req.body.estatus}},
     function(err, doc) {
       if (err) return res.send(500, {error: err});
       return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');
@@ -302,7 +309,8 @@ exports.actualizaEstatusHuesped = async (req,res,next)=>{
 // => Sat Sep 24 2011 00:00:00 GMT-0700 (MST) - CORRECT DATE.
 
 exports.actualizaHuespedModifica = async (req,res,next)=>{
- 
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
   const diaLlegada = parseInt(req.body.llegada.split("/")[0])
   const mesLlegada = parseInt(req.body.llegada.split("/")[1])
   const anoLlegada = parseInt(req.body.llegada.split("/")[2])
@@ -331,7 +339,7 @@ exports.actualizaHuespedModifica = async (req,res,next)=>{
                                   Mes:mes,
                                   Ano:ano,
                                   Habitacion:req.body.numeroCuarto,
-                                  Cuarto:req.body.habitacion}, { $set: { Estatus: 1 } }, 
+                                  Cuarto:req.body.habitacion,hotel:nombreHotel}, { $set: { Estatus: 1 } }, 
                                   
           function(err, result) {
           if (err) 
@@ -354,7 +362,7 @@ res.status(200).json({errors:errors,result:results})
 }
 
 
-function actualizaDisponibilidad(desde,hasta,habitacion,numero)
+function actualizaDisponibilidad(desde,hasta,habitacion,numero,nombreHotel)
 {
   const diaLlegada = desde.split("/")[0]
   const mesLlegada = desde.split("/")[1]
@@ -377,7 +385,7 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero)
       var mes = stringDate.split('-')[1]
       var dia = stringDate.split('-')[2]
 
-      var query = { Cuarto: habitacion,Habitacion:numero,Dia:dia,Mes:mes,Ano:ano };
+      var query = { Cuarto: habitacion,Habitacion:numero,Dia:dia,Mes:mes,Ano:ano,hotel:nombreHotel };
       
       Disponibilidad.updateOne(query, { Estatus: 0 },function(err, result) {
         if (err) 

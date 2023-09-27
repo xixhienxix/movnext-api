@@ -3,8 +3,9 @@ const Historico = require ('../models/historico');
 const huesped = require('../models/huesped');
 
 exports.postHistorico = async (req,res) =>
-{
-    var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto};
+{  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto, hotel:nombreHotel};
 
 if(req.body.estatus=='Reserva Sin Pago'){
     Historico.findOneAndUpdate(query, {
@@ -36,7 +37,7 @@ if(req.body.estatus=='Reserva Sin Pago'){
         }else
         {
  
-          huesped.deleteOne({folio:req.body.folio}, function(err, doc) {
+          huesped.deleteOne({folio:req.body.folio,hotel:nombreHotel}, function(err, doc) {
             if (err)
             {
               return res.status(200).json({msg:"Huesped no pudo ser borrado de la lista de huespedes"});          
@@ -81,7 +82,7 @@ else
             return res.send(500, {error: err});
           }else
           {
-              huesped.deleteOne({folio:req.body.folio}, function(err, doc) {
+              huesped.deleteOne({folio:req.body.folio,hotel:nombreHotel}, function(err, doc) {
               if (err)
               {
                 return res.status(200).json({msg:"Huesped no pudo ser borrado de la lista de huespedes"});          
@@ -100,7 +101,9 @@ else
 }
 
 exports.actualizaDatos=(req,res,next)=>{
-  Historico.findOneAndUpdate({folio:req.body.folio}, {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+  Historico.findOneAndUpdate({folio:req.body.folio,hotel:nombreHotel}, {
     telefono:req.body.telefono,
     tipoHuesped:req.body.tipoHuesped,
     fechaNacimiento:req.body.fechaNacimiento,
@@ -123,7 +126,7 @@ exports.actualizaDatos=(req,res,next)=>{
         return res.send(500, {error: err});
       }else
       {
-          huesped.deleteOne({folio:req.body.folio}, function(err, doc) {
+          huesped.deleteOne({folio:req.body.folio,hotel:nombreHotel}, function(err, doc) {
           if (err)
           {
             return res.status(200).json({msg:"Huesped no pudo ser borrado de la lista de huespedes"});          
@@ -139,21 +142,26 @@ exports.actualizaDatos=(req,res,next)=>{
 
 
 exports.getClientes = (req,res,next) =>{
-  Historico.find(this).then((cliente) => {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+  Historico.find({hotel:nombreHotel}).then((cliente) => {
   res.status(200).send(cliente)
   });
   };
 
 exports.getHistoricoVisitas = (req,res,next) =>{
-    Historico.find({id_Socio:req.params.id}).then((cliente) => {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Historico.find({id_Socio:req.params.id,hotel:nombreHotel}).then((cliente) => {
     res.status(200).send(cliente)
     });
     };
 
 
 exports.getHuespedbyId = (req,res,next) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    const query = Historico.findOne({ folio: req.params.id });
+    const query = Historico.findOne({ folio: req.params.id,hotel:nombreHotel });
 
     query.then((doc)=> {
       res.status(200).send(doc)

@@ -1,8 +1,9 @@
 const Promesa = require('../models/promesa')
 
 exports.getPromesa = (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    Promesa.find({ Folio: req.params.folio },(err,result)=>{
+    Promesa.find({ Folio: req.params.folio, hotel:nombreHotel },(err,result)=>{
         if(err)
         {res.status(500).send(err)}
         else
@@ -12,8 +13,9 @@ exports.getPromesa = (req,res) =>{
 
 } 
 exports.deletePromesa = (req,res)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    Promesa.deleteOne({_id: req.params._id
+    Promesa.deleteOne({_id: req.params._id,hotel:nombreHotel
     }).then(result => {
       res.status(200).json({
         message: "Promesa deleted!",
@@ -24,6 +26,7 @@ exports.deletePromesa = (req,res)=>{
     
 
 exports.promesaPago = async (req,res,next)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
     let pago =  {
       Folio:req.body.folio,
@@ -31,7 +34,7 @@ exports.promesaPago = async (req,res,next)=>{
       Cantidad:req.body.cantidad,
       Estatus:req.body.estatus,
       Aplicado:false,
-      
+      hotel:nombreHotel
     }
   
     Promesa.create(pago, function(err, result) {
@@ -47,12 +50,13 @@ exports.promesaPago = async (req,res,next)=>{
 
   
 exports.updatePromesa = (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   const _id = req.body.id
 
 
 
-  Promesa.findByIdAndUpdate({_id},{"Aplicado": true,Estatus:'Pago Hecho'}, function(err, result){
+  Promesa.findByIdAndUpdate({_id,hotel:nombreHotel},{"Aplicado": true,Estatus:'Pago Hecho'}, function(err, result){
     if(err){
         res.send(err)
     }
@@ -64,10 +68,11 @@ exports.updatePromesa = (req,res) =>{
 }
 
 exports.updatePromesaEstatus = (req,res) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   const _id = req.body.id
 
-  Promesa.findByIdAndUpdate({_id},{Estatus:req.body.estatus}, function(err, result){
+  Promesa.findByIdAndUpdate({_id,hotel:nombreHotel},{Estatus:req.body.estatus}, function(err, result){
     if(err){
         res.send(err)
     }

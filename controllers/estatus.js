@@ -6,25 +6,32 @@ const Historico = require ('../controllers/historico')
 
 
 exports.getEstatus = (req,res,next) =>{
-  Estatus.find(this).then((estatus) => {
-  // console.log(huesped)
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+  Estatus.find({hotel:nombreHotel}).then((estatus) => {
   res.status(200).send(estatus)
+  }).catch((err)=>{
+    res.status(200).send(err)
   });
   };
 
 
   exports.getEstatusbyId = (req,res,next) =>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    const query = Estatus.findOne({ id: req.params.id });
+    const query = Estatus.findOne({ id: req.params.id, hotel:nombreHotel });
 
     query.then((doc)=> {
       res.status(200).send(doc)
+    }).catch((err)=>{
+      res.status(200).send(err)
     });
 
 }
 
 
 exports.updateEstatus = (req,res,next) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   let estatusActualizado = req.body.estatus
   let estatusPrevio = req.body.estatus
@@ -96,7 +103,7 @@ exports.updateEstatus = (req,res,next) =>{
     huesped.updateOne({folio:req.body.folio},{$set:{estatus:estatusActualizado,
                                                       pendiente:req.body.huesped.pendiente,
                                                       porPagar:req.body.huesped.porPagar,
-                                                      noches:req.body.huesped.noches}},function(err,result)
+                                                      noches:req.body.huesped.noches, hotel:nombreHotel}},function(err,result)
     {
       if (err) {
         console.log("Error Al Actualizar Estado :",err.message)
@@ -109,7 +116,7 @@ exports.updateEstatus = (req,res,next) =>{
     }
     }); 
   }else {
-    huesped.updateOne({folio:req.body.folio},{$set:{estatus:estatusActualizado}},function(err,result)
+    huesped.updateOne({folio:req.body.folio,hotel:nombreHotel},{$set:{estatus:estatusActualizado}},function(err,result)
     {
       if (err) {
         console.log("Error Al Actualizar Estado :",err.message)

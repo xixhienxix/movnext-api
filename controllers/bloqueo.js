@@ -6,25 +6,31 @@ const {DateTime} = require("luxon");
 
 
 exports.getBloqueos = (req,res,next) =>{
-  Bloqueo.find(this).then((bloqueos) => {
-  // console.log(huesped)
-  res.status(200).send(bloqueos)
-  });
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Bloqueo.find({hotel:nombreHotel})
+    .then((bloqueos) => {
+      res.status(200).send(bloqueos)
+    }).catch((err)=>{
+      res.status(200).send(err)
+    });
+
   };
 
 
   exports.getBloqueosbyId = (req,res,next) =>{
 
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
     var id = req.params.id;
 
     Bloqueo.findById(id)
-        .lean().exec(function (err, results) {
-        if (err) return console.error(err)
-        try {
-        } catch (error) {
-        }
-    })
-
+        .lean().exec()
+        .then(
+          (result)=>{
+            res.status(200).send(result)
+        }).catch((err)=>{
+          res.status(200).send(err)
+        })
 }
 
 
@@ -39,19 +45,10 @@ exports.deleteBloqueo = (req,res,next) =>{
         message: "Bloqueo deleted!",
         bloqueo:result
       });
+    }).catch(
+      (err)=>{
+        res.status(200).send(err)
     });
-
-    // .then(result => console.log(`Deleted ${result.deletedCount} item.`))
-    // .catch(err => console.error(`Delete failed with error: ${err}`))
-
-  // Bloqueo.find({_id:bloqueoId}).deleteOne({}, (err, d) => {
-  //   if (err) return res.status(400)
-  //   if (d.acknowledged && d.deletedCount == 1)
-  //       console.log("Deleted Successfully")    // Use your response code
-  //   else
-  //       console.log("Record doesn't exist or already deleted")    // Use your response code
-  //  ).exec();
-  //  res.status(200).json({message:"Deleted"})
 
 }
 
@@ -73,12 +70,17 @@ exports.actualizaBloqueos = (req,res,next) =>{
         res.status(401).json({
           message: err
         });
-        //console.log(err);
       }
-  // Add else
   else{
 
-      var respuesta = actualizaDisponibilidad(req.body.Desde,req.body.Hasta,req.body.Habitacion,req.body.Cuarto,req.body.sinLlegadas,req.body.sinSalidas,req.body.fueraDeServicio);
+      var respuesta = actualizaDisponibilidad(req.body.Desde,
+        req.body.Hasta,
+        req.body.Habitacion,
+        req.body.Cuarto,
+        req.body.sinLlegadas,
+        req.body.sinSalidas,
+        req.body.fueraDeServicio,
+        nombreHotel);
 
         res.status(200).json({
           respuesta
@@ -92,7 +94,15 @@ exports.actualizaBloqueos = (req,res,next) =>{
 exports.postBloqueos = async (req,res,next)=>{
 
 
-  actualizaDisponibilidad(req.body.Desde,req.body.Hasta,req.body.Habitacion,req.body.Cuarto,req.body.sinLlegadas,req.body.sinSalidas,req.body.fueraDeServicio,0);
+  actualizaDisponibilidad(req.body.Desde,
+    req.body.Hasta,
+    req.body.Habitacion,
+    req.body.Cuarto,
+    req.body.sinLlegadas,
+    req.body.sinSalidas,
+    req.body.fueraDeServicio,
+    nombreHotel,
+    0);
 
   var id = mongoose.Types.ObjectId();
 
@@ -132,14 +142,24 @@ else{
 
 exports.liberaBloqueos = async (req,res,next)=>{
 
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
   let liberaEstatus=1
-  actualizaDisponibilidad(req.body.Desde,req.body.Hasta,req.body.Habitacion,req.body.Cuarto,req.body.sinLlegadas,req.body.sinSalidas,req.body.fueraDeServicio,liberaEstatus);
+  actualizaDisponibilidad(req.body.Desde,
+    req.body.Hasta,
+    req.body.Habitacion,
+    req.body.Cuarto,
+    req.body.sinLlegadas,
+    req.body.sinSalidas,
+    req.body.fueraDeServicio,
+    nombreHotel,
+    liberaEstatus);
 
 }
 
 
 
-function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSalidas,fueraDeServicio,liberaEstatus)
+function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSalidas,fueraDeServicio,nombreHotel,liberaEstatus)
 {
   //Estatus:0=No Disponible (Ni Llegadas ni Salidas)
   //Estatus:1=Disponible
@@ -169,7 +189,7 @@ function actualizaDisponibilidad(desde,hasta,habitacion,numero,sinLlegadas,sinSa
     {
       for(let k=0; k<numero.length;k++)
       {
-        var query = { Cuarto: habitacion[i],Habitacion:numero[k],Dia:fromDate.day,Mes:fromDate.month,Ano:fromDate.year };
+        var query = { Cuarto: habitacion[i],Habitacion:numero[k],Dia:fromDate.day,Mes:fromDate.month,Ano:fromDate.year, hotel:nombreHotel };
 
 
         let estatus;

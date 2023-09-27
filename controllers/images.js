@@ -1,7 +1,9 @@
 const imgModel = require("../models/img")
 
 exports.uploadHabitacion = (req,res) =>{
-    imgModel.find({}, (err, items) => {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    imgModel.find({hotel:nombreHotel}, (err, items) => {
         if (err) {
             console.log(err);
             res.status(500).send('An error occurred', err);
@@ -14,6 +16,7 @@ exports.uploadHabitacion = (req,res) =>{
 
 exports.postImageHabitacion = (req,res)=>{
     var obj = {
+        hotel:nombreHotel,
         name: req.body.name,
         desc: req.body.desc,
         img: {

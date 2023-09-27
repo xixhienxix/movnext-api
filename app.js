@@ -5,7 +5,7 @@ const port = process.env.PORT||4000
 const cors = require('cors');
 const multer= require('multer')
 const initDB= require('./config/db')
-var url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
+var url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/MovNext'
 /**Controllers
  * 
  */
@@ -94,20 +94,20 @@ var gracefulExit = function() {
 process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
 
 var upload = multer({ storage: storage });
-app.get("/api/listaHoteles", (req,res)=>{
-/// create a connection to the DB    
-var connection = mongoose.createConnection(
-  'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master');
-connection.on('open', function() {
-  // connection established
-  new Admin(connection.db).listDatabases(function(err, result) {
-      // database list stored in result.databases
-      var allDatabases = result.databases;   
-      return  res.status(200).send(result.databases)//res.send('Succesfully saved.');
+// app.get("/api/listaHoteles", (req,res)=>{
+// /// create a connection to the DB    
+// var connection = mongoose.createConnection(
+//   'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master');
+// connection.on('open', function() {
+//   // connection established
+//   new Admin(connection.db).listDatabases(function(err, result) {
+//       // database list stored in result.databases
+//       var allDatabases = result.databases;   
+//       return  res.status(200).send(result.databases)//res.send('Succesfully saved.');
  
-  });
-});
-})
+//   });
+// });
+// })
 
 
 app.use('/api/status', require('express-healthcheck')({

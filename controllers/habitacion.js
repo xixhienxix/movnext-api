@@ -6,8 +6,9 @@ const Disponibilidad = require('../models/disponibilidad')
 
 
 exports.postEstatusHabitacion = (req,res,next) => {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-      const query = Habitacion.findOneAndUpdate({Cuarto:req.params.id})
+      const query = Habitacion.findOneAndUpdate({Cuarto:req.params.id,hotel:nombreHotel})
       .exec((err, db_res)=>
       {
         if (err) {
@@ -23,10 +24,11 @@ exports.postEstatusHabitacion = (req,res,next) => {
 }
 
 exports.actualizaUrlImagen = (req,res) => {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
 const codigoCuarto = req.body.fileUploadName.split('.')[0]
         try {
-          Habitacion.updateOne({Codigo:codigoCuarto},{$set:{URL:req.body.downloadURL}},{ upsert: true }).then(result => {
+          Habitacion.updateOne({Codigo:codigoCuarto,hotel:nombreHotel},{$set:{URL:req.body.downloadURL}},{ upsert: true }).then(result => {
             res.status(200).json({
               message: "data Updated",
             });
@@ -41,18 +43,20 @@ const codigoCuarto = req.body.fileUploadName.split('.')[0]
 }
 
 exports.deleteHabitacion = (req,res)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
   var numHab
   
-  Habitacion.find({_id: req.params._id})
+  Habitacion.find({_id: req.params._id,hotel:nombreHotel})
   .then(result=>{
     if(result.hasOwnProperty(Numero)){
       numHab = result[0].Numero
     }
   });
 
-  Habitacion.deleteOne({_id: req.params._id
+  Habitacion.deleteOne({_id: req.params._id, hotel:nombreHotel
   }).then(result => {
-    Disponibilidad.deleteMany({Habitacion: numHab}).then(resultDispo=>{
+    Disponibilidad.deleteMany({Habitacion: numHab,hotel:nombreHotel}).then(resultDispo=>{
       res.status(200).json({
         message: "Habitación eliminada!",
       });
@@ -61,8 +65,9 @@ exports.deleteHabitacion = (req,res)=>{
 }
 
 exports.buscarHabitacion = (req,res)=>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  Huespedes.find({habitacion:req.body.habitacion.Codigo,numeroCuarto: req.body.habitacion.Numero})
+  Huespedes.find({habitacion:req.body.habitacion.Codigo,numeroCuarto: req.body.habitacion.Numero,hotel:nombreHotel})
   .then(result => {
     res.status(200).send(result);
   });
@@ -86,7 +91,7 @@ exports.nuevaHabitacion = (req,res,next) => {
       Orden:req.body.habitacion.Orden,
       Tarifa:req.body.habitacion.Tarifa,
       Amenidades:req.body.habitacion.Amenidades,
-      Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
+      Tipos_Camas:req.body.habitacion.Tipos_Camas, hotel:nombreHotel}, function(err, result) {
       if (err) {
         res.send(err);
         return
@@ -122,7 +127,7 @@ exports.nuevaHabitacion = (req,res,next) => {
           Orden:req.body.habitacion.Orden,
           Tarifa:req.body.habitacion.Tarifa,
           Amenidades:req.body.habitacion.Amenidades,
-          Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
+          Tipos_Camas:req.body.habitacion.Tipos_Camas, hotel:nombreHotel}, function(err, result) {
           if (err) {
             res.send(err);
             return
@@ -143,6 +148,7 @@ exports.nuevaHabitacion = (req,res,next) => {
 
 exports.agregarInventario = (req,res,next) => {
 
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   for(let i=0; i<req.body.habitacion.Inventario; i++){
     let numero
@@ -166,7 +172,7 @@ exports.agregarInventario = (req,res,next) => {
         Orden:req.body.habitacion.Orden,
         Tarifa:req.body.habitacion.Tarifa,
         Amenidades:req.body.habitacion.Amenidades,
-        Tipos_Camas:req.body.habitacion.Tipos_Camas}, function(err, result) {
+        Tipos_Camas:req.body.habitacion.Tipos_Camas,hotel:nombreHotel}, function(err, result) {
         if (err) {
           res.send(err);
           return
@@ -187,39 +193,41 @@ exports.agregarInventario = (req,res,next) => {
 //getInfoHabitaciones
 
 exports.getHabitacion = (req,res,next) =>{
-  
-  Habitacion.find(this).then((habitacion) => {
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+  Habitacion.find({hotel:nombreHotel}).then((habitacion) => {
   res.status(200).send(habitacion)
   });
   
 };
 
 exports.getAll = (req,res,next) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
   if(req.query.hotel!='undefined'){
-
-    const db = mongoose.connect(url+req.query.hotel, { useNewUrlParser: true })
-      .then(() => {
-        Habitacion.find(this).then((habitacion) => {
+    
+        Habitacion.find({hotel:nombreHotel}).then((habitacion) => {
           res.status(200).send(habitacion)
           });
-      })
-      .catch(err => console.error(err));
+   
     };
   };
 
 
 //Tipos de Cuarto
   exports.getCodigoHabitacion = (req,res,next) =>{
-    Habitacion.find(this).distinct("Codigo").then((habitacion) => {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Habitacion.find({hotel:nombreHotel}).distinct("Codigo").then((habitacion) => {
     res.status(200).send(habitacion)
     });
     };
 
 
   exports.getHabitacionbyId = (req,res,next) =>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-    const query = Habitacion.find({ Codigo:{$regex: req.params.codigo + '.*', $options: 'i'},Estatus:1});
+    const query = Habitacion.find({ Codigo:{$regex: req.params.codigo + '.*', $options: 'i',hotel:nombreHotel},Estatus:1});
     // const query = Habitacion.find( {$text: { $search: "\""+req.params.codigo+"\"" }, $options: 'i',Estatus:1});
 
     query.then((doc)=> {
@@ -228,8 +236,9 @@ exports.getAll = (req,res,next) =>{
 }
 
 exports.getHabitacionbyNumber = async (req,res,next) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  const query =await Habitacion.find({ Numero:req.params.numero});
+  const query =await Habitacion.find({ Numero:req.params.numero,hotel:nombreHotel});
   // const query = Habitacion.find( {$text: { $search: "\""+req.params.codigo+"\"" }, $options: 'i',Estatus:1});
   try {
           res.json(await Habitacion.find({ Numero:req.params.numero}));
@@ -243,8 +252,9 @@ exports.getHabitacionbyNumber = async (req,res,next) =>{
 }
 
 exports.getInfoHabitaciones = (req,res,next) =>{
+  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
-  const query = Habitacion.find({ Numero:req.query.numero,Codigo:req.query.tipo});
+  const query = Habitacion.find({ Numero:req.query.numero,Codigo:req.query.tipo,hotel:nombreHotel});
   query.then((doc)=> {
     res.status(200).send(doc)
   });

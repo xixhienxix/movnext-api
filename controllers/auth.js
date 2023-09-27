@@ -12,8 +12,6 @@ exports.login = async (req, res) => {
   const username = req.body.username
   const password = req.body.password
  
-  const newHotelConn = await mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', { promiseLibrary: require('bluebird')})
-  .then(async() => {
       const usuariosResultQuery = await usuarios.findOne({ username: username, password: password }).lean()
           .then(
             (db_res) => {
@@ -36,16 +34,9 @@ exports.login = async (req, res) => {
             errorLogs.push({usuariosResultQuery:err})
             console.log(err)
             return false
-          }).finally(() => {
-            mongoose.connection.close();
-        });
-  })
-  .catch((err) => {
-    res.status(200).send(err)
-  }).finally(() => {
-    mongoose.connection.close();
-  });
-}
+          })
+  }
+
 
 exports.autoriza = async (req, res) => {
 
@@ -93,7 +84,6 @@ exports.autoriza = async (req, res) => {
 }
 
 exports.olvidoPassword = async (req, res) => {
-
 
   const email = req.body
   const query = usuarios.findOne({ email: req.body.email })

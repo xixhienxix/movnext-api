@@ -24,11 +24,10 @@ const origen_default_values = require('../defaultValues/origen')
 const parametros_default_values = require('../defaultValues/parametros')
 const timezones_default_values = require('../defaultValues/timezones')
 
-exports.create = (req,res)=>{
+exports.create = async (req,res) => {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
     let errorLogs = []
-    mongoose.connect('mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master', 
-    { useNewUrlParser: true, promiseLibrary: require('bluebird')})
-    .then(async () => {
 
             let user = {
                 nombre : req.body.fullname,
@@ -41,13 +40,11 @@ exports.create = (req,res)=>{
             }
 
             var nombreHotel = req.body.hotel.replace(/\s/g, '_');
-            var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/'
-            db_url = db_url+nombreHotel
 
             const username = req.body.username
 
             let userExist = await usuarios.find({username : username})
-                .then((docs) => {
+                .then(async (docs) => {
                     if (docs.length){
                         return true
                         
@@ -73,15 +70,17 @@ exports.create = (req,res)=>{
                                 errorLogs.push({createdUser:err})
                                 console.log(errorLogs)
                                 res.status(200).send(err)
-                            }).finally(
-                                ()=>{
-                                    mongoose.connection.close()
-                            });
+                            })
                 if(createdUser==true){
                     //New Conection to Hotel to Crerate DBs
-                    const newHotelConn = await mongoose.connect(db_url, { promiseLibrary: require('bluebird')})
-                    .then(async() => {
-                        const amaQueryResult = await Ama.insertMany(ama_defaults.ama_llaves_defaults)
+
+                    let amaDefaultValuesWithHotelName=[]
+                    for(let i=0;i<ama_defaults.ama_llaves_defaults.length;i++){
+                        ama_defaults.ama_llaves_defaults[i].hotel=nombreHotel
+                        amaDefaultValuesWithHotelName.push(ama_defaults.ama_llaves_defaults[i])
+                    }
+
+                        const amaQueryResult = await Ama.insertMany(amaDefaultValuesWithHotelName)
                             .then((res) => {
                                 console.log('Amma de Llaves Collection Creada Exitosamente')
                                 return true
@@ -91,7 +90,14 @@ exports.create = (req,res)=>{
                                 console.log(err)
                                 return false
                             })
-                        const codigoQueryResult = await Codigos.insertMany(codigos_defaults.codigos_default)
+
+                    let codigos_defaultValuesWithHotelName=[]
+                        for(let i=0;i<codigos_defaults.codigos_default.length;i++){
+                            codigos_defaults.codigos_default[i].hotel=nombreHotel
+                            codigos_defaultValuesWithHotelName.push(codigos_defaults.codigos_default[i])
+                        }
+
+                        const codigoQueryResult = await Codigos.insertMany(codigos_defaultValuesWithHotelName)
                             .then((res) => {
                                 console.log('Codigos Collection Creada Exitosamente')
                                 return true
@@ -101,7 +107,14 @@ exports.create = (req,res)=>{
                                 console.log(err)
                                 return false
                             })
-                        const divisasQueryResult = await Divisas.insertMany(divisas_default.divisas_defaults)
+
+                    let divisas_defaultValuesWithHotelName=[]
+                        for(let i=0;i<divisas_default.divisas_defaults.length;i++){
+                            divisas_default.divisas_defaults[i].hotel=nombreHotel
+                            divisas_defaultValuesWithHotelName.push(divisas_default.divisas_defaults[i])
+                            }
+
+                        const divisasQueryResult = await Divisas.insertMany(divisas_defaultValuesWithHotelName)
                             .then((res) => {
                                 console.log('Divisas Collection Creada Exitosamente')
                                 return true
@@ -111,7 +124,14 @@ exports.create = (req,res)=>{
                                 console.log(err)
                                 return false
                             })
-                        const estatusQueryResult = await Estatus.insertMany(estatus_default.estatus_default)
+
+                            let estatus_defaultValuesWithHotelName=[]
+                            for(let i=0;i<estatus_default.estatus_default.length;i++){
+                                estatus_default.estatus_default[i].hotel=nombreHotel
+                                estatus_defaultValuesWithHotelName.push(estatus_default.estatus_default[i])
+                                }
+
+                        const estatusQueryResult = await Estatus.insertMany(estatus_defaultValuesWithHotelName)
                             .then((res) => {
                                 console.log('Estatus Collection Creada Exitosamente')
                                 return true
@@ -121,7 +141,14 @@ exports.create = (req,res)=>{
                                 console.log(errorLogs)
                                 return false
                             })
-                        const estatusBloqueoQueryResult = await Estatus_Bloqueo.insertMany(estatus_bloqueo_default.estatus_bloqueo)
+
+                            let estatus_bloqueo_defaultValuesWithHotelName=[]
+                            for(let i=0;i<estatus_bloqueo_default.estatus_bloqueo.length;i++){
+                                estatus_bloqueo_default.estatus_bloqueo[i].hotel=nombreHotel
+                                estatus_bloqueo_defaultValuesWithHotelName.push(estatus_bloqueo_default.estatus_bloqueo[i])
+                                }
+
+                        const estatusBloqueoQueryResult = await Estatus_Bloqueo.insertMany(estatus_bloqueo_defaultValuesWithHotelName)
                             .then((res) => {
                                 console.log('Estatus Bloqueo Collection Creada Exitosamente')
                                 return true
@@ -131,7 +158,15 @@ exports.create = (req,res)=>{
                                 console.log(errorLogs)
                                 return false
                             })
-                        const foliadorQueryResult = await Foliador.insertMany(foliador_default_values.foliador_default)
+
+
+                            let foliador_default_valuesValuesWithHotelName=[]
+                            for(let i=0;i<foliador_default_values.foliador_default.length;i++){
+                                foliador_default_values.foliador_default[i].hotel=nombreHotel
+                                foliador_default_valuesValuesWithHotelName.push(foliador_default_values.foliador_default[i])
+                                }
+
+                        const foliadorQueryResult = await Foliador.insertMany(foliador_default_valuesValuesWithHotelName)
                             .then((res) => {
                                 console.log('Foliador Bloqueo Collection Creada Exitosamente')
                                 return true
@@ -141,7 +176,14 @@ exports.create = (req,res)=>{
                                 console.log(errorLogs)
                                 return false
                             })
-                        const origenQueryResult = await Origen.insertMany(origen_default_values.origen_default_values)
+
+
+                            let origen_default_valuesValuesWithHotelName=[]
+                            for(let i=0;i<origen_default_values.origen_default_values.length;i++){
+                                origen_default_values.origen_default_values[i].hotel=nombreHotel
+                                origen_default_valuesValuesWithHotelName.push(origen_default_values.origen_default_values[i])
+                                }
+                        const origenQueryResult = await Origen.insertMany(origen_default_valuesValuesWithHotelName)
                             .then((res) => {
                                 console.log('Origen Collection Creada Exitosamente')
                                 return true
@@ -151,7 +193,13 @@ exports.create = (req,res)=>{
                                 console.log(errorLogs)
                                 return false
                             })
-                        const parametrosQueryResult = await Parametros.insertMany(parametros_default_values.parametros_default_values)
+
+                            let parametros_default_valuesValuesWithHotelName=[]
+                            for(let i=0;i<parametros_default_values.parametros_default_values.length;i++){
+                                parametros_default_values.parametros_default_values[i].hotel=nombreHotel
+                                parametros_default_valuesValuesWithHotelName.push(parametros_default_values.parametros_default_values[i])
+                                }
+                        const parametrosQueryResult = await Parametros.insertMany(parametros_default_valuesValuesWithHotelName)
                             .then((res) => {
                                 console.log('Parametros Collection Creada Exitosamente')
                                 return true
@@ -161,7 +209,14 @@ exports.create = (req,res)=>{
                                 console.log(errorLogs)
                                 return false
                             })
-                        const timezonesQueryResult = await TimeZones.insertMany(timezones_default_values.timezones_default_values)
+
+
+                            let timezones_default_valuesValuesWithHotelName=[]
+                            for(let i=0;i<timezones_default_values.timezones_default_values.length;i++){
+                                timezones_default_values.timezones_default_values[i].hotel=nombreHotel
+                                timezones_default_valuesValuesWithHotelName.push(timezones_default_values.timezones_default_values[i])
+                                }
+                        const timezonesQueryResult = await TimeZones.insertMany(timezones_default_valuesValuesWithHotelName)
                             .then((res) => {
                                 console.log('Parametros Collection Creada Exitosamente')
                                 return true
@@ -171,15 +226,8 @@ exports.create = (req,res)=>{
                                 console.log(err)
                                 return false
                             })
-                    })
-                    .catch((err) => {
-                        errorLogs.push(err)
-                        console.log(errorLogs)
-                        res.status(200).send(err)
-                    }).finally(
-                        ()=>{
-                            mongoose.connection.close()
-                    });
+                    
+                    
                 }else{
                     res.status(409).send('No se pudo registrar su hotel intente nuevamente')
                 }
@@ -187,15 +235,5 @@ exports.create = (req,res)=>{
             }else{
                 res.status(200).send({response:'El nombre de usuario no se puede usar, especifique otro'});
             }
-
-        })
-        .catch((err) => {
-            errorLogs.push(err)
-            console.log(errorLogs)
-            res.status(200).send(err)
-        }).finally(
-            ()=>{
-                mongoose.connection.close()
-                res.status(200).send({mensaje:"Tablas creadas correctamente"})
-        });
+   
   }

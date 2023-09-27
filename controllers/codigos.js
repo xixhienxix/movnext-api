@@ -1,7 +1,9 @@
 const Codigos = require('../models/codigos.js')
 
 exports.getCodigosDeCargo = (req,res)=>{
-    Codigos.find({},(err,result)=>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Codigos.find({hotel:nombreHotel},(err,result)=>{
         if(err)
         {res.status(400).send(err)}
         else
@@ -10,7 +12,9 @@ exports.getCodigosDeCargo = (req,res)=>{
 } 
 
 exports.getTiposHabitaciones = (req,res)=>{
-    Codigos.find({Tipo:"HAB"},(err,result)=>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Codigos.find({Tipo:"HAB",hotel:nombreHotel},(err,result)=>{
         if(err)
         {res.status(400).send(err)}
         else
@@ -19,7 +23,9 @@ exports.getTiposHabitaciones = (req,res)=>{
 }
 
 exports.getAmenidades = (req,res)=>{
-    Codigos.find({Tipo:"AME"},(err,result)=>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Codigos.find({Tipo:"AME",hotel:nombreHotel},(err,result)=>{
         if(err)
         {res.status(400).send(err)}
         else
@@ -28,7 +34,9 @@ exports.getAmenidades = (req,res)=>{
 }
 
 exports.getCamas = (req,res)=>{
-    Codigos.find({Tipo:"CAMA"},(err,result)=>{
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
+    Codigos.find({Tipo:"CAMA",hotel:nombreHotel},(err,result)=>{
         if(err)
         {res.status(400).send(err)}
         else

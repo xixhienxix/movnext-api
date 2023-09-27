@@ -4,34 +4,27 @@ const mongoose = require('mongoose');
 const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
 
 exports.getParametros = async (req, res) => {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+
     if (req.query.hotel != 'undefined') {
         let parametrosQueryResult
-        const conn = await mongoose.connect(url+req.query.hotel, { promiseLibrary: require('bluebird')})
-            .then(async()=>{
-                    parametrosQueryResult = await Parametros.find(this)
+                    parametrosQueryResult = await Parametros.find({hotel:nombreHotel})
                     .then(
                         (res)=>{
                             return res
                         }).catch((err)=>{
                             console.log({queryParametrosResult:err})
                             return err
-                        })
-                }).catch(
-                    (err)=>{
-                        console.log({conn:err})
-                        res.status(200).send("Failed to connect to the Database: "+req.query.hotel)
-                }).finally(
-                    ()=>{
-                        res.status(200).send(parametrosQueryResult)
-                    })           
+                        })          
     }
 }
 
 exports.postParametros = (req, res) => {
+    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
 
     try {
         Parametros.findOneAndUpdate(
-            { id: req.body.id },
+            { id: req.body.id,hotel:nombreHotel },
             {
                 $set:
                 {
