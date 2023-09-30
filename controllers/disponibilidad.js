@@ -159,7 +159,7 @@ exports.getDisponibilidadCompleta= async (req,res,next)=>{
 
 
   exports.getDisponibilidadXFecha = (req,res,next) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     const query = Disponibilidad.find({ Dia: req.query.dia, Mes: req.query.mes, Ano: req.query.ano, Cuarto: req.query.cuarto, hotel:nombreHotel });
 

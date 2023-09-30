@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 exports.getAdicional = async (req, res) => {
 
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
                     const query = Adicional.find({hotel:nombreHotel})
         

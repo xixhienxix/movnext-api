@@ -6,7 +6,9 @@ const promesaSchema = mongoose.Schema({
     Fecha:{type:Date},
     Cantidad:{type:Number},
     Aplicado:{type:Boolean},
-    Estatus:{type:String}
+    Estatus:{type:String},
+    hotel:{type:String}
+
   },{ collection: 'Promesas_Pago'});
   module.exports=mongoose.model('Promesas_Pago',promesaSchema);
   

@@ -10,6 +10,7 @@ const postSchemaBloqueo = mongoose.Schema({
   sinSalidas:{type:Boolean},
   fueraDeServicio:{type:Boolean},
   Comentarios: {type : String},
+  hotel:{type:String}
 
 },{ collection: 'Bloqueo'});
 

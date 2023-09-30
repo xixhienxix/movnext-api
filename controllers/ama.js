@@ -5,7 +5,7 @@ var url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/Master'
 
 exports.getEstatus = async (req,res) =>
 {
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
             const query = Ama.find({hotel:nombreHotel})
             query.exec((err,result)=>{
@@ -21,7 +21,7 @@ exports.getEstatus = async (req,res) =>
 
 exports.getEstatusByID=(req,res)=>{
 
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Ama.find({_id:req.params.cuarto, hotel:nombreHotel},(error,result)=>{
         if(error){

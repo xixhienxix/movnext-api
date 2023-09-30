@@ -1,7 +1,7 @@
 const imgModel = require("../models/img")
 
 exports.uploadHabitacion = (req,res) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     imgModel.find({hotel:nombreHotel}, (err, items) => {
         if (err) {

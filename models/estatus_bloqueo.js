@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const postSchemaEstatusBloqueo = mongoose.Schema({
 
     Estatus: {type : Number},
-    Descripcion: {type : String}
+    Descripcion: {type : String},
+    hotel:{type:String}
 
 },{ collection: 'Estatus_Bloqueo'});
 

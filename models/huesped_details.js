@@ -15,7 +15,9 @@ const detailsSchema = mongoose.Schema({
     ciudad:{type:String},
     codigoPostal:{type:String},
     lenguaje:{type:String},
-    notas:{type:String}
+    notas:{type:String},
+    hotel:{type:String}
+
 },{collection:'Detalles_Huesped'});
 
 module.exports=mongoose.model('Detalles_Huesped',detailsSchema);

@@ -43,9 +43,10 @@ exports.autoriza = async (req, res) => {
 
   const username = req.body.usuario
   const password = req.body.password
+  const hotel = req.body.hotel
 
-  const queryPassword = usuarios.findOne({ username: username, password: password })
-  const queryUserName = usuarios.findOne({ username: username })
+  const queryPassword = usuarios.findOne({ username: username, password: password, hotel:hotel })
+  const queryUserName = usuarios.findOne({ username: username, hotel:hotel })
 
   queryUserName.lean().exec((err, result) => {
     if (err) {
@@ -106,13 +107,16 @@ exports.olvidoPassword = async (req, res) => {
 
 exports.registro = async (req, res) => {
 
+
+
   let user = {
     nombre: req.body.fullname,
     email: req.body.email,
     username: req.body.username,
     password: req.body.password,
     terminos: req.body.terminos,
-    rol: 2
+    rol: 2,
+    hotel:req.body.hotel
   }
 
   usuarios.create(user, function (err, result) {

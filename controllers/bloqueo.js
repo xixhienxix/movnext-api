@@ -20,7 +20,7 @@ exports.getBloqueos = (req,res,next) =>{
 
   exports.getBloqueosbyId = (req,res,next) =>{
 
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
     var id = req.params.id;
 
     Bloqueo.findById(id)

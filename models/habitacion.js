@@ -17,6 +17,7 @@ const postSchemaHabitacion = mongoose.Schema({
   Inventario:{type:Number},
   Orden:{type:Number},
   URL:{type:String},
+  hotel:{type:String}
 
 },{ collection: 'Habitaciones'});
 

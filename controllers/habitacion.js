@@ -216,7 +216,7 @@ exports.getAll = (req,res,next) =>{
 
 //Tipos de Cuarto
   exports.getCodigoHabitacion = (req,res,next) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Habitacion.find({hotel:nombreHotel}).distinct("Codigo").then((habitacion) => {
     res.status(200).send(habitacion)
@@ -225,7 +225,7 @@ exports.getAll = (req,res,next) =>{
 
 
   exports.getHabitacionbyId = (req,res,next) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     const query = Habitacion.find({ Codigo:{$regex: req.params.codigo + '.*', $options: 'i',hotel:nombreHotel},Estatus:1});
     // const query = Habitacion.find( {$text: { $search: "\""+req.params.codigo+"\"" }, $options: 'i',Estatus:1});

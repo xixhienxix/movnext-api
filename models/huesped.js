@@ -35,6 +35,7 @@ const postSchema = mongoose.Schema({
   vip: {type : String},
   ID_Socio:{type:Number},
   estatus_Ama_De_Llaves: {type : String},
+  hotel:{type:String}
 
 }
 

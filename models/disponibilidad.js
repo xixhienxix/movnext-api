@@ -11,6 +11,7 @@ const postSchemaDisponibilidad = mongoose.Schema({
   Estatus_Ama_De_Llaves:{type:String},
   Folio_Huesped:{type:Number},
   Fecha:{type:String},
+  hotel:{type:String}
 
 },{ collection: 'Disponibilidad'});
 

@@ -1,7 +1,7 @@
 const Detalles_Huesped = require('../models/huesped_details')
 
 exports.getDetails = (req,res)=>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Detalles_Huesped.findOne({hotel:nombreHotel}).sort({created_at: 1}).exec(function(err, detalles) {
         res.status(200).send(detalles)
@@ -9,7 +9,7 @@ exports.getDetails = (req,res)=>{
 }
 
 exports.getDetailsById = (req,res)=>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Detalles_Huesped.findOne({ID_Socio:req.params.folio, hotel:nombreHotel}).exec(function(err, detalles) {
         if(detalles){

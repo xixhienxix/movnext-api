@@ -88,7 +88,7 @@ exports.getHuesped = (req,res,next) =>{
   };
 
   exports.getHuespedHistorico = (req,res,next) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Historico.find({hotel:nombreHotel}).then((historico) => {
     res.status(200).send(historico)
@@ -97,7 +97,7 @@ exports.getHuesped = (req,res,next) =>{
 
 
   exports.getHuespedbyId = (req,res,next) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     const query = Huesped.findOne({ folio: req.params.id,hotel:nombreHotel });
 

@@ -36,6 +36,7 @@ const postSchema = mongoose.Schema({
   cfdi:{type:String},
   razonsocial:{type:String},
   rfc:{type:String},
+  hotel:{type:String}
 
 },{ collection: 'historico_huesped'}
 

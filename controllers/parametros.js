@@ -4,23 +4,23 @@ const mongoose = require('mongoose');
 const url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/';
 
 exports.getParametros = async (req, res) => {
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     if (req.query.hotel != 'undefined') {
         let parametrosQueryResult
                     parametrosQueryResult = await Parametros.find({hotel:nombreHotel})
                     .then(
-                        (res)=>{
-                            return res
+                        (value)=>{
+                            return res.status(200).send(value)
                         }).catch((err)=>{
                             console.log({queryParametrosResult:err})
-                            return err
+                            return res.status(200).send(err)
                         })          
     }
 }
 
 exports.postParametros = (req, res) => {
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     try {
         Parametros.findOneAndUpdate(

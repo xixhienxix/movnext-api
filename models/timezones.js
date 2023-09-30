@@ -5,6 +5,8 @@ const postSchemaTimeZones = mongoose.Schema({
     Codigo:{type:String},
     Nombre:{type:String},
     UTC:{type:String},
+    hotel:{type:String}
+
 },{ collection: 'TimeZones'});
 
 

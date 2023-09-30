@@ -17,7 +17,9 @@ _id:{type:String},
     Dias:{type:Array},
     Adultos:{type:Number},
     Ninos:{type:Number},
-Descuento:{type:Number}
+Descuento:{type:Number},
+hotel:{type:String}
+
   },{ collection: 'Tarifas'});
   module.exports=mongoose.model('Tarifas',promesaSchema);
   

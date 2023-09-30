@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const postSchemaFolios = mongoose.Schema({
 
   Folio: {type : Number},
-  Letra: {type : String}
+  Letra: {type : String},
+  hotel:{type:String}
+
 
 },{ collection: 'Foliador'});
 

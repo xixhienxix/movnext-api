@@ -17,7 +17,7 @@ exports.getEstatus = (req,res,next) =>{
 
 
   exports.getEstatusbyId = (req,res,next) =>{
-    var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     const query = Estatus.findOne({ id: req.params.id, hotel:nombreHotel });
 

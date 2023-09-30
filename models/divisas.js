@@ -4,7 +4,8 @@ const postSchemaDivisas = mongoose.Schema({
     _id:{type:String},
     Localidad:{type:String},
     Nombre:{type:String},
-    Simbolo:{type:String}
+    Simbolo:{type:String},
+    hotel:{type:String}
 },{ collection: 'Divisas'});
 
 
