@@ -1,8 +1,10 @@
 exports.origen_default_values = [{
     ID:1,
-    Descripcion:"Online"
+    Descripcion:"Online",
+    hotel:''
 },
 {
     ID:2,
-    Descripcion:"BOOKING.COM"
+    Descripcion:"BOOKING.COM",
+    hotel:''
 }]

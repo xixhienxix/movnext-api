@@ -28,6 +28,8 @@ exports.login = async (req, res) => {
                   db_res.accessToken = accessToken
                   res.status(200).send({ db_res });
                 })
+              }else {
+                res.status(200).send({ mensaje:"usuario inexistente" });
               }
           }) 
           .catch((err) => {
@@ -43,7 +45,7 @@ exports.autoriza = async (req, res) => {
 
   const username = req.body.usuario
   const password = req.body.password
-  const hotel = req.body.hotel
+  const hotel = req.query.hotel
 
   const queryPassword = usuarios.findOne({ username: username, password: password, hotel:hotel })
   const queryUserName = usuarios.findOne({ username: username, hotel:hotel })
@@ -116,7 +118,7 @@ exports.registro = async (req, res) => {
     password: req.body.password,
     terminos: req.body.terminos,
     rol: 2,
-    hotel:req.body.hotel
+    hotel:req.query.hotel
   }
 
   usuarios.create(user, function (err, result) {

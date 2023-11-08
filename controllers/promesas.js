@@ -1,7 +1,7 @@
 const Promesa = require('../models/promesa')
 
 exports.getPromesa = (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Promesa.find({ Folio: req.params.folio, hotel:nombreHotel },(err,result)=>{
         if(err)
@@ -13,7 +13,7 @@ exports.getPromesa = (req,res) =>{
 
 } 
 exports.deletePromesa = (req,res)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Promesa.deleteOne({_id: req.params._id,hotel:nombreHotel
     }).then(result => {
@@ -26,7 +26,7 @@ exports.deletePromesa = (req,res)=>{
     
 
 exports.promesaPago = async (req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     let pago =  {
       Folio:req.body.folio,
@@ -50,7 +50,7 @@ exports.promesaPago = async (req,res,next)=>{
 
   
 exports.updatePromesa = (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   const _id = req.body.id
 
@@ -68,7 +68,7 @@ exports.updatePromesa = (req,res) =>{
 }
 
 exports.updatePromesaEstatus = (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   const _id = req.body.id
 

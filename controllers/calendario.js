@@ -3,7 +3,7 @@ const express = require('express');
 const Habitacion = require('../models/habitacion');
 
 exports.getHabitaciones = (req, res, next) => {
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Habitacion.find({ hotel: nombreHotel }).distinct("Codigo")
     .then((habitacion) => {

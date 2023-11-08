@@ -6,7 +6,7 @@ const Historico = require ('../controllers/historico')
 
 
 exports.getEstatus = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Estatus.find({hotel:nombreHotel}).then((estatus) => {
   res.status(200).send(estatus)
@@ -31,7 +31,7 @@ exports.getEstatus = (req,res,next) =>{
 
 
 exports.updateEstatus = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   let estatusActualizado = req.body.estatus
   let estatusPrevio = req.body.estatus

@@ -11,7 +11,7 @@ const Parametros = require('../models/parametros')
 
 exports.getHuesped = (req,res,next) =>{
   let huespeds=[]
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Parametros.find({hotel:nombreHotel}).then((param) => {
     // console.log(huesped)
@@ -108,7 +108,8 @@ exports.getHuesped = (req,res,next) =>{
 }
 
 exports.postHuesped = async (req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  if(req.query.hotel && req.query.huesped){
+    var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto,hotel:nombreHotel};
 
@@ -251,21 +252,24 @@ exports.postHuesped = async (req,res,next)=>{
                 res.send(err.message);
               } else {
                 console.log('Insercion de Cuenta Exitosa',result);
-                // res.send(result);
               }
             });
-          
+  
 
-          
-
-          return  res.status(200).json({msg: "Succesfully saved"})//res.send('Succesfully saved.');
+          return  res.status(200).json({msg: "Húesped Generado con éxito"})
         }
     });
 
+  }else 
+    {
+      res.status(200).json({msg: "Missing Data for Post request"})
+    }
+  
 
   }
 
 exports.actualizaHuesped = async (req,res,next)=>{
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
         Huesped.updateOne({folio : req.body.huesped.folio,hotel:nombreHotel}, 
                             {$set: {  estatus:req.body.huesped.estatus,
@@ -276,7 +280,7 @@ exports.actualizaHuesped = async (req,res,next)=>{
                                       pendiente:req.body.huesped.pendiente, porPagar:req.body.huesped.porPagar,
                                       tipoHuesped:req.body.huesped.tipoHuesped, nombre:req.body.huesped.nombre,
                                       email:req.body.huesped.email,telefono:req.body.huesped.telefono,
-                                      notas:req.body.huesped.notas,ID_Socio:req.body.huesped.ID_Socio}},
+                                      notas:req.body.huesped.notas,ID_Socio:req.body.huesped.ID_Socio,hotel:nombreHotel}},
           function(err, doc) 
           {
             if (err) 
@@ -296,7 +300,7 @@ exports.actualizaHuesped = async (req,res,next)=>{
 }
 
 exports.actualizaEstatusHuesped = async (req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Huesped.updateOne({folio : req.body.folio,hotel:nombreHotel}, {$set: { llegada : req.body.llegada,salida : req.body.salida, tarifa : req.body.tarifa,numeroCuarto : req.body.numeroCuarto,habitacion : req.body.habitacion,notas:req.body.notas,estatus:req.body.estatus}},
     function(err, doc) {
@@ -309,7 +313,7 @@ exports.actualizaEstatusHuesped = async (req,res,next)=>{
 // => Sat Sep 24 2011 00:00:00 GMT-0700 (MST) - CORRECT DATE.
 
 exports.actualizaHuespedModifica = async (req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   const diaLlegada = parseInt(req.body.llegada.split("/")[0])
   const mesLlegada = parseInt(req.body.llegada.split("/")[1])

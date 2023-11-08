@@ -3,7 +3,7 @@ const {DateTime} = require("luxon");
 var ObjectId = require('mongodb').ObjectID;
 
 exports.getTarifas = (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Tarifas.find({hotel:nombreHotel}).then((tarifas) => {
         // console.log(huesped)
@@ -12,7 +12,7 @@ exports.getTarifas = (req,res) =>{
 }
 
 exports.getTarifaRack = (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Tarifas.find({Tarifa:'Tarifa Estandar',hotel:nombreHotel}).then((tarifas) => {
       res.status(200).send(tarifas)
@@ -20,7 +20,7 @@ exports.getTarifaRack = (req,res) =>{
 }
 
 exports.postTarifas=(req,res)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
 let estado=true
   if(req.body.tarifa.Estado=='Activa'){estado=true}
@@ -57,7 +57,7 @@ let estado=true
     
 
 exports.postTarifaEspecial=(req,res)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   let estado=true
   if(req.body.tarifa.Estado=='Activa'){estado=true}
@@ -94,7 +94,7 @@ exports.postTarifaEspecial=(req,res)=>{
   }
 
 exports.deleteTarifaRack = (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   let estado=true
   if(req.body.tarifa.Estado=='Activa'){estado=true}
@@ -115,7 +115,7 @@ exports.deleteTarifaRack = (req,res) =>{
 }
 
 exports.deleteTarifaRackEspecial= (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   try {
     Tarifas.deleteOne( { Tarifa :req.body.tarifa.Tarifa,hotel:nombreHotel}, 

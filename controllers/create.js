@@ -36,7 +36,7 @@ exports.create = async (req, res) => {
         password: req.body.password,
         terminos: req.body.terminos,
         rol: 2,
-        hotel: req.body.hotel
+        hotel: req.query.hotel
     }
 
     var nombreHotel = req.query.hotel.replace(/\s/g, '_');

@@ -39,10 +39,10 @@ exports.create = (req,res)=>{
         password : req.body.password,
         terminos : req.body.terminos,
         rol:2,
-        hotel:req.body.hotel
+        hotel:req.query.hotel
     }
 
-    var nombreHotel = req.body.hotel.replace(/\s/g, '');
+    var nombreHotel = req.query.hotel.replace(/\s/g, '');
     var db_url = 'mongodb+srv://xixzeroxix:34nj6efH@cluster0.kjzuz.mongodb.net/'
     db_url = db_url+nombreHotel
 
@@ -76,7 +76,7 @@ exports.create = (req,res)=>{
                               useNewUrlParser: true,
                               })
                               .then(() => {
-                              console.log('Connected to the Database.'+req.body.hotel);
+                              console.log('Connected to the Database.'+req.query.hotel);
                               
                               //Collection Creation
                                 Ama.insertMany(ama_defaults.ama_llaves_defaults).then((result) => {

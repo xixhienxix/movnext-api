@@ -2,7 +2,7 @@ const express = require('express');
 const Foliador = require('../models/folios')
 
 exports.getFoliosbyLetra = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   const query = Foliador.findOne({ Letra: req.params.letra, hotel:nombreHotel });
 
@@ -13,7 +13,7 @@ exports.getFoliosbyLetra = (req,res,next) =>{
 }
 
 exports.updateFolio = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   if(req.body.id==1)
   {
@@ -48,7 +48,7 @@ exports.updateFolio = (req,res,next) =>{
 }
 
 exports.getFolios = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
    Foliador.find({hotel:nombreHotel}).then((doc)=>{
     res.status(200).send(doc)

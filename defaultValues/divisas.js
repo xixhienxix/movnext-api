@@ -1,65 +1,65 @@
 exports.divisas_defaults = [{
     Localidad: "Mexico",
-    Nombre: "Peso",
+    Nombre: "Peso", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Estados Unidos",
-    Nombre: "Dollar",
+    Nombre: "Dollar", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Canada",
-    Nombre: "Dollar",
+    Nombre: "Dollar", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Europa",
-    Nombre: "Euro",
+    Nombre: "Euro", hotel:'',
     Simbolo: "€"
   },
   {
   
     Localidad: "Bolivia",
-    Nombre: "Bolivar",
+    Nombre: "Bolivar", hotel:'',
     Simbolo: "Bs."
   },
   {
   
     Localidad: "Perú",
-    Nombre: "Sol",
+    Nombre: "Sol", hotel:'',
     Simbolo: "S/."
   },
   {
   
     Localidad: "Argentina",
-    Nombre: "PESO",
+    Nombre: "PESO", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Colombia",
-    Nombre: "PESO",
+    Nombre: "PESO", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Chile",
-    Nombre: "PESO",
+    Nombre: "PESO", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Cuba",
-    Nombre: "PESO",
+    Nombre: "PESO", hotel:'',
     Simbolo: "$"
   },
   {
   
     Localidad: "Japón",
-    Nombre: "Yen",
+    Nombre: "Yen", hotel:'',
     Simbolo: "¥"
   }]

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const port = process.env.PORT||4000
+const port = process.env.PORT||4100
 const cors = require('cors');
 const multer= require('multer')
 const initDB= require('./config/db')
@@ -55,7 +55,7 @@ app.listen(port, () => {
 })
 
 mongoose.set('debug', true);//Muestra el Query en Consola
-mongoose.connect(url, { useNewUrlParser: true },{server: {poolSize: 100}})
+mongoose.connect(url, { useNewUrlParser: true , useUnifiedTopology: true},{server: {poolSize: 100}})
   .then(() => {
     console.log('Connected to MongoDB.');
   })
@@ -116,6 +116,8 @@ app.use('/api/status', require('express-healthcheck')({
 //POST
  app.post("/api/reportes/huesped",huespedController.postHuesped);
 
+ 
+
  app.post("/api/reportes/habitacion/estatus/:id",habitacioncontroller.postEstatusHabitacion);
 
  app.post("/api/reportes/bloqueos/post",bloqueoController.postBloqueos);
@@ -137,6 +139,15 @@ app.use('/api/status', require('express-healthcheck')({
  app.post("/api/auth/login",authController.login)
 
  app.post("/api/createdb",createController.create)
+
+
+
+
+
+
+
+
+
 
  app.post("/api/auth/registro",authController.registro)
 

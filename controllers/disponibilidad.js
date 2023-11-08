@@ -6,7 +6,7 @@ const huesped = require('../models/huesped');
 
 
 exports.getDisponibilidadTodos = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   // {$and: [
   //   {Fecha: { $gte: parseInt(req.query.ano) }},
@@ -27,7 +27,7 @@ exports.getDisponibilidadTodos = (req,res,next) =>{
 }
 
 exports.crearDisponibilidad = async (req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   let disponibilidadNuevaGeneral=[]
   let query
@@ -79,7 +79,7 @@ exports.crearDisponibilidad = async (req,res,next)=>{
 }
 
 exports.getDisponibilidadCompleta= async (req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   let mySet = new Set();
   let sinDisponibilidad=[];
@@ -171,7 +171,7 @@ exports.getDisponibilidadCompleta= async (req,res,next)=>{
 
 exports.getEstatusAma = (req,res,next) =>{
 
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
 
   const query = Disponibilidad.find({ Dia: req.body.dia, Mes: req.body.mes, Ano: req.body.ano, Cuarto: req.body.habitacion,Habitacion:req.body.numeroCuarto, hotel:nombreHotel });
@@ -183,7 +183,7 @@ exports.getEstatusAma = (req,res,next) =>{
 }
 
 exports.updateDisponibilidad = (req,res) => {
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Disponibilidad.findOneAndUpdate({Dia:req.body.Dia,Mes:req.body.Mes,Ano:req.body.Ano,Habitacion:req.body.Habitacion,Cuarto:req.body.Cuarto, hotel:nombreHotel},
       {
@@ -214,7 +214,7 @@ exports.updateDisponibilidad = (req,res) => {
 }
 
 exports.disponibilidadBooking = async (req,res) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   let infoCuartos = [];
   let mySet = new Set();

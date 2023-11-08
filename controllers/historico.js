@@ -3,7 +3,7 @@ const Historico = require ('../models/historico');
 const huesped = require('../models/huesped');
 
 exports.postHistorico = async (req,res) =>
-{  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+{  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     var query = {llegada: req.body.llegada,salida:req.body.salida,habitacion:req.body.habitacion,numeroCuarto:req.body.numeroCuarto, hotel:nombreHotel};
 
@@ -101,7 +101,7 @@ else
 }
 
 exports.actualizaDatos=(req,res,next)=>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Historico.findOneAndUpdate({folio:req.body.folio,hotel:nombreHotel}, {
     telefono:req.body.telefono,
@@ -142,7 +142,7 @@ exports.actualizaDatos=(req,res,next)=>{
 
 
 exports.getClientes = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
   Historico.find({hotel:nombreHotel}).then((cliente) => {
   res.status(200).send(cliente)
@@ -150,7 +150,7 @@ exports.getClientes = (req,res,next) =>{
   };
 
 exports.getHistoricoVisitas = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     Historico.find({id_Socio:req.params.id,hotel:nombreHotel}).then((cliente) => {
     res.status(200).send(cliente)
@@ -159,7 +159,7 @@ exports.getHistoricoVisitas = (req,res,next) =>{
 
 
 exports.getHuespedbyId = (req,res,next) =>{
-  var nombreHotel = req.body.hotel.replace(/\s/g, '_');
+  var nombreHotel = req.query.hotel.replace(/\s/g, '_');
 
     const query = Historico.findOne({ folio: req.params.id,hotel:nombreHotel });
 

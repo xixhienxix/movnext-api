@@ -1,72 +1,72 @@
 exports.estatus_default = [{
 
     estatus: "Huesped en Casa",
-    id: 1,
+    id: 1,hotel:'',
     color: "#99d284"
   },
   {
   
     estatus: "Reserva Sin Pago",
-    id: 2,
+    id: 2,hotel:'',
     color: "#FAC34E"
   },
   {
   
     estatus: "Reserva Confirmada",
-    id: 3,
+    id: 3,hotel:'',
     color: "#88C8DF"
   },
   {
   
     estatus: "Check-Out",
-    id: 4,
+    id: 4,hotel:'',
     color: "#fA6D7C"
   },
   {
   
     estatus: "Uso Interno",
-    id: 5,
+    id: 5,hotel:'',
     color: "#D0AAEC"
   },
   {
   
     estatus: "Bloqueo / Sin Llegadas",
-    id: 6,
+    id: 6,hotel:'',
     color: "#FA6D7C"
   },
   {
   
     estatus: "Reserva Temporal",
-    id: 7,
+    id: 7,hotel:'',
     color: "#FAB3DB"
   },
   {
   
     estatus: "Esperando Deposito",
-    id: 8,
+    id: 8,hotel:'',
     color: "#fea599"
   },
   {
   
     estatus: "Deposito Realizado",
-    id: 9,
+    id: 9,hotel:'',
     color: "#90daa8"
   },
   {
   
     estatus: "Totalmente Pagada",
-    id: 10,
+    id: 10,hotel:'',
     color: "#88c8df"
   },
   {
   
     estatus: "No Show",
-    id: 11,
+    id: 11,hotel:'',
     color: "#FA6D7C"
   },
   {
   
     estatus: "Reserva Cancelada",
-    id: 12,
+    id: 12,hotel:'',
     color: "#FA6D7C"
   }]
